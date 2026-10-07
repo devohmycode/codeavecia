@@ -1,0 +1,15 @@
+# Secrets (PRD ST5) — seul .env.example est versionné
+.env
+.env.*
+!.env.example
+
+# Rushes, rendus et fichiers intermédiaires de l'atelier vidéo (PRD ST4)
+media/
+
+# Dépendances et caches
+node_modules/
+.wrangler/
+
+# Système
+.DS_Store
+Thumbs.db

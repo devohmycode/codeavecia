@@ -1,0 +1,18 @@
+# En-têtes HTTP appliqués par Cloudflare Pages (PRD §8, Sécurité).
+# La CSP autorise déjà Cloudflare Web Analytics ; à élargir quand arriveront
+# les lecteurs YouTube (frame-src) ou d'autres ressources externes.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://cloudflareinsights.com; font-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+
+# Les adresses de prévisualisation *.pages.dev ne doivent pas être indexées
+# (contenu dupliqué de codeavecia.fr).
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex

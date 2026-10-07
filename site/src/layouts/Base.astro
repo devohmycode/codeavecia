@@ -1,0 +1,85 @@
+---
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="color-scheme" content="light dark" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="fr_FR" />
+		<meta property="og:site_name" content="CodeAvecIA" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--bg: #fbfaf7;
+		--surface: #ffffff;
+		--text: #1c1b19;
+		--muted: #5f5c55;
+		--border: #e4e1d9;
+		--accent: #0f766e;
+		--font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+		--font-mono: ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, monospace;
+		color-scheme: light dark;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--bg: #121413;
+			--surface: #1a1d1c;
+			--text: #ecebe6;
+			--muted: #a19e96;
+			--border: #2c302e;
+			--accent: #5eead4;
+		}
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	html {
+		-webkit-text-size-adjust: 100%;
+	}
+
+	body {
+		margin: 0;
+		background: var(--bg);
+		color: var(--text);
+		font-family: var(--font-sans);
+		font-size: 1.0625rem;
+		line-height: 1.6;
+	}
+
+	a {
+		color: var(--accent);
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 3px;
+	}
+</style>

@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page introuvable — CodeAvecIA" description="Cette page n’existe pas ou a été déplacée.">
+	<main>
+		<p class="code" aria-hidden="true">404</p>
+		<h1>Page introuvable</h1>
+		<p>Cette page n’existe pas ou a été déplacée.</p>
+		<p><a href="/">Retour à l’accueil</a></p>
+	</main>
+</Base>
+
+<style>
+	main {
+		max-width: 40rem;
+		margin: 0 auto;
+		padding: clamp(3rem, 15vh, 8rem) 1rem 4rem;
+	}
+
+	.code {
+		margin: 0;
+		font-family: var(--font-mono);
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: var(--accent);
+	}
+
+	h1 {
+		margin: 0.25rem 0 1rem;
+	}
+</style>

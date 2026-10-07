@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+
+const piliers = [
+	{
+		titre: 'Articles',
+		texte: 'Tutoriels et retours d’expérience pour coder avec l’IA : agents, serveurs MCP, prompts, automatisation.',
+	},
+	{
+		titre: 'Code',
+		texte: 'Les dépôts GitHub et les Gists derrière chaque article, à lire directement sur le site.',
+	},
+	{
+		titre: 'Vidéos',
+		texte: 'Des sessions de développement réelles, montées et commentées, avec leur transcription.',
+	},
+];
+---
+
+<Base
+	title="CodeAvecIA — le développement assisté par IA, en pratique"
+	description="Articles, code et vidéos en français pour apprendre à développer avec l’IA : agents de code, MCP, prompts et automatisation."
+>
+	<main>
+		<p class="logo" aria-hidden="true">&lt;/&gt;</p>
+		<h1>CodeAvecIA</h1>
+		<p class="accroche">Le développement assisté par IA, en pratique.</p>
+
+		<ul class="piliers">
+			{
+				piliers.map((p) => (
+					<li>
+						<h2>{p.titre}</h2>
+						<p>{p.texte}</p>
+					</li>
+				))
+			}
+		</ul>
+
+		<p class="statut">Le site est en construction. Premiers contenus bientôt en ligne.</p>
+	</main>
+</Base>
+
+<style>
+	main {
+		max-width: 60rem;
+		margin: 0 auto;
+		padding: clamp(3rem, 12vh, 7rem) 1rem 4rem;
+	}
+
+	.logo {
+		margin: 0 0 1rem;
+		font-family: var(--font-mono);
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: var(--accent);
+	}
+
+	h1 {
+		margin: 0;
+		font-size: clamp(2.5rem, 8vw, 4rem);
+		line-height: 1.05;
+		letter-spacing: -0.02em;
+	}
+
+	.accroche {
+		margin: 0.75rem 0 3rem;
+		font-size: clamp(1.15rem, 3vw, 1.4rem);
+		color: var(--muted);
+	}
+
+	.piliers {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.piliers li {
+		padding: 1.25rem 1.5rem;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 0.75rem;
+	}
+
+	.piliers h2 {
+		margin: 0 0 0.4rem;
+		font-family: var(--font-mono);
+		font-size: 1rem;
+		color: var(--accent);
+	}
+
+	.piliers p {
+		margin: 0;
+		color: var(--muted);
+	}
+
+	.statut {
+		margin: 3rem 0 0;
+		font-size: 0.95rem;
+		color: var(--muted);
+	}
+</style>
