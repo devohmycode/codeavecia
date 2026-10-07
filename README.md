@@ -18,7 +18,11 @@ cd site
 npm install
 npm run dev      # http://localhost:4321
 npm run build    # génère site/dist/
+npm run preview:cf   # sert site/dist/ avec les en-têtes Cloudflare (CSP) : http://localhost:8788
 ```
+
+`npm run dev` n'applique pas la politique de sécurité de `site/public/_headers` : avant de publier une page qui
+charge un service externe (YouTube, script, police…), la vérifier avec `npm run preview:cf`.
 
 Node.js 22.12 ou plus récent.
 
