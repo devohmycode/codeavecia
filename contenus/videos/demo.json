@@ -1,0 +1,54 @@
+{
+  "youtubeId": "",
+  "titre": "Démo : une session de code assistée par IA",
+  "description": "Une minute de capture d'écran d'une session de travail avec Claude Code, montée et commentée automatiquement par l'atelier vidéo de CodeAvecIA.",
+  "date": "2026-10-07",
+  "duree": 22,
+  "chapitres": [
+    {
+      "debut": 0.0,
+      "titre": "Session de développement"
+    },
+    {
+      "debut": 5.0,
+      "titre": "Construction de l'atelier"
+    },
+    {
+      "debut": 11.0,
+      "titre": "Recherche d'outils"
+    },
+    {
+      "debut": 17.0,
+      "titre": "Comparaison des solutions"
+    }
+  ],
+  "transcription": [
+    {
+      "debut": 0.0,
+      "fin": 3.87,
+      "texte": "Voici une session de développement assistée par intelligence artificielle."
+    },
+    {
+      "debut": 5.0,
+      "fin": 8.76,
+      "texte": "Claude Code construit l'atelier vidéo du site CodeAvecIA."
+    },
+    {
+      "debut": 11.0,
+      "fin": 14.76,
+      "texte": "Je cherche des outils pour capturer et monter cette vidéo."
+    },
+    {
+      "debut": 17.0,
+      "fin": 21.36,
+      "texte": "J'examine les fonctionnalités de ScreenPal pour la capture d'écran."
+    }
+  ],
+  "tags": [
+    "atelier-video",
+    "claude-code",
+    "demo"
+  ],
+  "article": null,
+  "repo": null
+}

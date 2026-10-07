@@ -1,0 +1,34 @@
+# Projet de démonstration de l'atelier vidéo (validation du jalon M3).
+titre: "Démo : une session de code assistée par IA"
+description: "Une minute de capture d'écran d'une session de travail avec Claude Code, montée et commentée automatiquement par l'atelier vidéo de CodeAvecIA."
+tags: [atelier-video, claude-code, demo]
+
+contexte: |
+  Capture d'écran d'une session de développement réelle : Claude Code, un agent de code IA qui travaille dans
+  le terminal, construit l'atelier vidéo du site CodeAvecIA. On voit le terminal et les échanges entre
+  l'utilisateur et l'agent, qui écrit et teste du code Python et TypeScript. Le but de la vidéo : montrer
+  concrètement à quoi ressemble une session de code assistée par IA, et présenter l'atelier qui a produit
+  cette vidéo (capture, transcription, dérushage, commentaire, voix, montage).
+
+capture:
+  source: ecran
+  fps: 30
+  micro: aucun
+  duree: 60
+
+derushage:
+  seuil: 2.0
+  validation: auto
+
+commentaire:
+  connecteur: lmstudio
+  images: 8
+
+voix:
+  connecteur: voicestudio
+  voix: default
+
+montage:
+  volume_original: 0
+  sous_titres: commentaire
+  zooms: true

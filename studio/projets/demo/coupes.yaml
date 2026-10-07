@@ -1,0 +1,9 @@
+# Coupes proposées par `studio derusher` le 2026-10-07.
+# Chaque entrée est un passage SUPPRIMÉ de la capture (secondes de la capture brute).
+# Modifiez, supprimez ou ajoutez des coupes, puis passez `valide` à true.
+valide: true
+duree_source: 60.0
+coupes:
+- {debut: 5.17, fin: 6.63, raison: image figée (pas de son)}
+- {debut: 17.4, fin: 23.23, raison: image figée (pas de son)}
+- {debut: 29.43, fin: 60.0, raison: image figée (pas de son)}

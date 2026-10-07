@@ -134,33 +134,38 @@ tableau de bord) · ❓ dépend d'une question ouverte du PRD (§13).
 
 ### Fondations de l'atelier
 
-- [ ] ❓ Déterminer comment piloter VoiceStudio : API locale, ligne de commande ou aucune (§13, Q1) — conditionne S5
-- [ ] Structure `studio/` : `projets/`, `pipeline/`, `connecteurs/`, `montage/` [§10]
-- [ ] Point d'entrée en ligne de commande : `studio <étape> <projet>` et `studio tout <projet>`
-- [ ] Schéma de `projet.yaml` (sources, coupes, script, voix, plan de montage) avec validation
-- [ ] Interface commune des connecteurs (entrées, sorties, coût estimé, disponibilité) [ST1]
-- [ ] File d'attente GPU : une seule tâche GPU à la fois [ST2]
-- [ ] Lecture des clés et adresses depuis `.env` [ST5] ; fichiers produits dans `media/<projet>/` [ST4]
+- [x] Déterminer comment piloter VoiceStudio (§13, Q1) — API compatible OpenAI sur `http://127.0.0.1:3900`,
+      disponible quand l'application est ouverte
+- [x] Structure `studio/` : `projets/`, `pipeline/`, `connecteurs/`, `montage/`, plus `noyau/` [§10]
+- [x] Point d'entrée en ligne de commande : `studio <étape> <projet>` et `studio tout <projet>`
+- [x] Schéma de `projet.yaml` avec validation (pydantic) ; coupes et commentaire dans des fichiers éditables à part
+      (`coupes.yaml`, `commentaire.yaml`)
+- [x] Interface commune des connecteurs (disponibilité, coût estimé, libération des ressources) [ST1]
+- [x] File d'attente GPU : une seule tâche GPU à la fois (verrou `media/.gpu.lock`) [ST2]
+- [x] Lecture des clés et adresses depuis `.env` [ST5] ; fichiers produits dans `media/<projet>/` [ST4]
 
 ### Étapes du pipeline
 
-- [ ] **S1 Capture** : écran entier, fenêtre ou zone, avec le micro ; ffmpeg `ddagrab` + `h264_nvenc` ;
-      enregistrement des positions du curseur (pour les zooms de S8)
-- [ ] **S2 Transcription** : faster-whisper sur GPU, français, horodatage par mot ; export JSON, SRT et VTT
-- [ ] **S3 Dérushage** : détection des silences et temps morts (audio + transcription) ; coupes proposées dans
-      `projet.yaml`, à valider avant montage
-- [ ] **S4 Commentaire** : connecteur LM Studio (API compatible OpenAI) ; voix off calée sur la timeline ;
-      Claude en alternative
-- [ ] **S5 Voix** : connecteur de voix locale (VoiceStudio, ou modèle de voix dans ComfyUI à défaut)
-- [ ] **S8 Montage** : composition Remotion générée depuis `projet.yaml` — rushes coupés, voix off, sous-titres,
-      zooms sur le curseur, musique
-- [ ] **S9 Rendu** : 1080p 16:9 et format vertical 9:16 ; encodage NVENC
-- [ ] **S11 Export site** : fiche `contenus/videos/<slug>.json` au format du §7 (`youtubeId` vide jusqu'à M4)
+- [x] **S1 Capture** : écran entier, fenêtre ou zone, avec le micro ; ffmpeg `ddagrab` + `h264_nvenc` ;
+      journal du curseur, des clics et des fenêtres actives — testé : écran entier sans micro ; zone, fenêtre et
+      micro à tester
+- [x] **S2 Transcription** : faster-whisper sur GPU (CUDA), français, horodatage par mot ; export JSON, SRT et VTT
+- [x] **S3 Dérushage** : temps morts = silence et image figée ; coupes proposées dans `coupes.yaml`, à valider
+      avant montage (ou `--auto`)
+- [x] **S4 Commentaire** : connecteur LM Studio ; voix off calée sur la timeline ; images de la vidéo jointes si
+      le modèle les lit ; Claude en alternative (non testé : pas de clé API)
+- [x] **S5 Voix** : VoiceStudio ; voix système Windows en secours ; cache par réplique
+- [x] **S8 Montage** : composition Remotion générée depuis les données du projet — capture dérushée, voix off,
+      sous-titres, zooms sur les clics, cadrage vertical qui suit le curseur, musique (non testée)
+- [x] **S9 Rendu** : 1080p 16:9 et vertical 9:16 — encodage H.264 par le processeur : Remotion ne propose pas
+      NVENC sous Windows (NVENC sert en S1 et S3)
+- [x] **S11 Export site** : fiche `contenus/videos/<slug>.json` au format du §7 (`youtubeId` vide jusqu'à M4)
 
 ### Validation du jalon
 
-- [ ] Projet de démonstration : capture de 1 min → vidéo commentée et sous-titrée, en 16:9 et 9:16
-- [ ] Relancer le même projet produit la même vidéo (§6, reproductibilité)
+- [x] Projet de démonstration : capture de 1 min → vidéo commentée et sous-titrée, en 16:9 et 9:16
+      (`studio/projets/demo/`)
+- [x] Relancer le même projet produit la même vidéo (§6, reproductibilité) — rendu identique image par image
 
 ## M4 — Vidéos sur le site
 

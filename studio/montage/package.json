@@ -1,0 +1,20 @@
+{
+  "name": "codeavecia-montage",
+  "private": true,
+  "description": "Composition Remotion de l'atelier vidéo CodeAvecIA (étapes S8 et S9)",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.534",
+    "@remotion/media": "4.0.534",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "typescript": "5.9.3"
+  }
+}

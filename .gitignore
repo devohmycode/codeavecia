@@ -9,6 +9,8 @@ media/
 # Dépendances et caches
 node_modules/
 .wrangler/
+.venv/
+__pycache__/
 
 # Système
 .DS_Store

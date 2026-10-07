@@ -1,0 +1,20 @@
+# Commentaire écrit par lmstudio le 2026-10-07 pour une vidéo de 22.1 s.
+# Modifiez librement les textes et les temps (secondes de la vidéo dérushée), puis relancez `studio voix`.
+chapitres:
+- debut: 0.0
+  titre: Session de développement
+- debut: 5.0
+  titre: Construction de l'atelier
+- debut: 11.0
+  titre: Recherche d'outils
+- debut: 17.0
+  titre: Comparaison des solutions
+repliques:
+- debut: 0.0
+  texte: Voici une session de développement assistée par intelligence artificielle.
+- debut: 5.0
+  texte: Claude Code construit l'atelier vidéo du site CodeAvecIA.
+- debut: 11.0
+  texte: Je cherche des outils pour capturer et monter cette vidéo.
+- debut: 17.0
+  texte: J'examine les fonctionnalités de ScreenPal pour la capture d'écran.

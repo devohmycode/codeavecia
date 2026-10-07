@@ -275,7 +275,8 @@ codeavecia/
 
 ## 13. Questions ouvertes
 
-1. **VoiceStudio** : quelle interface de pilotage (API locale, ligne de commande, aucune) ?
+1. ~~**VoiceStudio** : quelle interface de pilotage (API locale, ligne de commande, aucune) ?~~ Tranché : API
+   compatible OpenAI sur `http://127.0.0.1:3900`, disponible quand l'application est ouverte.
 2. **Identité visuelle** : logo, couleurs, typographie — à créer ou déjà définies ?
 3. **Chaîne YouTube** : nom de la chaîne (CodeAvecIA ?) et lien avec la chaîne CodeLabIA évoquée.
 4. **Licence des articles** : tous droits réservés ou Creative Commons (CC BY 4.0) ?
