@@ -1,0 +1,2069 @@
+<!doctype html><html lang=fr><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Mode d'emploi Fable 5.2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Guide complet en français pour développer avec Claude Fable 5.2.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<style>
+/* Mise en page : manuel de terrain. Sommaire collant à gauche, colonne de lecture d'environ 70 caractères, outils sur toute la largeur de la colonne. */
+:root{
+  --paper:#F2F6F5; --surface:#FFFFFF; --surface-2:#E5EDEC; --ink:#0F1F23; --ink-2:#435A5E; --line:#C8D6D6;
+  --accent:#0A6B78; --accent-ink:#FFFFFF; --accent-soft:#D3EAEC;
+  --mark:#E0A100; --mark-ink:#2A1E00; --mark-soft:#FBEFC8;
+  --ok:#1C7A4D; --ok-soft:#DCF1E5; --warn:#955700; --warn-soft:#FAEACC; --bad:#B42318; --bad-soft:#FAE1DD;
+  --code-bg:#0E1C20; --code-line:#22373C; --code-ink:#DCE8E8; --code-dim:#86A0A4; --code-key:#7DD3DE; --code-str:#F2C66D; --code-num:#F4A38F; --code-kw:#C9B8FF; --code-ok:#8FE3B0;
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0A1315; --surface:#101C1F; --surface-2:#172629; --ink:#E2ECEC; --ink-2:#9DB2B5; --line:#26393E;
+    --accent:#46BCCB; --accent-ink:#04191C; --accent-soft:#11363C;
+    --mark:#F0B429; --mark-ink:#241800; --mark-soft:#3A2E0E;
+    --ok:#55C893; --ok-soft:#0F2E1E; --warn:#EBA94A; --warn-soft:#352409; --bad:#F48A80; --bad-soft:#3A1512;
+    --code-bg:#061012; --code-line:#1A2C30;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0A1315; --surface:#101C1F; --surface-2:#172629; --ink:#E2ECEC; --ink-2:#9DB2B5; --line:#26393E;
+  --accent:#46BCCB; --accent-ink:#04191C; --accent-soft:#11363C;
+  --mark:#F0B429; --mark-ink:#241800; --mark-soft:#3A2E0E;
+  --ok:#55C893; --ok-soft:#0F2E1E; --warn:#EBA94A; --warn-soft:#352409; --bad:#F48A80; --bad-soft:#3A1512;
+  --code-bg:#061012; --code-line:#1A2C30;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.62 var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.wrap{max-width:1240px;margin-inline:auto}
+a{color:var(--accent);text-underline-offset:2px}
+p{margin:0 0 .9em}
+ul,ol{padding-left:1.25em;margin:0 0 1em}
+li{margin:.3em 0}
+code{font-family:var(--f-mono);font-size:.86em;background:var(--surface-2);padding:.08em .35em;border-radius:4px;overflow-wrap:anywhere}
+strong{font-weight:700}
+:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+
+/* En-tête */
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:start;padding-block:clamp(36px,7vw,84px) 44px;border-bottom:1px solid var(--line)}
+.kicker{font:600 .78rem/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0}
+h1{font-family:var(--f-display);margin:.3em 0 .35em;line-height:.92;letter-spacing:-.025em}
+h1 .l1{display:block;font-size:clamp(1.55rem,3.4vw,2.3rem);font-weight:500;color:var(--ink-2);letter-spacing:-.01em;margin-bottom:.12em}
+h1 .l2{display:block;font-size:clamp(3.3rem,10vw,6.4rem);font-weight:800}
+h1 .v{color:var(--accent)}
+.lead{font-size:1.16rem;line-height:1.55;max-width:56ch;margin-bottom:0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;font:700 .95rem/1 var(--f-body);padding:12px 16px;border-radius:6px;border:1.5px solid var(--accent);color:var(--accent);background:transparent;text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.disclaimer{font-size:.86rem;color:var(--ink-2);max-width:62ch;margin:22px 0 0}
+.plate{position:relative;border:1.5px solid var(--ink);border-radius:8px;padding:24px 24px 18px;background-color:var(--surface);background-image:radial-gradient(circle at 12px 12px,var(--ink-2) 0 2.4px,transparent 3px),radial-gradient(circle at calc(100% - 12px) 12px,var(--ink-2) 0 2.4px,transparent 3px),radial-gradient(circle at 12px calc(100% - 12px),var(--ink-2) 0 2.4px,transparent 3px),radial-gradient(circle at calc(100% - 12px) calc(100% - 12px),var(--ink-2) 0 2.4px,transparent 3px)}
+.plate-t{font:700 .72rem/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:0 0 12px}
+.idrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px dashed var(--line)}
+.idrow code{font:700 1.15rem/1.2 var(--f-mono);background:none;padding:0;color:var(--ink)}
+.mini{font:600 .74rem/1 var(--f-mono);padding:7px 10px;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);cursor:pointer}
+.mini.ok{color:var(--ok);border-color:var(--ok)}
+.plate dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px 16px;margin:0;font-size:.95rem}
+.plate dt{font:600 .72rem/1.9 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.plate dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums;min-width:0}
+.plate dd code{font-weight:600}
+
+/* Grille principale et sommaire */
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.toc{padding-top:22px}
+.toc-t{font:700 .72rem/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:0 0 10px}
+.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.toc li{margin:0}
+.toc a{display:block;text-decoration:none;color:var(--ink);font-size:.9rem;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+@media (min-width:1100px){
+  .layout{grid-template-columns:200px minmax(0,1fr);gap:56px}
+  .toc{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;max-height:100vh;overflow:auto;padding-block:40px 24px}
+  .toc ol{flex-direction:column;flex-wrap:nowrap;gap:1px}
+  .toc a{border:0;border-left:2px solid var(--line);border-radius:0;background:none;color:var(--ink-2);padding:6px 12px}
+  .toc a:hover{color:var(--ink)}
+  .toc a[aria-current="true"]{border-left-color:var(--accent);color:var(--ink);background:var(--accent-soft)}
+}
+main{min-width:0}
+.chap{padding-block:52px 12px;border-top:1px solid var(--line)}
+.chap:first-child{border-top:0}
+.eyebrow{display:inline-block;font:600 .8rem/1.3 var(--f-mono);color:var(--accent);background:var(--accent-soft);padding:4px 8px;border-radius:4px}
+h2{font:760 clamp(1.75rem,3.3vw,2.4rem)/1.08 var(--f-display);letter-spacing:-.018em;margin:.45em 0 .55em;text-wrap:balance}
+h3{font:700 1.3rem/1.25 var(--f-display);letter-spacing:-.008em;margin:1.9em 0 .55em;text-wrap:balance}
+h4{font:700 1.02rem/1.3 var(--f-body);margin:1.4em 0 .45em}
+.intro{font-size:1.1rem;max-width:66ch}
+.prose{max-width:72ch}
+.muted{color:var(--ink-2)}
+.small{font-size:.88rem}
+
+/* Tableaux */
+.tbl{overflow-x:auto;margin:16px 0 26px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.tbl table{border-collapse:collapse;width:100%;min-width:580px;font-size:.94rem}
+.tbl.wide table{min-width:780px}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font:600 .72rem/1.35 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);background:var(--surface-2)}
+tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
+tbody th{font:700 .94rem/1.4 var(--f-body);text-transform:none;letter-spacing:0;color:var(--ink);background:none}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.self td,tr.self th{background:var(--accent-soft)}
+.tnote{font-size:.85rem;color:var(--ink-2);margin:-14px 0 24px;max-width:80ch}
+
+/* Pastilles et encadrés */
+.pill{display:inline-block;font:600 .7rem/1 var(--f-mono);padding:4px 7px;border-radius:999px;border:1px solid currentColor;white-space:nowrap;vertical-align:.1em}
+.pill.bad{color:var(--bad);background:var(--bad-soft)}
+.pill.ok{color:var(--ok);background:var(--ok-soft)}
+.pill.warn{color:var(--warn);background:var(--warn-soft)}
+.pill.info{color:var(--accent);background:var(--accent-soft)}
+.pill.beta{color:var(--mark-ink);background:var(--mark);border-color:var(--mark)}
+.note{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:14px 18px 6px;margin:20px 0;max-width:78ch}
+.note .tag{display:block;font:700 .7rem/1 var(--f-mono);text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px;color:var(--ink-2)}
+.note.trap{border-color:var(--bad);background:var(--bad-soft)}
+.note.trap .tag{color:var(--bad)}
+.note.tip{border-color:var(--ok);background:var(--ok-soft)}
+.note.tip .tag{color:var(--ok)}
+.note.beta{border-color:var(--mark);background:var(--mark-soft)}
+.note.beta .tag{color:var(--ink)}
+.note ul{margin-bottom:.8em}
+
+/* Code */
+figure.code{margin:16px 0 24px;background:var(--code-bg);border:1px solid var(--code-line);border-radius:6px;overflow:hidden;max-width:100%}
+figure.code figcaption{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:7px 8px 7px 14px;border-bottom:1px solid var(--code-line);font:600 .72rem/1.2 var(--f-mono);color:var(--code-dim);letter-spacing:.03em}
+.copy{font:600 .72rem/1 var(--f-mono);color:var(--code-ink);background:transparent;border:1px solid var(--code-line);border-radius:4px;padding:6px 9px;cursor:pointer;white-space:nowrap}
+.copy.ok{color:var(--code-ok);border-color:var(--code-ok)}
+pre{margin:0;padding:14px 16px;overflow-x:auto;font:400 .82rem/1.62 var(--f-mono);color:var(--code-ink);tab-size:2}
+pre code{background:none;padding:0;font-size:inherit;color:inherit;white-space:pre;overflow-wrap:normal}
+.t-com{color:var(--code-dim);font-style:italic}
+.t-str{color:var(--code-str)}
+.t-num{color:var(--code-num)}
+.t-kw{color:var(--code-kw)}
+.t-key{color:var(--code-key)}
+
+/* Cadran d'effort */
+.dial{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:22px 0 8px}
+.notch{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 12px;min-width:0}
+.notch .top{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+.notch .lvl{font:700 1.08rem/1 var(--f-mono)}
+.notch .bars{display:flex;gap:3px;height:8px}
+.notch .bars i{flex:1;background:var(--surface-2);border-radius:2px}
+.notch .bars i.on{background:var(--accent)}
+.notch p{margin:0;font-size:.9rem;line-height:1.45}
+.notch.def{border-color:var(--mark);box-shadow:inset 0 0 0 1px var(--mark)}
+.dial-cap{font-size:.84rem;color:var(--ink-2);margin:4px 0 24px}
+@media (max-width:860px){.dial{grid-template-columns:minmax(0,1fr)}.notch .bars{max-width:180px}}
+
+/* Schéma du préfixe */
+.seqwrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:6px 14px;margin:18px 0 8px}
+.seqrow{display:grid;grid-template-columns:170px minmax(0,1fr);gap:14px;align-items:center;min-width:820px;padding-block:12px}
+.seqrow+.seqrow{border-top:1px dashed var(--line)}
+.seqlbl{font-size:.86rem;line-height:1.35;color:var(--ink-2)}
+.seqlbl strong{display:block;color:var(--ink);font-size:.92rem}
+.seq{display:flex;gap:6px;align-items:stretch}
+.sg{display:flex;flex-direction:column;justify-content:center;gap:3px;font:600 .74rem/1.2 var(--f-mono);padding:7px 8px;border:1px solid var(--line);border-radius:4px;background:var(--surface-2);color:var(--ink);white-space:nowrap}
+.sg small{font:400 .66rem/1.15 var(--f-mono);color:var(--ink-2)}
+.sg.edit{border:1.5px dashed var(--warn);background:var(--warn-soft)}
+.sg.ok{border-color:var(--ok);background:var(--ok-soft)}
+.sg.bad{border-color:var(--bad);background:var(--bad-soft)}
+.sg.add{border-style:dashed;border-color:var(--accent);background:var(--accent-soft)}
+.seq-cap{font-size:.86rem;color:var(--ink-2);margin:6px 0 26px;max-width:80ch}
+
+/* Colonnes comparées */
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px 0 26px}
+.split>div{border:1px solid var(--line);border-radius:6px;padding:14px 18px 4px;background:var(--surface);min-width:0}
+.split h4{margin:0 0 .5em}
+.split .safe h4{color:var(--ok)}
+.split .unsafe h4{color:var(--bad)}
+.split ul{padding-left:1.1em}
+.split li{font-size:.94rem}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0 22px}
+.trio>div{border:1px solid var(--line);border-radius:6px;padding:14px 16px 6px;background:var(--surface);min-width:0}
+.trio h4{margin:0 0 .4em;font-family:var(--f-display);font-size:1.08rem}
+.trio p{font-size:.94rem}
+@media (max-width:860px){.split,.trio{grid-template-columns:minmax(0,1fr)}}
+
+/* Étapes ordonnées */
+ol.steps{list-style:none;padding:0;counter-reset:st;max-width:72ch}
+ol.steps>li{counter-increment:st;display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;margin:0 0 12px}
+ol.steps>li::before{content:counter(st);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);font:700 .9rem/1 var(--f-mono)}
+
+/* Onglets */
+.tabs{margin:20px 0 28px}
+[role="tablist"]{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--line)}
+[role="tab"]{font:700 .9rem/1.1 var(--f-body);padding:10px 12px;border:1px solid var(--line);border-bottom:0;border-radius:6px 6px 0 0;background:var(--surface-2);color:var(--ink-2);cursor:pointer;margin-bottom:-1px}
+[role="tab"][aria-selected="true"]{background:var(--surface);color:var(--ink);border-bottom:1px solid var(--surface)}
+[role="tabpanel"]{border:1px solid var(--line);border-top:0;background:var(--surface);padding:20px 20px 10px;border-radius:0 0 6px 6px}
+[role="tabpanel"]>p,[role="tabpanel"] ul{max-width:76ch}
+
+/* Listes de contrôle */
+.cl{margin:18px 0 10px;border-top:1px dashed var(--line);padding-top:14px}
+.cl-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.cl-head h4{margin:0}
+.progress{display:flex;align-items:center;gap:10px;font:600 .8rem/1 var(--f-mono);color:var(--ink-2)}
+.progress .bar{display:block;width:120px;height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok)}
+.check{list-style:none;padding:0;margin:10px 0 12px;max-width:80ch}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;margin:0;border-bottom:1px solid var(--line)}
+.check li:last-child{border-bottom:0}
+.check input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent);flex:none}
+.check label{cursor:pointer;font-size:.95rem}
+.check input:checked+label{color:var(--ink-2);text-decoration:line-through}
+
+/* Outils */
+.tool{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:20px;margin:18px 0 30px}
+.tool h3{margin-top:0}
+.tool-grid{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px}
+.tool-grid.even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:920px){.tool-grid,.tool-grid.even{grid-template-columns:minmax(0,1fr)}}
+fieldset{border:0;padding:0;margin:0 0 16px;min-width:0}
+legend,.lbl{display:block;font:600 .74rem/1.2 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);margin:0 0 7px;padding:0}
+.segs{position:relative;display:flex;flex-wrap:wrap;gap:4px}
+.segs input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.segs label{font:600 .84rem/1 var(--f-mono);padding:9px 10px;border:1px solid var(--line);border-radius:4px;cursor:pointer;background:var(--paper);color:var(--ink)}
+.segs input:checked+label{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.segs input:focus-visible+label{outline:3px solid var(--mark);outline-offset:2px}
+select,input[type="number"],input[type="text"],textarea{font:400 .95rem/1.3 var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:9px 10px;width:100%;max-width:100%}
+textarea{font:400 .8rem/1.5 var(--f-mono);min-height:330px;resize:vertical}
+.cbx{display:flex;align-items:center;gap:8px;font-size:.95rem;cursor:pointer}
+.cbx input{width:18px;height:18px;accent-color:var(--accent);margin:0}
+.out-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.betas{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px;padding:0;list-style:none}
+.betas li{margin:0}
+.notes{list-style:none;padding:0;margin:6px 0 0}
+.notes li{display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px;align-items:start;padding:8px 0;margin:0;border-bottom:1px solid var(--line);font-size:.93rem}
+.notes li:last-child{border-bottom:0}
+.notes .pill{justify-self:start}
+.vbar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.vsum{font:700 .95rem/1.3 var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);margin:4px 0 6px}
+.vsum.bad{border-color:var(--bad);background:var(--bad-soft);color:var(--ink)}
+.vsum.warn{border-color:var(--warn);background:var(--warn-soft);color:var(--ink)}
+.vsum.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ink)}
+.findings{list-style:none;padding:0;margin:8px 0}
+.findings li{display:grid;grid-template-columns:116px minmax(0,1fr);gap:10px;padding:10px 0;margin:0;border-bottom:1px solid var(--line)}
+.findings li:last-child{border-bottom:0}
+.findings .pill{justify-self:start}
+.findings strong{display:block;font-size:.97rem}
+.findings p{margin:.25em 0 0;color:var(--ink-2);font-size:.92rem}
+@media (max-width:520px){.findings li,.notes li{grid-template-columns:minmax(0,1fr)}}
+.est-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.est-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.est-grid{grid-template-columns:minmax(0,1fr)}}
+.est-grid label{display:block;font-size:.88rem;margin-bottom:5px;color:var(--ink-2)}
+.est-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+@media (max-width:640px){.est-out{grid-template-columns:minmax(0,1fr)}}
+.stat{border:1px solid var(--line);border-radius:6px;padding:12px 14px;background:var(--paper)}
+.stat .k{font:600 .7rem/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.stat .v{font:760 1.45rem/1.25 var(--f-display);font-variant-numeric:tabular-nums}
+.breakdown{display:grid;gap:7px;margin-top:16px}
+.brow{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr) auto;gap:10px;align-items:center;font-size:.9rem}
+.brow .bar{height:10px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.brow .bar i{display:block;height:100%;background:var(--accent)}
+.brow .amt{font:400 .8rem/1 var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:560px){.brow{grid-template-columns:minmax(0,1fr) auto}.brow .bar{grid-column:1/-1;order:3}}
+
+details.faq{border-bottom:1px solid var(--line);padding:12px 0;max-width:78ch}
+details.faq summary{cursor:pointer;font-weight:700}
+details.faq p{margin:.6em 0 .2em}
+.sources li{margin:.5em 0}
+footer{border-top:1px solid var(--line);margin-top:40px;padding-block:26px 48px;color:var(--ink-2);font-size:.88rem}
+footer p{max-width:80ch}
+@media (max-width:900px){.hero{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <div>
+    <p class="kicker">Claude Fable 5.2 · guide non officiel en français</p>
+    <h1><span class="l1">Mode d'emploi</span><span class="l2">Fable <span class="v">5.2</span></span></h1>
+    <p class="lead">Fable 5.2 est le modèle Claude conçu pour le raisonnement exigeant et le travail agentique de longue haleine : sessions d'agent de plusieurs heures, recherches en plusieurs étapes, analyses menées jusqu'au document, au tableur ou à la présentation finalisés. Ce guide réunit ce qu'il faut savoir pour l'appeler correctement et en tirer le meilleur.</p>
+    <div class="actions">
+      <a class="btn primary" href="#essentiel">Lire l'essentiel</a>
+      <a class="btn" href="#atelier">Générer ou vérifier une requête</a>
+    </div>
+    <p class="disclaimer">Synthèse des pages françaises de la documentation Claude Platform, consultées le 10 novembre 2026 (liste en fin de page). Les mesures citées sont celles qu'Anthropic rapporte pour ses propres tests. Vérifiez la documentation officielle avant une mise en production.</p>
+  </div>
+  <aside class="plate" aria-labelledby="plate-t">
+    <p class="plate-t" id="plate-t">Plaque signalétique</p>
+    <div class="idrow">
+      <code id="model-id">claude-fable-5-2</code>
+      <button class="mini" id="copy-id" type="button">Copier l'ID</button>
+    </div>
+    <dl>
+      <dt>Bedrock</dt><dd><code>anthropic.claude-fable-5-2</code></dd>
+      <dt>Contexte</dt><dd>1 M tokens</dd>
+      <dt>Sortie max.</dt><dd>128 k tokens</dd>
+      <dt>Prix</dt><dd>8 $ entrée · 40 $ sortie / MTok</dd>
+      <dt>Cache</dt><dd>lecture à 0,20 $ / MTok</dd>
+      <dt>Réflexion</dt><dd>adaptative, toujours active</dd>
+      <dt>Effort</dt><dd><code>high</code> par défaut</dd>
+      <dt>Modalités</dt><dd>texte et images → texte</dd>
+      <dt>Savoir</dt><dd>fiable jusqu'à juin 2026</dd>
+      <dt>Lancement</dt><dd>9 novembre 2026</dd>
+      <dt>Retrait</dt><dd>pas avant le 9 novembre 2027</dd>
+    </dl>
+  </aside>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="Sommaire">
+  <p class="toc-t">Sommaire</p>
+  <ol>
+    <li><a href="#essentiel">L'essentiel</a></li>
+    <li><a href="#fiche">Fiche technique</a></li>
+    <li><a href="#reflexion">Réflexion adaptative</a></li>
+    <li><a href="#effort">Effort</a></li>
+    <li><a href="#preservee">Réflexion préservée</a></li>
+    <li><a href="#prompts">Écrire les prompts</a></li>
+    <li><a href="#migration">Migrer</a></li>
+    <li><a href="#refus">Refus et repli</a></li>
+    <li><a href="#atelier">Atelier</a></li>
+    <li><a href="#memo">Aide-mémoire</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ============ ESSENTIEL ============ -->
+<section class="chap" id="essentiel" aria-labelledby="h-essentiel">
+  <span class="eyebrow">POST /v1/messages</span>
+  <h2 id="h-essentiel">L'essentiel en un tableau</h2>
+  <p class="intro">Fable 5.2 utilise la même API Messages que les autres modèles Claude récents, avec des règles strictes. La plupart des erreurs 400 rencontrées pendant une migration viennent des lignes ci-dessous.</p>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Élément</th><th scope="col">Sur Fable 5.2</th><th scope="col">Ce qui échoue</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>model</code></th><td><code>claude-fable-5-2</code> sur toutes les plateformes, sauf Amazon Bedrock : <code>anthropic.claude-fable-5-2</code>.</td><td>—</td></tr>
+      <tr><th scope="row"><code>thinking</code></th><td>Omettez-le, ou envoyez <code>{"type": "adaptive"}</code>. La réflexion adaptative est toujours active.</td><td><span class="pill bad">400</span> <code>disabled</code>, <code>enabled</code> avec <code>budget_tokens</code>, <code>between_tools</code>.</td></tr>
+      <tr><th scope="row"><code>output_config.effort</code></th><td><code>low</code>, <code>medium</code>, <code>high</code> (défaut), <code>xhigh</code>, <code>max</code>. C'est le réglage principal de la profondeur, de la latence et du coût.</td><td><code>adaptive</code> n'est pas un niveau d'effort. L'effort se place dans <code>output_config</code>.</td></tr>
+      <tr><th scope="row"><code>temperature</code>, <code>top_p</code>, <code>top_k</code></th><td>Omettez-les.</td><td><span class="pill bad">400</span> toute valeur non par défaut. <code>top_p</code> vaut 0,99 par défaut, donc <code>top_p: 1</code> échoue, comme <code>temperature</code> et <code>top_p</code> envoyés ensemble. Avec la version d'API <code>2026-10-21</code>, toute valeur échoue.</td></tr>
+      <tr><th scope="row"><code>tool_choice</code></th><td><code>auto</code> (défaut) ou <code>none</code>.</td><td><span class="pill bad">400</span> <code>any</code> et <code>tool</code>, y compris sur le comptage des tokens.</td></tr>
+      <tr><th scope="row">Préremplissage</th><td>Interdit. Guidez le format de la réponse par l'invite système.</td><td><span class="pill bad">400</span> un dernier message <code>assistant</code>.</td></tr>
+      <tr><th scope="row">Historique <code>messages</code></th><td>En ajout seul : <code>system</code> et <code>tools</code> figés, tours de l'assistant renvoyés à l'identique.</td><td><span class="pill bad">400</span> un bloc de réflexion situé après une modification, pour tous les comptes.</td></tr>
+      <tr><th scope="row"><code>max_tokens</code></th><td>Large, jusqu'à 128 000 : la réflexion y est comptée. Les SDK exigent le streaming au-delà de 21 333.</td><td>Valeur trop basse : arrêt <code>max_tokens</code> après la réflexion, avant tout texte.</td></tr>
+      <tr><th scope="row"><code>stop_reason</code></th><td>Testez <code>"refusal"</code> avant de lire <code>content</code>.</td><td>Un refus est une réponse HTTP 200 : une supervision fondée sur les erreurs ne le voit pas.</td></tr>
+      <tr><th scope="row">Conservation des données</th><td>30 jours obligatoires (Fable 5.2 est un « Covered Model »).</td><td><span class="pill bad">400</span> <code>invalid_request_error</code> pour une organisation ou un espace de travail en ZDR, sauf autorisation expresse d'Anthropic.</td></tr>
+      <tr><th scope="row">Computer use</th><td>Toolset <code>computer_toolset_20260801</code>.</td><td><span class="pill bad">400</span> <code>computer_20251124</code>, sauf sur Amazon Bedrock.</td></tr>
+      <tr><th scope="row">Outil advisor <span class="pill beta">bêta</span></th><td>Conseiller <code>claude-fable-5-2</code> ou <code>claude-mythos-5-2</code>.</td><td><span class="pill bad">400</span> tout autre conseiller.</td></tr>
+      <tr><th scope="row">Sorties structurées</th><td>Disponibles, sauf dans les organisations CMEK (clés de chiffrement gérées par le client).</td><td>En CMEK, <code>strict: true</code> et <code>output_config.format</code> sont indisponibles : validez la sortie dans votre code.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Premier appel</h3>
+  <p class="prose">Le minimum utile : le modèle, un <code>max_tokens</code> confortable, un effort explicite, et la gestion du refus avant la lecture du texte.</p>
+  <figure class="code"><figcaption><span>Python</span></figcaption><pre><code data-lang="py">import anthropic
+
+client = anthropic.Anthropic()  # lit ANTHROPIC_API_KEY
+
+message = client.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    output_config={"effort": "high"},
+    messages=[{"role": "user", "content": "Bonjour, Claude"}],
+)
+
+if message.stop_reason == "refusal":
+    details = message.stop_details
+    print("Refus :", details.category if details else None)
+else:
+    # Les blocs thinking arrivent en premier : filtrez par type.
+    print("".join(b.text for b in message.content if b.type == "text"))</code></pre></figure>
+  <figure class="code"><figcaption><span>cURL</span></figcaption><pre><code data-lang="sh">curl https://api.anthropic.com/v1/messages \
+  -H "x-api-key: $ANTHROPIC_API_KEY" \
+  -H "anthropic-version: 2026-10-21" \
+  -H "content-type: application/json" \
+  -d '{
+    "model": "claude-fable-5-2",
+    "max_tokens": 16000,
+    "output_config": {"effort": "high"},
+    "messages": [{"role": "user", "content": "Bonjour, Claude"}]
+  }'</code></pre></figure>
+</section>
+
+<!-- ============ FICHE ============ -->
+<section class="chap" id="fiche" aria-labelledby="h-fiche">
+  <span class="eyebrow">claude-fable-5-2</span>
+  <h2 id="h-fiche">Fiche technique</h2>
+  <p class="intro">Fable 5.2 vise les sessions d'agent qui durent des heures, la recherche approfondie en plusieurs étapes et l'analyse menée jusqu'au livrable final. Claude Mythos 5.2 offre les mêmes capacités, les mêmes spécifications et les mêmes tarifs, mais seulement aux organisations vérifiées par un programme d'Anthropic, comme le Cyber Verification Program.</p>
+
+  <h3>Face aux modèles 5.5</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Modèle</th><th scope="col">Contexte</th><th scope="col">Sortie max.</th><th scope="col">Prix / MTok</th><th scope="col">Latence</th><th scope="col">Réflexion</th><th scope="col">Effort par défaut</th></tr></thead>
+    <tbody>
+      <tr class="self"><th scope="row">Claude Fable 5.2</th><td class="num">1 M</td><td class="num">128 k</td><td class="num">8 $ / 40 $</td><td>Modérée</td><td>Adaptative, toujours active</td><td><code>high</code></td></tr>
+      <tr><th scope="row">Claude Opus 5.5</th><td class="num">1 M</td><td class="num">128 k</td><td class="num">4 $ / 20 $</td><td>Modérée</td><td>Adaptative, toujours active</td><td><code>medium</code></td></tr>
+      <tr><th scope="row">Claude Sonnet 5.5</th><td class="num">1 M</td><td class="num">128 k</td><td class="num">2 $ / 10 $</td><td>Rapide</td><td>Adaptative</td><td><code>high</code></td></tr>
+      <tr><th scope="row">Claude Haiku 5.5</th><td class="num">1 M</td><td class="num">128 k</td><td class="num">dès 0,10 $ / 0,50 $</td><td>La plus rapide</td><td>Adaptative</td><td><code>medium</code></td></tr>
+    </tbody>
+  </table></div>
+  <p class="tnote">Prix en dollars US, entrée / sortie. Les quatre modèles ont des connaissances fiables jusqu'à juin 2026. La génération précédente, Fable 5.1, coûtait 10 $ / 50 $.</p>
+
+  <h3>Identifiants par plateforme</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Plateforme</th><th scope="col">Identifiant du modèle</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">API Claude</th><td><code>claude-fable-5-2</code></td></tr>
+      <tr><th scope="row">Claude Platform on AWS</th><td><code>claude-fable-5-2</code></td></tr>
+      <tr><th scope="row">Claude Models on Google Cloud (Anthropic managed)</th><td><code>claude-fable-5-2</code></td></tr>
+      <tr><th scope="row">Claude Models on Google Cloud (Google managed)</th><td><code>claude-fable-5-2</code></td></tr>
+      <tr><th scope="row">Microsoft Foundry</th><td><code>claude-fable-5-2</code> (déploiements hébergés par Anthropic ; mode rapide : déploiement <code>claude-fable-5-2-fast</code>)</td></tr>
+      <tr><th scope="row">Amazon Bedrock</th><td><code>anthropic.claude-fable-5-2</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Tarifs</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Poste</th><th scope="col">Prix / MTok</th><th scope="col">À savoir</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Entrée</th><td class="num">8 $</td><td>Fable 5.1 : 10 $.</td></tr>
+      <tr><th scope="row">Sortie</th><td class="num">40 $</td><td>Inclut toute la réflexion, même masquée. Fable 5.1 : 50 $.</td></tr>
+      <tr><th scope="row">Écriture du cache, 5 min</th><td class="num">10 $</td><td>Mise en cache possible dès 512 tokens.</td></tr>
+      <tr><th scope="row">Écriture du cache, 1 h</th><td class="num">16 $</td><td></td></tr>
+      <tr><th scope="row">Lecture du cache</th><td class="num">0,20 $</td><td>Fable 5.1 : 0,25 $. Fable 5 : 1 $.</td></tr>
+      <tr><th scope="row">API Batch</th><td class="num">−50 %</td><td>Sur l'entrée et la sortie.</td></tr>
+      <tr><th scope="row">Mode rapide (API Claude)</th><td class="num">16 $ / 80 $</td><td>Entrée / sortie, avec <code>speed: "fast"</code>. Aucun en-tête bêta nécessaire.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Disponibilité et limites</h3>
+  <ul class="prose">
+    <li>Lancé le 9 novembre 2026, statut actif. Retrait pas avant le 9 novembre 2027.</li>
+    <li><strong>Limite de débit propre</strong>, distincte de la limite combinée de Fable 5.1 et Fable 5. Face à Opus 5.5, les limites de tokens sont plus basses à chaque niveau. Vérifiez-les avant de basculer du trafic.</li>
+    <li><strong>Conservation des données de 30 jours obligatoire.</strong> Pas de ZDR sans autorisation expresse d'Anthropic ; une organisation en ZDR peut configurer la conservation pour un espace de travail précis.</li>
+    <li><strong>Pas de Priority Tier.</strong> Si vous avez un engagement Priority Tier, planifiez la capacité séparément.</li>
+    <li><strong>Mode rapide</strong> sur l'API Claude, sur Google Cloud (Anthropic managed et Google managed, avec les prix de Google dans le second cas) et sur Microsoft Foundry via le déploiement <code>claude-fable-5-2-fast</code>, sans <code>speed</code>. Retirez <code>speed: "fast"</code> dans Managed Agents.</li>
+    <li>L'API Models expose les limites et capacités du modèle, par exemple si une valeur de <code>thinking</code> est acceptée.</li>
+  </ul>
+
+  <h3>Fonctionnalités par plateforme</h3>
+  <div class="tbl wide"><table>
+    <thead><tr><th scope="col">Fonctionnalité</th><th scope="col">API Claude</th><th scope="col">Platform on AWS</th><th scope="col">Google Cloud (Anthropic)</th><th scope="col">Google Cloud (Google)</th><th scope="col">Bedrock</th><th scope="col">Foundry</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Fable 5.2</th><td>oui</td><td>oui</td><td>oui</td><td>oui</td><td>oui</td><td>oui</td></tr>
+      <tr><th scope="row">Effort par message <span class="pill beta">bêta</span></th><td>oui</td><td>oui</td><td>oui</td><td>oui</td><td>oui ¹</td><td>—</td></tr>
+      <tr><th scope="row"><code>display: "updates"</code> <span class="pill beta">bêta</span></th><td>oui</td><td>oui</td><td>oui</td><td>oui ²</td><td>oui ²</td><td>oui ²</td></tr>
+      <tr><th scope="row">Repli côté serveur <span class="pill beta">bêta</span></th><td>oui</td><td>—</td><td>oui</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><th scope="row">Middleware SDK de repli</th><td>oui</td><td>oui</td><td>oui</td><td>oui</td><td>oui</td><td>oui</td></tr>
+      <tr><th scope="row">Mode rapide</th><td>oui</td><td>—</td><td>oui</td><td>oui ³</td><td>—</td><td>oui ⁴</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tnote">¹ Avec l'API InvokeModel, la valeur bêta va dans le tableau <code>anthropic_beta</code> du corps. ² L'en-tête bêta se transmet selon le mécanisme de la plateforme. ³ Prix fixés par Google Cloud. ⁴ Via le déploiement <code>claude-fable-5-2-fast</code>. « — » : non mentionné dans les pages consultées.</p>
+
+  <div class="tool" id="estimateur">
+    <h3>Estimer le coût d'une charge</h3>
+    <p class="small muted">Valeurs de départ : <strong>exemple fictif</strong> d'un tour d'agent de code qui relit beaucoup de contexte en cache. Remplacez-les par vos chiffres (<code>usage</code> de vos réponses).</p>
+    <div class="est-grid">
+      <div><label for="est-n">Nombre de requêtes</label><input type="number" id="est-n" min="0" step="1" value="1000"></div>
+      <div><label for="est-in">Entrée hors cache (tokens)</label><input type="number" id="est-in" min="0" step="100" value="12000"></div>
+      <div><label for="est-cr">Lecture du cache (tokens)</label><input type="number" id="est-cr" min="0" step="1000" value="150000"></div>
+      <div><label for="est-cw5">Écriture du cache 5 min (tokens)</label><input type="number" id="est-cw5" min="0" step="100" value="0"></div>
+      <div><label for="est-cw1">Écriture du cache 1 h (tokens)</label><input type="number" id="est-cw1" min="0" step="100" value="0"></div>
+      <div><label for="est-out">Sortie, réflexion comprise (tokens)</label><input type="number" id="est-out" min="0" step="100" value="8000"></div>
+    </div>
+    <p style="margin:14px 0 0"><label class="cbx" for="est-batch"><input type="checkbox" id="est-batch"> API Batch (−50 % sur l'entrée et la sortie)</label></p>
+    <div class="est-out">
+      <div class="stat"><div class="k">Par requête</div><div class="v" id="est-per">0,4460 $US</div></div>
+      <div class="stat"><div class="k">Total</div><div class="v" id="est-total">446,00 $US</div></div>
+      <div class="stat"><div class="k">Économie due au cache</div><div class="v" id="est-save">1 170,00 $US</div></div>
+    </div>
+    <div class="breakdown" id="est-bars" aria-label="Répartition du coût par requête"></div>
+    <p class="small muted" style="margin-top:12px">Tarifs de l'API Claude. L'économie compare la lecture en cache au même volume facturé comme entrée. Dans cette estimation, la remise Batch ne s'applique qu'à l'entrée et à la sortie ; consultez la page Tarification pour le détail des combinaisons avec le cache.</p>
+  </div>
+</section>
+
+<!-- ============ RÉFLEXION ============ -->
+<section class="chap" id="reflexion" aria-labelledby="h-reflexion">
+  <span class="eyebrow">thinking</span>
+  <h2 id="h-reflexion">Réflexion adaptative</h2>
+  <p class="intro">Fable 5.2 réfléchit avant de répondre quand la tâche le demande. Vous ne pouvez pas couper cette réflexion : vous réglez sa profondeur avec l'effort, et sa visibilité avec <code>display</code>.</p>
+
+  <h3>Ce que fait chaque valeur de <code>thinking</code></h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Valeur envoyée</th><th scope="col">Résultat sur Fable 5.2</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Champ absent</th><td><span class="pill ok">ok</span> Réflexion adaptative.</td></tr>
+      <tr><th scope="row"><code>{"type": "adaptive"}</code></th><td><span class="pill ok">ok</span> Réflexion adaptative (équivalent).</td></tr>
+      <tr><th scope="row"><code>{"type": "enabled", "budget_tokens": N}</code></th><td><span class="pill bad">400</span> La réflexion étendue manuelle n'existe plus sur ce modèle.</td></tr>
+      <tr><th scope="row"><code>{"type": "between_tools"}</code></th><td><span class="pill bad">400</span> Réservé à Claude Sonnet 5.5.</td></tr>
+      <tr><th scope="row"><code>{"type": "disabled"}</code></th><td><span class="pill bad">400</span> À tous les niveaux d'effort.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Ce que vous voyez : <code>display</code></h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col"><code>display</code></th><th scope="col">Blocs de raisonnement</th><th scope="col">Mises à jour de progression</th><th scope="col">Usage typique</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>"omitted"</code> (défaut)</th><td>Champ <code>thinking</code> vide</td><td>Champ vide</td><td>L'interface n'affiche pas la réflexion. En streaming, le premier token de texte arrive plus tôt.</td></tr>
+      <tr><th scope="row"><code>"summarized"</code></th><td>Résumé lisible</td><td>Résumé, impossible à distinguer du raisonnement</td><td>Inspecter le raisonnement, mettre au point un prompt.</td></tr>
+      <tr><th scope="row"><code>"updates"</code> <span class="pill beta">bêta</span></th><td>Champ vide</td><td>Résumé court</td><td>Interface d'agent qui affiche une ligne d'état par étape. En-tête <code>thinking-display-updates-2026-08-18</code>.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Points à retenir</h3>
+  <ul class="prose">
+    <li><strong>La réflexion se paie en tokens de sortie</strong>, quelle que soit la valeur de <code>display</code>. Masquer la réflexion réduit la latence, pas le coût. Avec <code>"summarized"</code>, vous payez toute la réflexion, pas seulement le résumé.</li>
+    <li><strong>Elle compte dans <code>max_tokens</code></strong>, avec le texte de la réponse. <code>max_tokens</code> est la seule limite stricte ; l'effort reste une indication.</li>
+    <li><strong>Vous ne voyez jamais la chaîne de pensée brute.</strong> Le texte d'un bloc est un résumé, produit par un autre modèle que celui que vous appelez.</li>
+    <li><strong>Chaque bloc porte une <code>signature</code></strong> chiffrée et opaque. Ne l'analysez pas. Renvoyez les blocs tels quels, y compris quand le champ <code>thinking</code> est vide : le texte que vous y placeriez est ignoré.</li>
+    <li><strong>À <code>high</code> et au-dessus, le modèle réfléchit avant presque chaque réponse</strong>, même à une salutation. Pour une requête simple à un effort plus bas, il peut ne produire aucun bloc <code>thinking</code>.</li>
+    <li><strong>La réflexion entrelacée est automatique</strong> : le modèle réfléchit entre les appels d'outils, sans en-tête bêta.</li>
+    <li><strong>Lisez le contenu par <code>type</code></strong>, jamais <code>content[0].text</code> : les blocs <code>thinking</code> arrivent en premier.</li>
+    <li>Dans Managed Agents, la plateforme fixe la configuration de réflexion ; la définition de l'agent n'a pas de champ <code>thinking</code>.</li>
+  </ul>
+  <figure class="code"><figcaption><span>Python · lire le résumé du raisonnement</span></figcaption><pre><code data-lang="py">response = client.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    thinking={"type": "adaptive", "display": "summarized"},
+    output_config={"effort": "medium"},
+    messages=[{"role": "user", "content": "Combien de vendredis 13 compte l'année 2027 ?"}],
+)
+
+for block in response.content:
+    if block.type == "thinking":
+        print("Résumé du raisonnement :", block.thinking)
+    elif block.type == "text":
+        print(block.text)</code></pre></figure>
+
+  <h3>Mises à jour de progression entre les appels d'outils</h3>
+  <p class="prose">Entre deux appels d'outils, Fable 5.2 peut écrire une courte note destinée à la personne qui suit l'agent : ce qu'il vient de trouver, ce qu'il va faire. Chaque note arrive dans son propre bloc <code>thinking</code>, juste avant le <code>tool_use</code> qu'elle introduit. Il y en a au plus une par appel d'outil, et le modèle peut s'en passer.</p>
+  <p class="prose">Avec le <code>display</code> par défaut, ces notes sont vides. Un client qui n'affiche que les blocs <code>text</code> semble donc muet pendant un long tour agentique. Passez à <code>"updates"</code> et affichez les blocs <code>thinking</code> non vides.</p>
+  <figure class="code"><figcaption><span>Python · interface d'agent avec mises à jour</span></figcaption><pre><code data-lang="py">with client.beta.messages.stream(
+    model="claude-fable-5-2",
+    max_tokens=64000,
+    thinking={"type": "adaptive", "display": "updates"},
+    output_config={"effort": "high"},
+    betas=["thinking-display-updates-2026-08-18"],
+    tools=tools,
+    messages=messages,
+) as stream:
+    message = stream.get_final_message()
+
+for block in message.content:
+    # Avec "updates", un bloc thinking non vide est une mise à jour de progression.
+    if block.type == "thinking" and block.thinking:
+        print("›", block.thinking)
+    elif block.type == "tool_use":
+        print("outil :", block.name)
+
+# Renvoyez le tour tel quel, blocs thinking vides compris.
+messages.append({"role": "assistant", "content": message.content})</code></pre></figure>
+  <ul class="prose">
+    <li>Pour un affichage en temps réel, traitez les événements <code>thinking_delta</code> du flux. Comptez quelques secondes de pause avant l'ouverture d'un bloc de progression.</li>
+    <li>Le texte reçu résume la note (une phrase ou deux), mais <code>usage.output_tokens</code> compte la note entière.</li>
+    <li>Le modèle écrit moins de notes à un effort élevé et dans les longues chaînes d'outils. Pour en obtenir davantage, voir <a href="#p-progression">Tenir l'utilisateur informé</a>.</li>
+    <li>Si une réponse s'arrête sur <code>max_tokens</code>, <code>model_context_window_exceeded</code> ou <code>stop_sequence</code> juste après un outil, le dernier bloc peut être une note fixe qui signale l'interruption. Pour reprendre, renvoyez le tour tel quel et ajoutez un message <code>user</code> avec un <code>tool_result</code> pour chaque <code>tool_use</code> du tour.</li>
+  </ul>
+
+  <div class="note trap">
+    <span class="tag">Pièges</span>
+    <ul>
+      <li><strong><code>max_tokens</code> trop bas :</strong> la réponse s'arrête avec <code>stop_reason: "max_tokens"</code> après un bloc <code>thinking</code>, avant tout texte. Augmentez la valeur ou baissez l'effort.</li>
+      <li><strong>Streaming :</strong> les SDK l'exigent dès que <code>max_tokens</code> dépasse 21 333 (contrôle côté client). Utilisez <code>.stream()</code> puis <code>get_final_message()</code> en Python ou <code>finalMessage()</code> en TypeScript.</li>
+      <li><strong>Très longues réflexions :</strong> au-delà d'environ 32 k tokens de réflexion par requête, le traitement par lots évite les coupures réseau.</li>
+      <li><strong>Raisonnement dans la réponse :</strong> demander au modèle d'écrire son raisonnement dans le texte peut déclencher un refus <code>reasoning_extraction</code>. Lisez plutôt les blocs <code>thinking</code>.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ EFFORT ============ -->
+<section class="chap" id="effort" aria-labelledby="h-effort">
+  <span class="eyebrow">output_config.effort</span>
+  <h2 id="h-effort">Effort</h2>
+  <p class="intro">L'effort fixe la quantité de travail que Fable 5.2 consacre à une réponse : réflexion, appels d'outils et texte. La réflexion étant toujours active, c'est votre principal levier sur la profondeur, la latence et le coût.</p>
+
+  <div class="dial" role="list" aria-label="Niveaux d'effort">
+    <div class="notch" role="listitem">
+      <div class="top"><span class="lvl">low</span></div>
+      <span class="bars" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span>
+      <p>Échanges rapides, tâches bien spécifiées, gros volumes, sous-agents rapides. Anthropic y mesure des scores proches de Fable 5.1 à effort plus élevé.</p>
+    </div>
+    <div class="notch" role="listitem">
+      <div class="top"><span class="lvl">medium</span></div>
+      <span class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>
+      <p>Code interactif, chat, travail intellectuel quotidien.</p>
+    </div>
+    <div class="notch def" role="listitem">
+      <div class="top"><span class="lvl">high</span><span class="pill beta">défaut</span></div>
+      <span class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+      <p>Code difficile, recherche, travail agentique, longues exécutions sans surveillance. Point de départ conseillé. Tours nettement plus longs qu'à <code>medium</code>.</p>
+    </div>
+    <div class="notch" role="listitem">
+      <div class="top"><span class="lvl">xhigh</span></div>
+      <span class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+      <p>Vos tâches de code et d'agent les plus longues et les plus dures, quand un gain est mesuré. Gain léger, beaucoup plus de tokens.</p>
+    </div>
+    <div class="notch" role="listitem">
+      <div class="top"><span class="lvl">max</span></div>
+      <span class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+      <p>Mesurer le plafond du modèle ; problèmes ouverts (découverte scientifique, mathématiques). Lent, bien plus de tokens qu'à <code>xhigh</code>.</p>
+    </div>
+  </div>
+  <p class="dial-cap">Les barres indiquent l'ordre relatif de profondeur et de dépense, pas des valeurs mesurées.</p>
+
+  <h3>Choisir un niveau</h3>
+  <ul class="prose">
+    <li><strong>L'essentiel du gain est déjà atteint à <code>high</code>.</strong> Au-dessus, les gains sont inégaux et dépendent de la tâche. Descendez à <code>medium</code> partout où vos évaluations montrent que la qualité tient.</li>
+    <li><strong>Refaites votre balayage.</strong> Les niveaux suivent le même ordre d'un modèle à l'autre, mais pas la même quantité de réflexion. Un réglage ajusté pour Fable 5.1 ou Opus 5.5 ne se transpose pas.</li>
+    <li><strong>Une consigne « réponds sans délibérer » n'empêche pas la réflexion</strong> dès <code>medium</code>. Si des requêtes simples coûtent trop cher, baissez l'effort pour ces tours.</li>
+    <li><strong>Les niveaux bas multiplient les arrêts prématurés</strong> en travail agentique. Ajoutez la consigne <a href="#p-finir">« aller au bout »</a> à <code>low</code> et <code>medium</code>.</li>
+    <li><strong>L'effort change peu la longueur des réponses.</strong> Réglez longueur et ton par le prompt.</li>
+    <li>Un effort bas donne moins d'appels d'outils, plus regroupés, sans préambule, avec des confirmations brèves. Un effort élevé donne plus d'appels, un plan expliqué, des résumés détaillés et des commentaires de code plus fournis.</li>
+    <li>Dans une boucle d'outils, une requête qui ne fait que traiter des résultats d'outils peut sauter la réflexion, quel que soit le niveau.</li>
+    <li>Combinez les niveaux : planifiez et itérez à <code>medium</code>, puis montez l'effort pour la longue phase sans surveillance.</li>
+    <li>À partir de <code>high</code>, prévoyez un <code>max_tokens</code> élevé.</li>
+  </ul>
+
+  <h3>Changer d'effort en cours de conversation</h3>
+  <p class="prose">Deux façons de faire. La première, <strong>l'effort par message</strong> <span class="pill beta">bêta</span>, conserve le cache des prompts : ajoutez à <code>messages</code> un message <code>role: "system"</code> au contenu vide qui porte le nouveau niveau. La seconde, changer <code>output_config.effort</code> dans la requête suivante, fonctionne partout mais redémarre le cache.</p>
+  <figure class="code"><figcaption><span>Python · baisser l'effort pour une question de suivi</span></figcaption><pre><code data-lang="py">first = client.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    output_config={"effort": "high"},
+    messages=[{"role": "user", "content": "Propose un plan de migration de SQLite vers PostgreSQL."}],
+)
+
+follow_up = client.beta.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    output_config={"effort": "high"},  # inchangé : le cache reste valide
+    betas=["mid-conversation-output-config-2026-07-01"],
+    messages=[
+        {"role": "user", "content": "Propose un plan de migration de SQLite vers PostgreSQL."},
+        {"role": "assistant", "content": first.content},  # renvoyé tel quel
+        {"role": "system", "content": [], "output_config": {"effort": "low"}},
+        {"role": "user", "content": "Résume ce plan en une phrase."},
+    ],
+)</code></pre></figure>
+  <ul class="prose">
+    <li><strong>Placement :</strong> juste après un tour <code>user</code> qui apporte une nouvelle entrée, le niveau s'applique à la réponse à ce tour. Ailleurs (entre un tour <code>assistant</code> et le tour <code>user</code> suivant, ou après un tour qui ne contient que des <code>tool_result</code>), il prend effet au prochain tour <code>user</code> qui apporte une nouvelle entrée. Une boucle d'outils en cours garde donc son niveau.</li>
+    <li><strong>Durée :</strong> le niveau reste en vigueur jusqu'au prochain message de ce type. Laissez chaque message en place dans les requêtes suivantes : il fait désormais partie de l'historique.</li>
+    <li><strong>Placement libre :</strong> un message qui ne porte que l'effort échappe aux règles de placement des messages système. Il peut même ouvrir <code>messages</code>.</li>
+    <li><strong>Sans l'en-tête bêta,</strong> l'API répond 400 : le champ <code>output_config</code> du message est refusé comme champ inconnu.</li>
+    <li><strong>Plateformes :</strong> API Claude, Claude Platform on AWS, Google Cloud (Anthropic managed et Google managed), Amazon Bedrock. Avec l'API InvokeModel de Bedrock, la valeur bêta va dans le tableau <code>anthropic_beta</code> du corps. Microsoft Foundry n'est pas mentionné.</li>
+    <li>Changer l'effort entre deux requêtes n'invalide pas la réflexion préservée : l'effort ne fait pas partie du préfixe vérifié. Seul le cache en pâtit.</li>
+    <li>Dans Managed Agents, réglez <code>effort</code> sur l'objet modèle de l'agent, ou dans la substitution de modèle d'une session.</li>
+  </ul>
+</section>
+
+<!-- ============ RÉFLEXION PRÉSERVÉE ============ -->
+<section class="chap" id="preservee" aria-labelledby="h-preservee">
+  <span class="eyebrow">thinking.block_binding</span>
+  <h2 id="h-preservee">Réflexion préservée</h2>
+  <p class="intro">Un bloc de réflexion renvoyé n'est valide que dans le contexte exact qui l'a produit. Fable 5.2 applique ce contrôle à tous les comptes, quelle que soit leur ancienneté : un historique retouché donne une erreur 400 par défaut.</p>
+  <p class="prose">Rien ne change pour vous si Claude Code, claude.ai, Managed Agents ou le Claude Agent SDK gère l'historique. Lisez cette section si votre code construit lui-même le tableau <code>messages</code>.</p>
+
+  <h3>Trois vérifications sur chaque bloc</h3>
+  <div class="trio">
+    <div><h4>Le préfixe</h4><p>L'invite <code>system</code>, les <code>tools</code> et les messages qui précèdent le bloc doivent être identiques à ce que vous aviez envoyé quand il a été produit. Sinon, ce bloc et tous les blocs de réflexion suivants échouent.</p></div>
+    <div><h4>Le modèle</h4><p>Chaque modèle lit ses propres blocs et ceux d'une liste fixe d'autres modèles. L'API retire sans erreur, et sans les facturer, les blocs que le modèle courant ne sait pas lire.</p></div>
+    <div><h4>Le compte</h4><p>Les blocs de Fable 5.2 ne fonctionnent que dans le compte qui les a produits, ou dans un compte lié. Envoyés depuis un autre compte, ils sont retirés sans erreur.</p></div>
+  </div>
+
+  <div class="seqwrap" role="img" aria-label="Schéma : une modification de l'invite system invalide les blocs de réflexion suivants ; en ajout seul, ils restent valides.">
+    <div class="seqrow">
+      <div class="seqlbl"><strong>Requête N</strong>ce que vous avez envoyé</div>
+      <div class="seq">
+        <span class="sg">system<small>figé</small></span><span class="sg">tools</span><span class="sg">user</span><span class="sg ok">assistant<small>réflexion ✓</small></span><span class="sg">user</span><span class="sg ok">assistant<small>réflexion ✓</small></span>
+      </div>
+    </div>
+    <div class="seqrow">
+      <div class="seqlbl"><strong>Requête N+1, retouchée</strong>la date est régénérée dans <code>system</code></div>
+      <div class="seq">
+        <span class="sg edit">system<small>✎ modifié</small></span><span class="sg">tools</span><span class="sg">user</span><span class="sg bad">assistant<small>réflexion ✗</small></span><span class="sg">user</span><span class="sg bad">assistant<small>réflexion ✗</small></span><span class="sg add">user<small>nouveau</small></span>
+      </div>
+    </div>
+    <div class="seqrow">
+      <div class="seqlbl"><strong>Requête N+1, en ajout seul</strong>la date arrive dans un message système ajouté</div>
+      <div class="seq">
+        <span class="sg">system<small>figé</small></span><span class="sg">tools</span><span class="sg">user</span><span class="sg ok">assistant<small>réflexion ✓</small></span><span class="sg">user</span><span class="sg ok">assistant<small>réflexion ✓</small></span><span class="sg add">user<small>nouveau</small></span><span class="sg add">system<small>date du jour</small></span>
+      </div>
+    </div>
+  </div>
+  <p class="seq-cap">Une seule modification avant un bloc de réflexion invalide ce bloc et tous les suivants. Avec <code>"error"</code>, la requête échoue en 400 ; avec <code>"drop_block"</code>, les blocs sont retirés, le raisonnement est perdu et le cache redémarre à la modification.</p>
+
+  <h3>Ce que couvre le préfixe</h3>
+  <p class="prose">Le préfixe vérifié comprend l'invite <code>system</code> de premier niveau, l'ensemble des <code>tools</code> et chaque message situé avant le bloc. Avec la compaction côté serveur, il commence au bloc de compaction le plus récent. <code>effort</code>, <code>max_tokens</code>, <code>output_config</code>, <code>tool_choice</code>, <code>metadata</code>, <code>thinking.display</code> et les marqueurs <code>cache_control</code> n'en font pas partie.</p>
+  <p class="prose">Les blocs de réflexion antérieurs ne font pas partie du préfixe, mais chacun mémorise le bloc qui le précédait. Vous pouvez retirer les plus anciens, les plus récents ou tous. Un trou au milieu invalide ceux qui suivent, et un bloc retiré ne doit pas revenir : le remettre invalide les blocs produits pendant son absence.</p>
+
+  <div class="split">
+    <div class="safe">
+      <h4>Sans risque pour la réflexion</h4>
+      <ul>
+        <li>Ajouter des messages à la fin.</li>
+        <li>Changer <code>effort</code>, <code>max_tokens</code>, <code>output_config</code>, <code>tool_choice</code>, <code>metadata</code> ou <code>thinking.display</code>.</li>
+        <li>Ajouter, déplacer ou retirer des marqueurs <code>cache_control</code>.</li>
+        <li>Ajouter un outil marqué <code>defer_loading: true</code> que rien ne référence encore.</li>
+        <li>Retirer les blocs <code>thinking</code> du début, de la fin, ou tous (le raisonnement est alors perdu).</li>
+        <li>Changer de modèle : les blocs illisibles sont ignorés sans erreur.</li>
+        <li>Renouveler une URL signée qui renvoie les mêmes octets.</li>
+        <li>Laisser la compaction ou l'édition de contexte côté serveur remplacer du contenu.</li>
+        <li>Garder en place un message système limité au tour, déjà effacé.</li>
+      </ul>
+    </div>
+    <div class="unsafe">
+      <h4>Invalide la réflexion qui suit</h4>
+      <ul>
+        <li>Modifier, réordonner ou supprimer un message <code>user</code>, <code>assistant</code> ou <code>system</code> antérieur.</li>
+        <li>Modifier l'invite <code>system</code> de premier niveau.</li>
+        <li>Ajouter, retirer, renommer ou modifier un outil de <code>tools</code>.</li>
+        <li>Régénérer le contexte placé dans le premier message (date, branche, mémoire, instructions).</li>
+        <li>Raccourcir un ancien <code>tool_result</code>, réencoder une ancienne image, modifier l'entrée d'un ancien <code>tool_use</code>.</li>
+        <li>Ajouter du texte à un ancien tour <code>user</code>, ou retirer celui ajouté la fois précédente.</li>
+        <li>Retirer un bloc <code>thinking</code> au milieu ; remettre un bloc retiré.</li>
+        <li>Une URL d'image ou de document dont le contenu change.</li>
+        <li>Une liste d'outils MCP non figée qui change (connecteur MCP).</li>
+        <li>Supprimer ou reformuler un message limité au tour déjà envoyé.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Remplacer chaque modification</h3>
+  <div class="tbl wide"><table>
+    <thead><tr><th scope="col">Au lieu de…</th><th scope="col">Faites plutôt</th><th scope="col">En-tête bêta</th></tr></thead>
+    <tbody>
+      <tr><td>Reconstruire l'invite <code>system</code> (date, mode, instructions relues, serveur MCP connecté en route)</td><td>Ajoutez un message <code>role: "system"</code> juste après le dernier message <code>user</code>. Il a l'autorité d'une invite système. Dans une boucle d'outils, placez-le après le <code>tool_result</code>, jamais entre <code>tool_use</code> et <code>tool_result</code>.</td><td>aucun</td></tr>
+      <tr><td>Régénérer le contexte du premier message</td><td>Générez-le une fois et renvoyez-le tel quel. Signalez les changements dans le tour le plus récent.</td><td>aucun</td></tr>
+      <tr><td>Raccourcir d'anciens <code>tool_result</code>, réencoder d'anciennes images</td><td>Raccourcissez ou réduisez avant le premier envoi. Ensuite, effacez côté serveur avec <code>clear_tool_uses_20250919</code>.</td><td><code>context-management-2025-06-27</code></td></tr>
+      <tr><td>Injecter un rappel puis le retirer</td><td>Message système limité au tour, avec <code>clear_at: "next_user_message"</code>, laissé en place ensuite.</td><td><code>mid-conversation-system-clear-at-2026-08-21</code></td></tr>
+      <tr><td>Ajouter ou retirer des outils</td><td>Blocs <code>tool_addition</code> et <code>tool_removal</code> dans un message système. Déclarez tout au départ avec <code>defer_loading: true</code>, ou définissez un nouvel outil dans le bloc.</td><td><code>inline-tools-2026-09-15</code>, ou <code>mid-conversation-tool-changes-2026-07-01</code> pour une simple référence ; plus <code>mcp-client-2026-09-15</code> pour un serveur MCP</td></tr>
+      <tr><td>Changer l'effort de premier niveau</td><td><code>output_config</code> par message (voir <a href="#effort">Effort</a>).</td><td><code>mid-conversation-output-config-2026-07-01</code></td></tr>
+      <tr><td>Résumer ou supprimer d'anciens tours côté client</td><td>Compaction à la demande, compaction à seuil ou édition de contexte côté serveur. Côté client : un résumé suivi du prochain tour, sans rejouer d'ancien tour.</td><td><code>compact-2026-09-04</code> (compaction à la demande)</td></tr>
+      <tr><td>Une URL d'image dont le contenu change</td><td><code>file_id</code> de l'API Files, ou base64, dès la première requête.</td><td>aucun</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tnote">Plusieurs bêtas dans une requête : séparez-les par des virgules dans un seul en-tête <code>anthropic-beta</code>.</p>
+  <figure class="code"><figcaption><span>JSON · trois messages ajoutés au lieu d'une retouche</span></figcaption><pre><code data-lang="json">[
+  { "role": "system", "content": "L'espace de travail est en lecture seule : n'écris plus de fichier jusqu'à nouvel ordre." },
+  { "role": "system", "clear_at": "next_user_message", "content": "Dis en une ligne où tu en es, puis continue." },
+  {
+    "role": "system",
+    "content": [
+      { "type": "tool_removal", "tool": { "type": "tool_reference", "name": "supprimer_branche" } },
+      { "type": "text", "text": "La suppression de branches est désactivée pour la suite de la session." }
+    ]
+  }
+]</code></pre></figure>
+
+  <h3>Renvoyer les tours à l'identique</h3>
+  <p class="prose">Stockez le tableau <code>content</code> de chaque réponse et renvoyez-le sans modification : tous les types de blocs, dans l'ordre reçu, y compris les blocs <code>thinking</code> dont le texte est vide. Sur Fable 5.2, ce texte est vide par défaut et c'est la <code>signature</code> qui porte le raisonnement.</p>
+  <ul class="prose">
+    <li>Un sérialiseur qui retire les types inconnus ou réordonne les blocs modifie le préfixe de tous les tours suivants.</li>
+    <li>Un sérialiseur qui retire le champ <code>thinking</code> vide provoque une erreur 400. Une <code>signature</code> vide échoue aussi.</li>
+    <li>Un sérialiseur qui saute les blocs vides ne déclenche aucune erreur, mais le modèle perd son raisonnement à chaque tour.</li>
+    <li>Si vous analysez le flux vous-même, gardez le bloc même sans texte : il s'ouvre, reçoit sa signature par un <code>signature_delta</code>, puis se ferme.</li>
+    <li>Pour reprendre une session enregistrée, rejouez exactement ce que vous aviez envoyé et reçu. Ne régénérez rien à partir d'entrées qui ont pu changer (date, fichier d'instructions, version d'outil). Le format JSON et l'ordre des clés n'ont pas d'importance ; les valeurs, si.</li>
+  </ul>
+
+  <h3>Choisir le comportement en cas d'échec</h3>
+  <p class="prose">Le champ <code>thinking.block_binding.prefix_mismatch_behavior</code> décide du sort d'un bloc qui échoue. Il exige l'en-tête <code>thinking-binding-controls-2026-08-01</code> et <code>thinking: {"type": "adaptive", ...}</code> ; sans l'en-tête, l'API répond 400.</p>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Valeur</th><th scope="col">Effet</th><th scope="col">Quand l'utiliser</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>"error"</code> (défaut sur Fable 5.2)</th><td>400 <code>invalid_request_error</code> qui nomme le premier bloc en échec. Renvoyer le même corps échoue de la même façon.</td><td>En production, si une non-correspondance ne peut venir que d'un bogue.</td></tr>
+      <tr><th scope="row"><code>"drop_block"</code></th><td>Le bloc en échec et tous les blocs de réflexion suivants sont retirés, sans être facturés. La requête aboutit, le modèle répond sans ce raisonnement et le cache redémarre à la modification.</td><td>Solution temporaire, le temps de corriger la retouche. Le modèle refait son raisonnement : plus de tokens de sortie, surtout si la suppression a lieu à chaque tour.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="prose">Dans vos journaux, l'erreur commence par <code>Invalid `signature` in `thinking` block</code> et se termine en général par une phrase qui dit ce qui a changé, par exemple l'invite <code>system</code> ou la liste <code>tools</code>. Une signature altérée produit aussi une erreur 400, sans mention de la conversation ; <code>prefix_mismatch_behavior</code> ne s'y applique pas.</p>
+  <p class="prose">Avec l'en-tête, chaque réponse contient un tableau <code>input_transformations</code> (dans <code>message_start</code> en streaming). Chaque entrée nomme un bloc par son <code>path</code>, par exemple <code>messages.3.content.0</code>, et donne une raison :</p>
+  <ul class="prose">
+    <li><code>thinking_dropped</code> + <code>prefix_binding_mismatch</code> : votre code a retouché l'historique. À corriger.</li>
+    <li><code>thinking_dropped</code> + <code>model_binding_mismatch</code> : changement de modèle. Attendu, ce n'est pas un bogue.</li>
+    <li><code>thinking_dropped</code> + <code>organization_binding_mismatch</code> : le bloc vient d'un autre compte.</li>
+    <li><code>thinking_mismatch_allowed</code> : bloc en échec laissé passer. N'apparaît que sur les modèles qui tolèrent encore les retouches, pas sur Fable 5.2.</li>
+  </ul>
+  <p class="prose">Ignorez les types et raisons inconnus : de nouvelles vérifications en ajouteront. Le point de comptage des tokens applique la même vérification. Dans l'API Message Batches, un élément sans <code>prefix_mismatch_behavior</code> voit ses blocs en échec retirés au lieu d'un 400 ; avec <code>"error"</code>, il se résout en <code>errored</code>.</p>
+  <figure class="code"><figcaption><span>Python · tester l'historique avec drop_block</span></figcaption><pre><code data-lang="py">response = client.beta.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    thinking={
+        "type": "adaptive",
+        "block_binding": {"prefix_mismatch_behavior": "drop_block"},
+    },
+    betas=["thinking-binding-controls-2026-08-01"],
+    messages=messages,
+)
+
+for t in response.input_transformations or []:
+    # prefix_binding_mismatch : votre code a retouché l'historique, à corriger.
+    # model_binding_mismatch : changement de modèle, attendu.
+    print(t.type, t.path, t.reason)</code></pre></figure>
+
+  <h3>Réagir à une erreur 400 dans le code</h3>
+  <p class="prose">Ne renvoyez pas le même corps. Réessayez une fois avec l'en-tête et <code>"drop_block"</code>, puis enregistrez ce choix avec la session pour que toutes les requêtes suivantes l'envoient, y compris après un redémarrage. Si vous ne pouvez pas envoyer l'en-tête, retirez le bloc nommé par l'erreur ainsi que tous les blocs <code>thinking</code> et <code>redacted_thinking</code> suivants, laissez-les de côté et continuez. Corrigez ensuite la retouche à l'origine du problème.</p>
+
+  <h3>Tester votre intégration avant la bascule</h3>
+  <ol class="steps">
+    <li><div>Capturez les corps de requête de quelques tours normaux, dont une compaction ou un changement d'outil.</div></li>
+    <li><div>Comparez chaque paire de requêtes consécutives : <code>system</code>, <code>tools</code> et les messages communs doivent être identiques jusqu'aux tours ajoutés.</div></li>
+    <li><div>Rejouez une session multi-tours sur <code>claude-fable-5-2</code> avec l'en-tête <code>thinking-binding-controls-2026-08-01</code> et <code>"drop_block"</code>.</div></li>
+    <li><div>Journalisez <code>input_transformations</code> et corrigez chaque entrée <code>prefix_binding_mismatch</code>. Faites-le même si votre compte n'a jamais déclenché la vérification sur un autre modèle.</div></li>
+    <li><div>Choisissez le réglage de production : <code>"error"</code>, ou <code>"drop_block"</code> à titre temporaire, avec une alerte sur les 400 et sur les entrées <code>input_transformations</code>.</div></li>
+  </ol>
+  <div class="note tip"><span class="tag">Raccourci Claude Code</span><p>Dans Claude Code, la commande <code>/claude-api preserved-thinking-migration</code> audite une intégration existante et propose les corrections.</p></div>
+
+  <h3>Changer de modèle en cours de conversation</h3>
+  <p class="prose">Changez <code>model</code> et continuez à envoyer l'historique complet, blocs de réflexion compris. L'API retire avant le modèle les blocs qu'il ne sait pas lire : sans erreur, sans facturation, sans compter dans <code>input_tokens</code>. Ce retrait ne compte pas comme une retouche, et votre tableau <code>messages</code> n'est jamais modifié : si la conversation revient à un modèle capable de lire ces blocs, il les relit.</p>
+  <div class="split">
+    <div class="safe">
+      <h4>Fable 5.2 lit les blocs de…</h4>
+      <p class="small">Sur l'API Claude et Google Cloud (Google managed).</p>
+      <ul>
+        <li>Mythos 5.2, et ses propres blocs.</li>
+        <li>Fable 5.1, Mythos 5.1, Fable 5, Mythos 5.</li>
+        <li>Opus 5.5, Sonnet 5.5, Haiku 5.5.</li>
+        <li>Opus 5, Opus 4.8, Sonnet 5 et les modèles Opus, Sonnet et Haiku antérieurs.</li>
+      </ul>
+    </div>
+    <div class="unsafe">
+      <h4>Les blocs de Fable 5.2 sont lus par…</h4>
+      <p class="small">Mythos 5.2 uniquement.</p>
+      <ul>
+        <li>Un passage vers Fable 5.1, Opus 5.5, Opus 5 ou Opus 4.8 (cibles de repli comprises) continue sans le raisonnement de Fable 5.2.</li>
+        <li>Le premier tour après le changement coûte plus cher et prend plus de temps.</li>
+        <li>Avec l'en-tête, ces retraits apparaissent comme <code>model_binding_mismatch</code>.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="prose">Si vous rejouez des conversations stockées depuis un autre compte, passez par le compte d'origine ou par un compte lié : sinon, l'API retire les blocs de Fable 5.2.</p>
+
+  <h3>Questions fréquentes</h3>
+  <details class="faq"><summary>Changer l'effort entre deux requêtes invalide-t-il la réflexion ?</summary><p>Non. L'effort, <code>max_tokens</code> et la configuration <code>thinking</code> ne font pas partie du préfixe vérifié. Un changement d'effort de premier niveau redémarre en revanche le cache des prompts ; l'effort par message l'évite.</p></details>
+  <details class="faq"><summary>Comment gérer un CLAUDE.md ou un AGENTS.md qui change en cours de session ?</summary><p>Chargez-le une fois au début et gardez <code>system</code> et <code>tools</code> figés. Quand le fichier change, ajoutez la nouvelle version dans <code>messages</code> : dans un message système si l'instruction vient de vous en tant qu'opérateur, dans le tour <code>user</code> suivant si vous considérez le texte comme non fiable.</p></details>
+  <details class="faq"><summary>Une session enregistrée échoue à chaque requête. Que faire ?</summary><p>L'historique stocké contient une retouche : il échouera toujours tel quel, même après correction du code. Envoyez <code>"drop_block"</code> avec l'en-tête à chaque requête suivante, ou retirez une fois le bloc nommé par l'erreur et tous les blocs de réflexion suivants. La réflexion produite ensuite reste valide tant que rien de ce qui la précède ne change.</p></details>
+  <details class="faq"><summary>Mon harnais route certains tours vers un modèle non Claude. Est-ce un problème ?</summary><p>Non, si ces tours sont ajoutés à la fin et que rien d'antérieur ne change. Envoyez la sortie de l'autre modèle sous forme de blocs <code>text</code> et <code>tool_use</code>.</p></details>
+  <details class="faq"><summary>Je compacte en résumant les vieux tours et en gardant les récents mot pour mot. Cela fonctionne-t-il ?</summary><p>Oui si l'API rédige le résumé (compaction à la demande, en-tête <code>compact-2026-09-04</code>). Si vous rédigez le résumé vous-même, la réflexion des tours conservés échoue : retirez leurs blocs <code>thinking</code> et <code>redacted_thinking</code> en gardant <code>text</code> et <code>tool_use</code>, ou utilisez la compaction simple, un résumé suivi du prochain tour. Ne compactez jamais entre un <code>tool_use</code> et son <code>tool_result</code>.</p></details>
+  <details class="faq"><summary>Puis-je reporter le raisonnement dans une nouvelle conversation ?</summary><p>Non. Un bloc ne sert que dans l'historique exact qui l'a produit ; une branche qui rejoue cet historique sans modification jusqu'au point de bifurcation garde sa réflexion. Démarrez une nouvelle conversation à partir d'un résumé de l'état de la tâche : objectif, décisions, résultats obtenus, prochaine étape.</p></details>
+</section>
+
+<!-- ============ PROMPTS ============ -->
+<section class="chap" id="prompts" aria-labelledby="h-prompts">
+  <span class="eyebrow">system</span>
+  <h2 id="h-prompts">Écrire les prompts</h2>
+  <p class="intro">Fable 5.2 suit les instructions de près, y compris celles que vous aviez écrites pour d'autres modèles. Partez du symptôme observé. Les formulations ci-dessous sont des exemples à adapter, pas le texte officiel d'Anthropic.</p>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Vous observez</th><th scope="col">Piste</th></tr></thead>
+    <tbody>
+      <tr><td>Des requêtes simples trop longues ou trop chères ; un doute sur le niveau d'effort</td><td><a href="#effort">Calibrer l'effort</a></td></tr>
+      <tr><td>Un tour qui s'arrête avant la fin du travail</td><td><a href="#p-finir">Aller au bout</a></td></tr>
+      <tr><td>Vous validez les étapes au fil de l'eau, ou l'invite système contient des règles d'approbation</td><td><a href="#p-approbations">Approbations</a></td></tr>
+      <tr><td>Un agent de code qui duplique au lieu de fusionner, ou signale des problèmes voisins sans les corriger</td><td><a href="#p-propriete">Dire à qui appartient le code</a></td></tr>
+      <tr><td>De longs tours agentiques silencieux</td><td><a href="#p-progression">Tenir l'utilisateur informé</a></td></tr>
+      <tr><td>Plus de sous-agents que la tâche n'en demande</td><td><a href="#p-sous-agents">Cadrer les sous-agents</a></td></tr>
+      <tr><td>Des approbations inutiles, du travail de routine retenu</td><td><a href="#p-prudence">Empêcher la prudence de s'accumuler</a></td></tr>
+      <tr><td>Une invite, des skills ou un harnais repris de Fable 5.1 ou d'Opus 5.5</td><td><a href="#p-heritage">Revoir les instructions héritées</a></td></tr>
+      <tr><td>Des rapports finaux difficiles à suivre</td><td><a href="#p-rapports">Rendre les rapports lisibles</a></td></tr>
+      <tr><td><code>stop_reason: "refusal"</code></td><td><a href="#refus">Refus et repli</a></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="p-finir">Aller au bout</h3>
+  <p class="prose">Sur les tâches longues, Fable 5.2 termine parfois un tour trop tôt : il liste ce qui reste, propose de continuer ou s'arrête devant un obstacle banal comme un délai dépassé. Cela arrive surtout à <code>low</code> et <code>medium</code>. La consigne doit distinguer deux types d'obstacles : les obstacles ordinaires, à diagnostiquer et à contourner, et les blocages voulus, à respecter et à signaler.</p>
+  <figure class="code"><figcaption><span>Exemple de formulation · invite système</span></figcaption><pre><code data-lang="text"># Aller au bout
+Ne t'arrête pas tant qu'il reste du travail demandé que tu peux faire.
+Une erreur, un délai dépassé, un résultat vide ou un outil en échec n'est pas un blocage :
+diagnostique, puis contourne avec ce que tu as (attendre et réessayer, corriger la requête,
+passer par un autre outil ou une autre source).
+Un blocage voulu se respecte : fichier marqué intouchable, accès retiré exprès, garde-fou
+de sécurité. Laisse-le, dis clairement ce que tu as trouvé et cherche une autre voie sûre.
+Ne t'arrête que si la suite dépend vraiment d'une réponse de l'utilisateur.
+Les actions risquées ou irréversibles demandent toujours une confirmation.</code></pre></figure>
+  <p class="prose muted small">Mesure d'Anthropic, sur des sessions de code rejouées à <code>medium</code> avec une consigne de ce type : environ deux fois moins de sessions finies avec du travail faisable en suspens, et environ 30 % de tokens de sortie en plus. Les fins qui demandent la permission disparaissent presque ; celles qui listent le reste puis s'arrêtent, non. Comme le modèle demande moins souvent, gardez votre propre confirmation pour les actions risquées.</p>
+
+  <h3 id="p-approbations">Approbations</h3>
+  <ul class="prose">
+    <li>Quand vous dites au modèle de continuer, nommez ce que vous approuvez. « Oui, applique le correctif sur la branche staging et relance les tests » vaut mieux qu'un « vas-y » ou un pouce levé.</li>
+    <li>Dans l'invite système, une règle d'approbation doit nommer les actions exactes qu'elle couvre : le modèle l'applique au pied de la lettre. Lors d'un test d'Anthropic, une règle qui soumettait à approbation les messages envoyés hors de la conversation a fait retenir au modèle environ la moitié de ses demandes de routine à des collègues.</li>
+  </ul>
+
+  <h3 id="p-propriete">Dire à qui appartient le code</h3>
+  <p class="prose">Fable 5.2 réagit de près à ce que dit le prompt sur la propriété du code. Si le prompt n'en dit rien, ou présente le code comme celui d'un autre, le modèle ajoute à la structure existante, quitte à dupliquer, et signale les problèmes voisins sans les corriger. Si vous voulez qu'il améliore la structure en chemin, dites que le code est à lui.</p>
+  <figure class="code"><figcaption><span>Exemple de formulation</span></figcaption><pre><code data-lang="text">Ce dépôt est le tien : son but et son architecture relèvent de tes choix, et tu continueras
+à le faire évoluer.</code></pre></figure>
+  <ul class="prose">
+    <li>Mesure d'Anthropic sur de petites tâches : code dupliqué fusionné dans environ la moitié des essais avec la phrase, contre moins d'un sur dix sans. La fonctionnalité demandée marchait presque toujours dans les deux cas.</li>
+    <li>Contrepartie : environ 1,5 fois plus de tokens de sortie, des changements non demandés (tests, documentation), et un comportement existant modifié dans un essai sur six à dix, plus souvent à effort élevé. Le résumé final omet souvent les petits changements : relisez le diff.</li>
+    <li>Omettez la phrase quand le code appartient à l'utilisateur et qu'il veut le moins de changements possible. Une règle de périmètre ailleurs dans le prompt ne l'annule pas : avec une interdiction des refactorisations opportunistes, le modèle fusionnait encore dans un tiers des essais.</li>
+  </ul>
+
+  <h3 id="p-progression">Tenir l'utilisateur informé</h3>
+  <p class="prose">Pendant les longues séries d'appels d'outils, Fable 5.2 écrit parfois peu de texte destiné à l'utilisateur, et peut lancer son premier outil sans annoncer ce qu'il fait. Commencez par vérifier que votre client affiche les <a href="#reflexion">mises à jour de progression</a> : avec le <code>display</code> par défaut, elles sont vides.</p>
+  <ol class="steps">
+    <li><div><strong>Rendre les mises à jour visibles.</strong> <code>display: "updates"</code> (bêta) ou <code>"summarized"</code>, puis affichage des blocs <code>thinking</code> non vides entre les appels d'outils.</div></li>
+    <li><div><strong>Relancer depuis le harnais.</strong> Comptez les étapes d'outils consécutives sans rien de lisible (ni bloc <code>text</code>, ni bloc <code>thinking</code> non vide). Au-delà de quelques-unes, ajoutez après les derniers résultats d'outils un message système limité au tour (<code>clear_at: "next_user_message"</code>, en-tête <code>mid-conversation-system-clear-at-2026-08-21</code>) qui demande un point en quelques mots. Laissez chaque rappel en place dans <code>messages</code>. Mesure d'Anthropic : la plus longue période silencieuse divisée par deux environ, sans hausse notable des tokens ni du temps.</div></li>
+    <li><div><strong>Demander une annonce et un récapitulatif.</strong> Utile quand un humain suit en direct ; environ 20 % de tokens de sortie en plus, et le modèle s'est exprimé avant son premier outil à chaque fois.</div></li>
+  </ol>
+  <figure class="code"><figcaption><span>Exemples de formulation</span></figcaption><pre><code data-lang="text">Rappel du harnais (message système limité au tour) :
+L'utilisateur n'a pas de nouvelles depuis un moment : dis en quelques mots ce que tu fais,
+puis continue.
+
+Invite système, annonce et récapitulatif :
+Avant de commencer, annonce en une ligne ce que tu vas faire, et donne de brèves nouvelles
+pendant le travail. Termine par un récapitulatif qui se suffit à lui-même : ce que tu as
+trouvé, ce que tu as fait, la suite.
+
+Sans accès au harnais :
+Tous les quelques appels d'outils, donne en une ligne l'état d'avancement.</code></pre></figure>
+  <p class="prose muted small">Même ainsi, attendez-vous à plusieurs appels d'outils entre deux nouvelles. Sur les tâches asynchrones, où l'utilisateur revient chercher le résultat, ces intervalles comptent moins.</p>
+
+  <h3 id="p-sous-agents">Cadrer les sous-agents</h3>
+  <ul class="prose">
+    <li>La délégation dépend du harnais : avec un outil minimal de lancement de sous-agents, Fable 5.2 en lance rarement ; dans un produit dont les prompts invitent à déléguer, il délègue volontiers.</li>
+    <li>Relisez d'abord les lignes qui demandent de déléguer dans l'invite système, les skills et les fichiers d'agent. Ne réécrivez la description de l'outil de délégation que si le modèle lance encore trop de sous-agents.</li>
+    <li>Une bonne description dit, dans cet ordre : ce qu'un sous-agent ajoute au coût de la session, quand la délégation vaut la peine et quand elle ne la vaut pas, et comment briefer le sous-agent. Mesure d'Anthropic : environ un tiers de délégations en moins, à taux de réussite égal. Parlez moins du coût si le modèle délègue trop peu.</li>
+    <li>À <code>xhigh</code> et <code>max</code>, le modèle peut lancer des sous-agents pour relire son propre travail. Il fait un bon planificateur et orchestrateur d'autres modèles. Vérifiez sur quel modèle votre harnais exécute les sous-agents par défaut : ils peuvent peser lourd dans le coût.</li>
+  </ul>
+
+  <h3 id="p-prudence">Empêcher la prudence de s'accumuler</h3>
+  <p class="prose">Les consignes prudentes s'empilent partout où le contexte se transmet : mémoire, notes, fichiers d'instructions, messages entre agents. Fable 5.2 les suit de près et peut demander des approbations inutiles ou retenir du travail de routine, surtout dans les systèmes multi-agents.</p>
+  <ul class="prose">
+    <li><strong>Supprimez les notes devenues inutiles.</strong> Lors d'un test, une seule note « ne jamais réessayer » parmi une douzaine a fait tomber les nouvelles tentatives après un outil occupé à environ quatre essais sur dix, contre presque tous sans elle.</li>
+    <li><strong>Nommez les étapes qui ne demandent aucune approbation.</strong> Une ligne qui range les nouvelles tentatives parmi elles les a fait passer de presque aucune à environ la moitié des essais ; une consigne générale d'agir plus librement n'a rien changé. Ne nommez les nouvelles tentatives que pour les appels sûrs à répéter.</li>
+    <li><strong>Vérifiez ce qu'ajoutent les agents relecteurs.</strong> Un « arrête-toi à la première erreur » venu d'un relecteur a suffi à bloquer les nouvelles tentatives dans un tiers des essais.</li>
+    <li><strong>Intégrez l'exception dans la règle elle-même.</strong> Une étape approuvée sous une règle « jamais » n'était faite qu'une fois sur dix avec une ligne d'exception séparée, et neuf fois sur dix quand la règle disait elle-même d'obtenir d'abord un feu vert.</li>
+  </ul>
+
+  <h3 id="p-heritage">Revoir les instructions héritées</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Instruction reprise</th><th scope="col">Effet sur Fable 5.2</th><th scope="col">Que faire</th></tr></thead>
+    <tbody>
+      <tr><td>Lignes permanentes qui poussent à déléguer</td><td>Plus de sous-agents que nécessaire</td><td>Supprimez celles dont vous n'avez plus besoin.</td></tr>
+      <tr><td>Budget de tokens écrit dans le prompt par le harnais</td><td>Sa taille change ce que le modèle dépense</td><td>Testez sans. Retirer un gros budget a réduit le coût à résultats égaux à <code>high</code> et <code>xhigh</code>. (Cela ne concerne pas les budgets de tâche de l'API.)</td></tr>
+      <tr><td>Code de harnais qui retouche les tours précédents</td><td>Erreurs 400, ou réflexion perdue avec <code>drop_block</code></td><td>Historique en ajout seul (voir <a href="#preservee">Réflexion préservée</a>).</td></tr>
+      <tr><td>Lignes « considère la réponse précédente comme terminée »</td><td>Moins de réflexion sur les questions de suivi, mais le modèle signale beaucoup moins ses propres erreurs passées</td><td>Retirez-les là où vous voulez qu'il réexamine ses réponses.</td></tr>
+      <tr><td>Consignes « réfléchis moins », « réponds sans délibérer »</td><td>Sans effet dès <code>medium</code></td><td>Supprimez-les et baissez l'effort.</td></tr>
+      <tr><td>Règles de style strictes (une instruction par phrase, 20 mots au plus…)</td><td>Prose hachée</td><td>Gardez seulement celles qui servent.</td></tr>
+      <tr><td>Règles, notes et mémoires accumulées</td><td>Prudence excessive</td><td>Élaguez, donnez un périmètre et une raison aux règles absolues. Un système bloqué peut redémarrer avec une mémoire élaguée ; gardez une copie des originaux.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="p-rapports">Rendre les rapports lisibles</h3>
+  <p class="prose">Après un long travail agentique, le lecteur du rapport final n'a vu ni les appels d'outils ni les fichiers. Demandez un texte qui se suffit à lui-même.</p>
+  <figure class="code"><figcaption><span>Exemple de formulation · invite système</span></figcaption><pre><code data-lang="text"># Écrire pour être compris
+Écris pour un lecteur intelligent qui n'a pas suivi ton travail : il n'a vu ni tes appels
+d'outils, ni ton raisonnement, ni les fichiers ouverts, et il revient peut-être d'autre chose.
+Donne l'essentiel dans les premières phrases, puis le détail. N'emploie aucun terme ni sigle
+inventé pendant le travail : dis ce qu'est la chose en mots que tout lecteur comprend.
+Fais des phrases courtes et complètes, à la voix active, une idée par phrase, et garde le même
+mot pour la même chose (dans l'esprit de l'anglais technique simplifié ASD-STE100).
+Garde la prose pour les idées liées et les listes pour les éléments séparés.
+Sois concis sans retirer le contexte nécessaire.</code></pre></figure>
+  <p class="prose muted small">Mesure d'Anthropic avec une consigne de ce type : des rapports moins denses, moins de points-virgules et, sur l'automatisation de flux, des phrases plus courtes. Retirez d'abord les anciennes règles de style.</p>
+
+  <h3>Par où commencer</h3>
+  <ol class="steps">
+    <li><div>Fixez explicitement <code>effort</code> à <code>high</code>, puis lancez aussi vos évaluations à <code>medium</code> et <code>xhigh</code>.</div></li>
+    <li><div>Relisez invites système, skills, fichiers d'agent, mémoires, notes et textes de harnais repris. Supprimez ou testez les instructions héritées listées plus haut.</div></li>
+    <li><div>Exécutez vos tâches agentiques les plus longues. Notez où le modèle s'arrête trop tôt, demande des approbations inutiles, se tait, délègue trop ou ajoute là où vous vouliez qu'il restructure.</div></li>
+    <li><div>Appliquez une recommandation à la fois et mesurez son effet et son coût en tokens sur vos propres tâches.</div></li>
+  </ol>
+</section>
+
+<!-- ============ MIGRATION ============ -->
+<section class="chap" id="migration" aria-labelledby="h-migration">
+  <span class="eyebrow">model</span>
+  <h2 id="h-migration">Migrer vers Fable 5.2</h2>
+  <p class="intro">Choisissez votre modèle de départ. Chaque onglet liste ce qui casse, ce qui change, puis une liste de contrôle que vous pouvez cocher ; vos coches restent dans ce navigateur.</p>
+  <div class="note tip"><span class="tag">Raccourci Claude Code</span><p>La commande <code>/claude-api migrate</code> peut réaliser la migration, par exemple « /claude-api migrate ce projet vers claude-fable-5-2 ». Si votre agent Managed Agents a un conseiller advisor, son <code>model</code> est un second nom à mettre à jour.</p></div>
+
+  <div class="tabs">
+    <div role="tablist" aria-label="Modèle de départ">
+      <button role="tab" type="button" id="tab-f51" aria-controls="pan-f51" aria-selected="true">Fable 5.1</button>
+      <button role="tab" type="button" id="tab-o55" aria-controls="pan-o55" aria-selected="false" tabindex="-1">Opus 5.5</button>
+      <button role="tab" type="button" id="tab-f50" aria-controls="pan-f50" aria-selected="false" tabindex="-1">Fable 5</button>
+      <button role="tab" type="button" id="tab-o50" aria-controls="pan-o50" aria-selected="false" tabindex="-1">Opus 5</button>
+      <button role="tab" type="button" id="tab-o48" aria-controls="pan-o48" aria-selected="false" tabindex="-1">Opus 4.8 et avant</button>
+      <button role="tab" type="button" id="tab-myt" aria-controls="pan-myt" aria-selected="false" tabindex="-1">Mythos</button>
+    </div>
+
+    <div role="tabpanel" id="pan-f51" aria-labelledby="tab-f51" tabindex="0">
+      <p>Migration en grande partie transparente : même surface d'API, même réflexion toujours active, même gestion des refus, mêmes catégories <code>stop_details</code>, même conservation des données. Fable 5.2 coûte moins cher : 8 $ / 40 $ par MTok contre 10 $ / 50 $, et 0,20 $ contre 0,25 $ pour la lecture du cache.</p>
+      <h4>Ce qui peut casser</h4>
+      <ul>
+        <li><strong>La vérification du préfixe vaut pour tous les comptes.</strong> Fable 5.1 ne l'impose par défaut qu'aux comptes créés depuis le 31 août 2026 : sur un compte plus ancien, des requêtes qui passaient peuvent échouer en 400.</li>
+        <li><strong>Fable 5.1 ne lit pas les blocs de Fable 5.2</strong> (l'inverse fonctionne). Un routeur, une nouvelle tentative ou un repli qui repasse sur 5.1 continue sans le raisonnement.</li>
+        <li><strong><code>computer_20251124</code> renvoie 400</strong> hors Amazon Bedrock. Déclarez <code>computer_toolset_20260801</code> sans <code>name</code> ni dimensions d'affichage, retirez l'en-tête bêta et adaptez la boucle d'agent.</li>
+        <li><strong>Outil advisor :</strong> un exécuteur Fable 5.2 n'accepte que Fable 5.2 ou Mythos 5.2 comme conseiller. Changer le conseiller modifie <code>tools</code> : faites-le dans de nouvelles conversations. Un conseiller Fable 5.2 renvoie des conseils chiffrés.</li>
+      </ul>
+      <h4>Ce qui change dans le comportement</h4>
+      <ul>
+        <li>Une consigne « réponds sans délibérer » n'empêche plus la réflexion dès <code>medium</code> : supprimez-la et baissez l'effort.</li>
+        <li>À <code>xhigh</code> et <code>max</code>, le modèle peut lancer des sous-agents pour relire son travail.</li>
+        <li>Un <code>max_tokens</code> bas qui suffisait sur 5.1 peut s'épuiser dans la réflexion, avant tout texte.</li>
+      </ul>
+      <div class="cl" data-checklist="f51">
+        <div class="cl-head"><h4>Liste de contrôle</h4><span class="progress"><span class="count">0 / 10</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Tout décocher</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="f51-1"><label for="f51-1">Remplacer <code>claude-fable-5-1</code> par <code>claude-fable-5-2</code>.</label></li>
+          <li><input type="checkbox" id="f51-2"><label for="f51-2">Vérifier les limites de débit : Fable 5.2 a sa propre limite.</label></li>
+          <li><input type="checkbox" id="f51-3"><label for="f51-3">Remplacer <code>computer_20251124</code> par <code>computer_toolset_20260801</code> (hors Bedrock).</label></li>
+          <li><input type="checkbox" id="f51-4"><label for="f51-4">Mettre le conseiller advisor sur <code>claude-fable-5-2</code> ou <code>claude-mythos-5-2</code>.</label></li>
+          <li><input type="checkbox" id="f51-5"><label for="f51-5">Rejouer une session avec <code>thinking-binding-controls-2026-08-01</code> et <code>"drop_block"</code>, puis corriger chaque <code>prefix_binding_mismatch</code>.</label></li>
+          <li><input type="checkbox" id="f51-6"><label for="f51-6">Choisir <code>prefix_mismatch_behavior</code> pour la production et surveiller les 400 ou <code>input_transformations</code>.</label></li>
+          <li><input type="checkbox" id="f51-7"><label for="f51-7">Renvoyer les blocs <code>thinking</code> intacts à chaque tour, y compris vides.</label></li>
+          <li><input type="checkbox" id="f51-8"><label for="f51-8">Rejouer les conversations stockées via le compte d'origine ou un compte lié.</label></li>
+          <li><input type="checkbox" id="f51-9"><label for="f51-9">Refaire le balayage d'effort et les références de coût et de latence.</label></li>
+          <li><input type="checkbox" id="f51-10"><label for="f51-10">Relire invites système, skills et instructions héritées.</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div role="tabpanel" id="pan-o55" aria-labelledby="tab-o55" tabindex="0" hidden>
+      <p>Même API Messages, même réflexion toujours active, même refus du <code>tool_choice</code> forcé : ces parties de vos requêtes restent valables. Les écarts portent sur la conservation des données, le coût, l'effort par défaut et le repli.</p>
+      <h4>Ce qui change</h4>
+      <ul>
+        <li><strong>Conservation de 30 jours obligatoire.</strong> En ZDR, chaque requête renvoie 400 tant que la conservation n'est pas activée pour un espace de travail.</li>
+        <li><strong>Vérification du préfixe pour tous les comptes</strong> (Opus 5.5 ne l'impose qu'aux comptes créés depuis le 31 août 2026).</li>
+        <li><strong>Opus 5.5 ne lit pas les blocs de Fable 5.2.</strong> Fable 5.2 lit ceux d'Opus 5.5.</li>
+        <li><strong>Refus :</strong> gérez toutes les catégories <code>stop_details</code>, pas seulement celles vues sur Opus 5.5. Repli : <code>fallbacks: "default"</code> (bêta) ou liste limitée à <code>claude-opus-4-8</code> et <code>claude-opus-5</code>. Les refus <code>reasoning_extraction</code> ne sont pas relancés.</li>
+        <li><strong>Prix :</strong> 8 $ / 40 $ contre 4 $ / 20 $, cache à 0,20 $ pour les deux. Mode rapide : 16 $ / 80 $ contre 8 $ / 40 $.</li>
+        <li><strong>CMEK :</strong> pas de sorties structurées pour Fable 5.2.</li>
+        <li><strong>Effort par défaut <code>high</code></strong> contre <code>medium</code> : une requête sans effort tourne un cran plus haut, plus chère et plus lente, sans erreur.</li>
+        <li><strong>Advisor :</strong> conseiller Fable 5.2 ou Mythos 5.2 uniquement.</li>
+        <li><strong>Limites de débit</strong> distinctes, plus basses en tokens à chaque niveau.</li>
+      </ul>
+      <div class="cl" data-checklist="o55">
+        <div class="cl-head"><h4>Liste de contrôle</h4><span class="progress"><span class="count">0 / 11</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Tout décocher</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="o55-1"><label for="o55-1">En ZDR : activer la conservation de 30 jours pour l'espace de travail, avant tout.</label></li>
+          <li><input type="checkbox" id="o55-2"><label for="o55-2">Remplacer <code>claude-opus-5-5</code> par <code>claude-fable-5-2</code>.</label></li>
+          <li><input type="checkbox" id="o55-3"><label for="o55-3">Vérifier les limites de débit.</label></li>
+          <li><input type="checkbox" id="o55-4"><label for="o55-4">Tester l'historique (préfixe), même si Opus 5.5 n'a jamais déclenché la vérification.</label></li>
+          <li><input type="checkbox" id="o55-5"><label for="o55-5">Gérer chaque <code>stop_details.category</code> ; limiter <code>fallbacks</code> aux cibles autorisées.</label></li>
+          <li><input type="checkbox" id="o55-6"><label for="o55-6">Prévoir que les tours renvoyés vers Opus 5.5 perdent la réflexion de Fable 5.2.</label></li>
+          <li><input type="checkbox" id="o55-7"><label for="o55-7">Rejouer les conversations stockées via le compte d'origine ou un compte lié.</label></li>
+          <li><input type="checkbox" id="o55-8"><label for="o55-8">Mode rapide : garder <code>speed: "fast"</code> seulement là où il est disponible ; sur Foundry, viser <code>claude-fable-5-2-fast</code>.</label></li>
+          <li><input type="checkbox" id="o55-9"><label for="o55-9">CMEK : retirer <code>strict: true</code> et <code>output_config.format</code>, valider en code.</label></li>
+          <li><input type="checkbox" id="o55-10"><label for="o55-10">Fixer <code>effort</code> explicitement, puis refaire le balayage et les références de coût.</label></li>
+          <li><input type="checkbox" id="o55-11"><label for="o55-11">Mettre le conseiller advisor sur <code>claude-fable-5-2</code> ou <code>claude-mythos-5-2</code> et relire les instructions héritées.</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div role="tabpanel" id="pan-f50" aria-labelledby="tab-f50" tabindex="0" hidden>
+      <p>Même surface d'API, même fenêtre de contexte, même tokenizer, même réflexion toujours active et même gestion des refus que Fable 5.</p>
+      <h4>Ce qui casse</h4>
+      <ul>
+        <li><strong><code>tool_choice</code> forcé :</strong> <code>any</code> et <code>tool</code> renvoient 400, y compris au comptage des tokens. Gardez <code>auto</code>, nommez l'outil dans la consigne et ajoutez <code>strict: true</code>, ou passez par une sortie JSON. Si l'appel est obligatoire à ce tour, ajoutez un message système en cours de conversation après le dernier tour <code>user</code>. <code>none</code> fonctionne toujours.</li>
+        <li><strong>Historique retouché :</strong> 400 pour tous les comptes ; Fable 5 ne vérifiait rien.</li>
+        <li><strong>Fable 5 ne lit pas les blocs de Fable 5.2</strong> (l'inverse fonctionne).</li>
+        <li><strong>Computer use :</strong> <code>computer_toolset_20260801</code> à la place de <code>computer_20251124</code>, hors Bedrock.</li>
+        <li><strong>Advisor :</strong> Fable 5.2 ou Mythos 5.2 seulement ; Fable 5 et Opus 5.5 ne sont plus acceptés comme conseillers.</li>
+      </ul>
+      <h4>Autres changements</h4>
+      <ul>
+        <li>Prix : 8 $ / 40 $ contre 10 $ / 50 $ ; lecture du cache à 0,20 $ contre 1 $.</li>
+        <li>Pas de Priority Tier, contrairement à Fable 5.</li>
+        <li>Effort par message disponible (bêta).</li>
+      </ul>
+      <div class="cl" data-checklist="f50">
+        <div class="cl-head"><h4>Liste de contrôle</h4><span class="progress"><span class="count">0 / 10</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Tout décocher</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="f50-1"><label for="f50-1">Remplacer <code>claude-fable-5</code> par <code>claude-fable-5-2</code> et vérifier les limites de débit.</label></li>
+          <li><input type="checkbox" id="f50-2"><label for="f50-2">Remplacer le <code>tool_choice</code> forcé par <code>auto</code>, une consigne explicite et <code>strict: true</code> (ou une sortie JSON).</label></li>
+          <li><input type="checkbox" id="f50-3"><label for="f50-3">Rejouer une session avec <code>"drop_block"</code> et corriger chaque <code>prefix_binding_mismatch</code>.</label></li>
+          <li><input type="checkbox" id="f50-4"><label for="f50-4">Passer en historique en ajout seul : <code>system</code> et <code>tools</code> figés, messages système pour les changements.</label></li>
+          <li><input type="checkbox" id="f50-5"><label for="f50-5">Choisir <code>prefix_mismatch_behavior</code> pour la production.</label></li>
+          <li><input type="checkbox" id="f50-6"><label for="f50-6">Renvoyer les blocs <code>thinking</code> intacts, y compris vides.</label></li>
+          <li><input type="checkbox" id="f50-7"><label for="f50-7">Remplacer <code>computer_20251124</code> et mettre à jour le conseiller advisor.</label></li>
+          <li><input type="checkbox" id="f50-8"><label for="f50-8">Déplacer les changements d'effort vers l'effort par message.</label></li>
+          <li><input type="checkbox" id="f50-9"><label for="f50-9">Gérer <code>stop_reason: "refusal"</code> et envisager <code>fallbacks: "default"</code>.</label></li>
+          <li><input type="checkbox" id="f50-10"><label for="f50-10">Refaire le balayage d'effort et relire les instructions héritées.</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div role="tabpanel" id="pan-o50" aria-labelledby="tab-o50" tabindex="0" hidden>
+      <p>Même API Messages, même contexte de 1 M, mêmes 128 k de sortie, même minimum de 512 tokens pour le cache, mêmes restrictions sur le préremplissage et l'échantillonnage. Le reste change beaucoup.</p>
+      <h4>Ce qui change</h4>
+      <ul>
+        <li><strong>La réflexion ne se désactive plus.</strong> Retirez <code>thinking: {"type": "disabled"}</code>, contrôlez la dépense par l'effort, revoyez <code>max_tokens</code> et lisez les blocs par <code>type</code>.</li>
+        <li><strong><code>tool_choice</code> forcé :</strong> 400.</li>
+        <li><strong>Historique retouché :</strong> 400 pour tous les comptes ; Opus 5 ne vérifiait rien.</li>
+        <li><strong>Opus 5 ne lit pas les blocs de Fable 5.2</strong> (l'inverse fonctionne).</li>
+        <li><strong>Narration entre les appels d'outils :</strong> elle arrive en blocs <code>thinking</code> de progression, plus en blocs <code>text</code>. Pour l'afficher : <code>display: "updates"</code> ou <code>"summarized"</code>.</li>
+        <li><strong>Computer use :</strong> toolset <code>computer_toolset_20260801</code>, hors Bedrock.</li>
+        <li><strong>Classificateurs plus larges</strong> (catégories en plus, comme <code>bio</code>) : gérez-les toutes ; repli possible.</li>
+        <li><strong>Prix :</strong> 8 $ / 40 $ contre 5 $ / 25 $ ; cache à 0,20 $ contre 0,50 $. Mode rapide sans en-tête, 16 $ / 80 $ contre 10 $ / 50 $.</li>
+        <li><strong>Conservation de 30 jours :</strong> Opus 5 était disponible en ZDR, pas Fable 5.2.</li>
+        <li><strong>CMEK :</strong> pas de sorties structurées. <strong>Advisor :</strong> Fable 5.2 ou Mythos 5.2. <strong>Limites de débit</strong> plus basses en tokens.</li>
+      </ul>
+      <div class="cl" data-checklist="o50">
+        <div class="cl-head"><h4>Liste de contrôle</h4><span class="progress"><span class="count">0 / 10</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Tout décocher</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="o50-1"><label for="o50-1">En ZDR : activer la conservation de 30 jours, avant tout.</label></li>
+          <li><input type="checkbox" id="o50-2"><label for="o50-2">Remplacer <code>claude-opus-5</code> par <code>claude-fable-5-2</code> et vérifier les limites de débit.</label></li>
+          <li><input type="checkbox" id="o50-3"><label for="o50-3">Retirer <code>thinking: disabled</code>, revoir <code>max_tokens</code>, lire les blocs par type.</label></li>
+          <li><input type="checkbox" id="o50-4"><label for="o50-4">Renvoyer les blocs <code>thinking</code> intacts, avec les résultats d'outils.</label></li>
+          <li><input type="checkbox" id="o50-5"><label for="o50-5">Remplacer le <code>tool_choice</code> forcé.</label></li>
+          <li><input type="checkbox" id="o50-6"><label for="o50-6">Tester l'historique et passer en ajout seul.</label></li>
+          <li><input type="checkbox" id="o50-7"><label for="o50-7">Afficher les mises à jour de progression si l'interface montrait la narration.</label></li>
+          <li><input type="checkbox" id="o50-8"><label for="o50-8">Remplacer <code>computer_20251124</code> et mettre à jour le conseiller advisor.</label></li>
+          <li><input type="checkbox" id="o50-9"><label for="o50-9">Gérer chaque catégorie de refus ; limiter <code>fallbacks</code> aux cibles autorisées.</label></li>
+          <li><input type="checkbox" id="o50-10"><label for="o50-10">Mode rapide et CMEK selon votre cas ; refaire le balayage d'effort ; relire les instructions héritées.</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div role="tabpanel" id="pan-o48" aria-labelledby="tab-o48" tabindex="0" hidden>
+      <p>Suivez d'abord l'onglet <strong>Opus 5</strong>, avec <code>claude-opus-4-8</code> comme identifiant à remplacer : Opus 4.8 accepte lui aussi la réflexion désactivée, le <code>tool_choice</code> forcé, <code>computer_20251124</code> et la ZDR. S'ajoutent les points suivants.</p>
+      <ul>
+        <li><strong>La réflexion tourne même sans champ <code>thinking</code>.</strong> Sur Opus 4.8 elle était désactivée par défaut. Des blocs <code>thinking</code> précèdent désormais le texte, facturés en sortie et comptés dans <code>max_tokens</code>. Fable 5.2 lit les blocs d'Opus 4.8 si une conversation bascule.</li>
+        <li><strong>Cache dès 512 tokens</strong> au lieu de 1 024 : des prompts courts créent maintenant des entrées de cache.</li>
+        <li><strong>Pas de Priority Tier</strong> (Opus 4.8 l'acceptait).</li>
+        <li><strong>Conseils advisor chiffrés</strong> (<code>advisor_redacted_result</code>) : votre code ne peut plus lire leur texte.</li>
+        <li><strong>Opus 4.7 ou antérieur :</strong> appliquez aussi les groupes de la liste de contrôle du guide Opus 5.5 qui concernent votre modèle (paramètres d'échantillonnage, anciens en-têtes bêta…). En CMEK, retirez <code>output_format</code> et validez le JSON en code.</li>
+      </ul>
+      <div class="cl" data-checklist="o48">
+        <div class="cl-head"><h4>Liste de contrôle</h4><span class="progress"><span class="count">0 / 6</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Tout décocher</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="o48-1"><label for="o48-1">Dérouler la liste de l'onglet Opus 5.</label></li>
+          <li><input type="checkbox" id="o48-2"><label for="o48-2">Revoir les charges qui tournaient sans <code>thinking</code> : <code>max_tokens</code>, effort, lecture par type.</label></li>
+          <li><input type="checkbox" id="o48-3"><label for="o48-3">Traiter le champ <code>thinking</code> comme du texte d'affichage ; <code>display: "summarized"</code> pour des résumés lisibles.</label></li>
+          <li><input type="checkbox" id="o48-4"><label for="o48-4">Examiner les prompts proches du seuil de cache (512 tokens).</label></li>
+          <li><input type="checkbox" id="o48-5"><label for="o48-5">Supprimer toute dépendance au texte des conseils advisor ; planifier la capacité sans Priority Tier.</label></li>
+          <li><input type="checkbox" id="o48-6"><label for="o48-6">Refaire le balayage d'effort plutôt que reprendre le réglage d'Opus 4.8.</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div role="tabpanel" id="pan-myt" aria-labelledby="tab-myt" tabindex="0" hidden>
+      <p>Claude Mythos 5.2 est l'équivalent de Fable 5.2 pour les organisations vérifiées. Confirmez votre accès avant de changer d'identifiant (<code>claude-mythos-5-2</code>). Mythos 5.2 partage une limite de débit combinée avec Mythos 5.1 et Mythos 5.</p>
+      <h4>Depuis Mythos 5.1</h4>
+      <ul>
+        <li>Vérification du préfixe pour tous les comptes. Sur Amazon Bedrock, Mythos 5.2 renvoie 400 pour un historique retouché, là où Mythos 5.1 l'acceptait.</li>
+        <li>Mythos 5.2 lit les blocs de Mythos 5.1 ; l'inverse est faux.</li>
+        <li>Advisor : Mythos 5.2 ou Fable 5.2 seulement. Computer use : <code>computer_toolset_20260801</code> hors Bedrock.</li>
+        <li>Prix : 8 $ / 40 $ contre 10 $ / 50 $ ; cache à 0,20 $ contre 0,25 $.</li>
+      </ul>
+      <h4>Depuis Mythos 5</h4>
+      <ul>
+        <li><code>tool_choice</code> forcé refusé, historique retouché refusé, toolset computer use, conseiller Fable 5.2 ou Mythos 5.2.</li>
+        <li>Mythos 5.2 lit les blocs de Mythos 5 ; l'inverse est faux.</li>
+        <li>Prix : 8 $ / 40 $ contre 10 $ / 50 $ ; cache à 0,20 $ contre 1 $.</li>
+      </ul>
+      <div class="cl" data-checklist="myt">
+        <div class="cl-head"><h4>Liste de contrôle</h4><span class="progress"><span class="count">0 / 6</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Tout décocher</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="myt-1"><label for="myt-1">Confirmer l'accès à Mythos 5.2 et changer l'identifiant.</label></li>
+          <li><input type="checkbox" id="myt-2"><label for="myt-2">Remplacer <code>computer_20251124</code> et mettre à jour le conseiller advisor.</label></li>
+          <li><input type="checkbox" id="myt-3"><label for="myt-3">Depuis Mythos 5 : remplacer le <code>tool_choice</code> forcé.</label></li>
+          <li><input type="checkbox" id="myt-4"><label for="myt-4">Tester l'historique sur <code>claude-mythos-5-2</code> et passer en ajout seul.</label></li>
+          <li><input type="checkbox" id="myt-5"><label for="myt-5">Renvoyer les blocs <code>thinking</code> intacts ; rejouer les conversations via le compte d'origine.</label></li>
+          <li><input type="checkbox" id="myt-6"><label for="myt-6">Gérer <code>stop_reason: "refusal"</code>, refaire le balayage d'effort, relire les instructions héritées.</label></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REFUS ============ -->
+<section class="chap" id="refus" aria-labelledby="h-refus">
+  <span class="eyebrow">stop_reason: "refusal"</span>
+  <h2 id="h-refus">Refus et repli</h2>
+  <p class="intro">Fable 5.2 exécute des classificateurs de sécurité. Quand l'un d'eux décline une requête, vous recevez une réponse normale, HTTP 200, avec <code>stop_reason: "refusal"</code>. La même requête aboutit en général sur un autre modèle Claude : c'est le principe du repli.</p>
+
+  <h3>À quoi ressemble un refus</h3>
+  <figure class="code"><figcaption><span>JSON · réponse refusée avant toute sortie</span></figcaption><pre><code data-lang="json">{
+  "model": "claude-fable-5-2",
+  "content": [],
+  "stop_reason": "refusal",
+  "stop_details": {
+    "type": "refusal",
+    "category": "cyber",
+    "explanation": "…"
+  },
+  "usage": { "input_tokens": 412, "output_tokens": 0 }
+}</code></pre></figure>
+  <ul class="prose">
+    <li><code>category</code> nomme le domaine concerné. <code>explanation</code> est un texte lisible mais instable : affichez-le, ne l'analysez pas. Les deux peuvent valoir <code>null</code>, de façon normale et permanente.</li>
+    <li><code>recommended_model</code> n'apparaît qu'avec <code>fallbacks</code> : il nomme un modèle à essayer directement quand l'API a sauté la tentative de repli, par exemple faute de débit. C'est une indication, pas une garantie.</li>
+    <li><code>stop_details</code> vaut <code>null</code> pour toute autre raison d'arrêt. Branchez votre code sur <code>stop_reason</code> ou <code>stop_details.type</code>, jamais sur <code>content</code>.</li>
+    <li>Un refus peut aussi survenir en cours de streaming, après une sortie partielle. Considérez cette sortie comme incomplète et écartez-la.</li>
+  </ul>
+
+  <h3>Catégories et facturation</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col"><code>category</code></th><th scope="col">Signification</th><th scope="col">Facturé avant toute sortie</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>cyber</code></th><td>Pourrait permettre des dommages informatiques (logiciels malveillants, exploits). Un travail de sécurité légitime peut aussi la déclencher.</td><td>Non</td></tr>
+      <tr><th scope="row"><code>bio</code></th><td>Pourrait permettre des dommages biologiques (méthodes de laboratoire dangereuses). Un travail bénéfique en sciences de la vie peut aussi la déclencher.</td><td><span class="pill warn">Oui</span></td></tr>
+      <tr><th scope="row"><code>frontier_llm</code></th><td>Pourrait aider à développer des modèles d'IA concurrents, ce que restreignent les conditions commerciales d'Anthropic.</td><td><span class="pill warn">Oui</span></td></tr>
+      <tr><th scope="row"><code>reasoning_extraction</code></th><td>Demande au modèle de reproduire son raisonnement interne dans la réponse.</td><td><span class="pill warn">Oui</span></td></tr>
+      <tr><th scope="row"><code>general_harms</code></th><td>Autre domaine de la politique d'utilisation.</td><td>Non</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="prose">
+    <li><strong>Avant toute sortie :</strong> facturé aux tarifs normaux pour <code>bio</code>, <code>frontier_llm</code> et <code>reasoning_extraction</code>, les catégories où Anthropic mesure peu de faux positifs (état de septembre 2026, susceptible d'évoluer). Gratuit pour les autres et pour une catégorie <code>null</code>. Dans tous les cas, <code>content</code> est vide, <code>usage</code> donne les tokens et la requête compte dans vos limites de débit.</li>
+    <li><strong>En cours de streaming :</strong> l'entrée et la sortie déjà diffusée sont facturées.</li>
+    <li><strong>Avec un repli :</strong> le refus déclencheur est facturé s'il est survenu en cours de flux ou s'il relève d'une catégorie facturée, en plus de la requête de repli. Le crédit de repli évite de payer deux fois la mise en cache de la conversation.</li>
+  </ul>
+
+  <h3>Choisir une approche de repli</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Votre situation</th><th scope="col">Approche</th><th scope="col">Pourquoi</th></tr></thead>
+    <tbody>
+      <tr><td>API Claude ou Google Cloud (Anthropic managed)</td><td>Repli côté serveur <span class="pill beta">bêta</span></td><td>Une requête, une réponse : l'API relance elle-même.</td></tr>
+      <tr><td>N'importe quelle plateforme, avec un SDK Anthropic</td><td>Middleware SDK</td><td>Configuré une fois sur le client ; nouvelles tentatives automatiques.</td></tr>
+      <tr><td>HTTP brut ou logique personnalisée</td><td>Nouvelle tentative manuelle + crédit de repli</td><td>Contrôle total ; le crédit limite le coût du cache.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Repli côté serveur</h3>
+  <ul class="prose">
+    <li><strong><code>fallbacks: "default"</code></strong> avec l'en-tête <code>server-side-fallback-2026-07-01</code> : l'API relance sur le modèle qu'Anthropic recommande pour la catégorie de refus. Sans recommandation pour la catégorie, le refus est maintenu ; c'est le cas de <code>reasoning_extraction</code>.</li>
+    <li><strong>Ou une liste</strong> de trois modèles au plus, essayés dans l'ordre, tous distincts entre eux et du modèle demandé. Pour Fable 5.2, les cibles autorisées sont <code>claude-opus-4-8</code> et <code>claude-opus-5</code> ; l'API Models les publie sous <code>allowed_fallback_models</code>. Chaque entrée peut remplacer <code>max_tokens</code>, <code>thinking</code>, <code>output_config</code> et <code>speed</code> pour sa tentative. La requête doit rester valide pour chaque modèle nommé, sinon elle est rejetée d'emblée.</li>
+    <li>Seul un refus de classificateur déclenche le repli. Une limite de débit, une surcharge ou une erreur serveur vous revient telle quelle. Si le modèle de repli est saturé, la tentative est sautée et le refus revient avec <code>recommended_model</code> : dimensionnez ses limites selon le volume de refus attendu.</li>
+    <li>Le modèle de repli ne reçoit pas la réflexion de Fable 5.2.</li>
+  </ul>
+  <figure class="code"><figcaption><span>Python · repli par défaut</span></figcaption><pre><code data-lang="py">response = client.beta.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    output_config={"effort": "high"},
+    fallbacks="default",  # ou [{"model": "claude-opus-5"}, {"model": "claude-opus-4-8"}]
+    betas=["server-side-fallback-2026-07-01"],
+    messages=messages,
+)
+
+if response.stop_reason == "refusal":
+    details = response.stop_details  # toute la chaîne a refusé
+    print("Refus :", details.category if details else None)
+else:
+    fallback_ran = any(
+        it.type == "fallback_message" for it in response.usage.iterations or []
+    )
+    if fallback_ran:
+        print("Réponse servie par", response.model)</code></pre></figure>
+  <h4>Ce que contient la réponse</h4>
+  <ul class="prose">
+    <li><code>model</code> nomme le modèle qui a servi la réponse.</li>
+    <li>Un bloc de contenu <code>fallback</code> marque chaque passage de relais, avec <code>from.model</code>, <code>to.model</code> et <code>trigger</code> (le type <code>refusal</code> et sa catégorie). Sur un refus avant toute sortie, c'est le premier bloc.</li>
+    <li><code>usage.iterations</code> détaille chaque tentative : une entrée <code>message</code> par modèle qui a décliné, une entrée <code>fallback_message</code> pour celui qui a servi. C'est le relevé de ce qui vous est facturé, chaque tentative aux tarifs de son modèle. Les compteurs <code>usage</code> de premier niveau ne décrivent que la tentative renvoyée.</li>
+    <li><strong>Streaming :</strong> sur un refus avant sortie, <code>message_start</code> nomme déjà le modèle de repli et le délai du premier octet inclut la tentative déclinée. Sur un refus en cours de sortie, le bloc ouvert se ferme, un bloc <code>fallback</code> marque la frontière et le repli continue à partir des seuls blocs <code>text</code> déjà produits ; lisez le modèle servant dans <code>to.model</code> ou dans le dernier <code>message_delta</code>.</li>
+    <li><strong>Sans streaming,</strong> un refus en cours de sortie ressemble à un refus avant sortie : la sortie partielle est omise.</li>
+    <li><strong>Routage persistant :</strong> après un repli, l'API mémorise environ une heure, pour votre organisation, quel modèle a servi la conversation (une empreinte du préfixe, pas le contenu). Les requêtes suivantes avec <code>fallbacks</code> vont directement au modèle de repli, sans bloc <code>fallback</code> : repérez-les par l'entrée <code>fallback_message</code>. C'est au mieux : votre code doit accepter que le modèle demandé soit réessayé à tout moment.</li>
+  </ul>
+  <h4>Poursuivre la conversation après un repli</h4>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Bloc renvoyé au tour suivant</th><th scope="col">Que faire</th></tr></thead>
+    <tbody>
+      <tr><td><code>fallback</code></td><td>Conserver exactement à sa place : l'API s'en sert pour valider les blocs de réflexion qui l'entourent.</td></tr>
+      <tr><td><code>text</code>, et tout bloc après le dernier <code>fallback</code></td><td>Conserver.</td></tr>
+      <tr><td><code>thinking</code>, <code>redacted_thinking</code>, <code>connector_text</code> avant le dernier <code>fallback</code></td><td>Retirer.</td></tr>
+      <tr><td><code>tool_use</code> côté client avant le dernier <code>fallback</code></td><td>Retirer.</td></tr>
+      <tr><td><code>server_tool_use</code> avant le dernier <code>fallback</code></td><td>Conserver s'il a son résultat, retirer sinon.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Middleware SDK, sur toutes les plateformes</h3>
+  <p class="prose">Le middleware relance les requêtes refusées faites via <code>client.beta.messages</code>, dans l'ordre de votre liste. Si tous les modèles refusent, il renvoie le dernier refus au lieu de lever une erreur. Il envoie lui-même l'en-tête <code>fallback-credit-2026-07-01</code>, ajoute les blocs <code>fallback</code> et les gère aux tours suivants. Partagez un même <code>BetaFallbackState</code> entre les requêtes d'une conversation : les tours suivants restent épinglés sur le modèle qui a accepté.</p>
+  <figure class="code"><figcaption><span>Python · middleware de repli</span></figcaption><pre><code data-lang="py">from anthropic import Anthropic, BetaFallbackState, BetaRefusalFallbackMiddleware
+
+client = Anthropic(
+    middleware=[BetaRefusalFallbackMiddleware([{"model": "claude-opus-5"}])],
+)
+state = BetaFallbackState()  # un état par conversation
+
+with state:
+    message = client.beta.messages.create(
+        model="claude-fable-5-2",
+        max_tokens=16000,
+        messages=messages,
+    )
+print("Servi par :", message.model)</code></pre></figure>
+
+  <h3>Nouvelle tentative manuelle</h3>
+  <ol class="steps">
+    <li><div><strong>Détectez le refus</strong> avec <code>stop_reason == "refusal"</code>.</div></li>
+    <li><div><strong>Renvoyez la même requête</strong> avec <code>model</code> sur un modèle de repli, par exemple <code>claude-opus-5</code>. Sans crédit, vous pouvez laisser ou retirer les anciens blocs de réflexion : le modèle de repli ne lit pas ceux de Fable 5.2, et l'API les retire sans les facturer. Avec un crédit de repli, envoyez le corps sans aucune modification : le crédit exige une correspondance exacte.</div></li>
+    <li><div><strong>Restez sur le modèle de repli</strong> pour la suite de la conversation, au lieu de revenir au modèle initial.</div></li>
+  </ol>
+  <p class="prose">Une nouvelle tentative manuelle écrit tout le cache du modèle de repli ; le crédit de repli rembourse ce surcoût. Dans les Message Batches, un élément refusé revient en <code>result.type: "succeeded"</code> avec <code>stop_reason: "refusal"</code>, sans crédit de repli, et <code>fallbacks</code> n'y est pas accepté : collectez les éléments refusés et soumettez-les de nouveau sur un modèle de repli.</p>
+
+  <h3>Le cas <code>reasoning_extraction</code></h3>
+  <p class="prose">Ce refus vient en général d'un prompt qui demande au modèle de placer son raisonnement dans la sortie : une section de réflexion ou de brouillon à remplir avant de répondre, un champ <code>reasoning</code> ou <code>trace</code> dans un JSON ou une entrée d'outil, des notes privées, un raisonnement « mot pour mot ». Cherchez aussi dans les skills et les descriptions d'outils. Demandez plutôt une brève explication, les éléments qui justifient un résultat ou un résumé des actions ; pour voir le raisonnement, lisez les blocs <code>thinking</code> avec <code>display: "summarized"</code>. Aucun repli n'est recommandé pour cette catégorie : changez le prompt. Si une version reformulée est encore refusée, contactez le support avec l'ID de requête.</p>
+  <div class="note"><span class="tag">Accès vérifiés</span><p>Si les classificateurs <code>cyber</code> ou <code>bio</code> bloquent un travail légitime, voyez le Cyber Verification Program et le Life Sciences Verification Program d'Anthropic. Mythos 5.2 offre les mêmes capacités que Fable 5.2 aux organisations ainsi vérifiées.</p></div>
+
+  <div class="note trap">
+    <span class="tag">Pièges fréquents</span>
+    <ul>
+      <li><strong>Relancez sur un autre modèle :</strong> le même modèle refuse en général de nouveau.</li>
+      <li><strong>Budgétez les nouvelles tentatives par requête,</strong> pas par tour ni par session : un agent et ses sous-agents peuvent refuser plusieurs fois dans un même tour.</li>
+      <li><strong>Configurez le repli sur chaque chemin de requête,</strong> y compris les gestionnaires de nouvelle tentative, les branches de récupération et les workers en arrière-plan.</li>
+      <li><strong>Donnez leur propre repli aux sous-agents :</strong> <code>fallbacks</code> ne se transmet pas aux appels de modèle faits pendant l'exécution d'outils.</li>
+      <li><strong>Faites du repli une propriété de la requête,</strong> pas un état partagé qui peut se désynchroniser.</li>
+      <li><strong>Instrumentez les refus :</strong> comptez les refus et les réponses servies par un repli, et alertez sur l'écart. Une supervision des 5xx ne verra jamais un refus.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ ATELIER ============ -->
+<section class="chap" id="atelier" aria-labelledby="h-atelier">
+  <span class="eyebrow">POST /v1/messages</span>
+  <h2 id="h-atelier">Atelier</h2>
+  <p class="intro">Composez une requête Fable 5.2 conforme, ou collez une requête existante pour repérer ce qui sera rejeté.</p>
+
+  <div class="tool" id="generateur">
+    <h3>Générateur de requête</h3>
+    <div class="tool-grid">
+      <form id="b-form" autocomplete="off">
+        <fieldset><legend>Langage</legend><div class="segs">
+          <input type="radio" name="b-lang" id="b-lang-py" value="py" checked><label for="b-lang-py">Python</label>
+          <input type="radio" name="b-lang" id="b-lang-ts" value="ts"><label for="b-lang-ts">TypeScript</label>
+          <input type="radio" name="b-lang" id="b-lang-sh" value="sh"><label for="b-lang-sh">cURL</label>
+        </div></fieldset>
+        <fieldset><legend>Effort</legend><div class="segs">
+          <input type="radio" name="b-effort" id="b-eff-low" value="low"><label for="b-eff-low">low</label>
+          <input type="radio" name="b-effort" id="b-eff-medium" value="medium"><label for="b-eff-medium">medium</label>
+          <input type="radio" name="b-effort" id="b-eff-high" value="high" checked><label for="b-eff-high">high</label>
+          <input type="radio" name="b-effort" id="b-eff-xhigh" value="xhigh"><label for="b-eff-xhigh">xhigh</label>
+          <input type="radio" name="b-effort" id="b-eff-max" value="max"><label for="b-eff-max">max</label>
+        </div></fieldset>
+        <fieldset><label class="lbl" for="b-display">Affichage de la réflexion</label>
+          <select id="b-display"><option value="omitted">omitted (défaut)</option><option value="summarized">summarized</option><option value="updates">updates (bêta)</option></select>
+        </fieldset>
+        <fieldset><label class="lbl" for="b-max">max_tokens</label>
+          <input type="number" id="b-max" min="1" max="128000" step="1000" value="64000">
+        </fieldset>
+        <fieldset><label class="cbx" for="b-stream"><input type="checkbox" id="b-stream" checked> Streaming</label></fieldset>
+        <fieldset><label class="lbl" for="b-fallback">Repli en cas de refus</label>
+          <select id="b-fallback"><option value="default">"default" (bêta, conseillé)</option><option value="list">liste : claude-opus-5 puis claude-opus-4-8</option><option value="none">aucun</option></select>
+        </fieldset>
+        <fieldset><label class="lbl" for="b-binding">Réflexion préservée</label>
+          <select id="b-binding"><option value="unset">block_binding non défini</option><option value="error">"error" explicite</option><option value="drop_block">"drop_block" (temporaire)</option></select>
+        </fieldset>
+      </form>
+      <div style="min-width:0">
+        <figure class="code" style="margin-top:0"><figcaption><span id="b-cap">Python</span><button class="copy" type="button" id="b-copy">Copier</button></figcaption><pre><code id="b-code"></code></pre></figure>
+        <p class="lbl">En-têtes bêta requis</p>
+        <ul class="betas" id="b-betas"></ul>
+        <p class="lbl">Points de vigilance</p>
+        <ul class="notes" id="b-notes"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool" id="verificateur">
+    <h3>Vérificateur de requête</h3>
+    <p class="small muted">Collez le corps JSON d'une requête Messages. L'analyse se fait dans votre navigateur ; rien n'est envoyé. Le contenu de départ est un <strong>exemple</strong> de requête écrite pour un ancien modèle.</p>
+    <div class="vbar">
+      <button class="mini" type="button" id="v-ex-bad">Exemple à corriger</button>
+      <button class="mini" type="button" id="v-ex-good">Exemple conforme</button>
+    </div>
+    <div class="tool-grid even">
+      <div style="min-width:0">
+        <label class="lbl" for="v-body">Corps de la requête (JSON)</label>
+        <textarea id="v-body" spellcheck="false">{
+  "model": "claude-fable-5-1",
+  "max_tokens": 4096,
+  "temperature": 0.7,
+  "effort": "high",
+  "thinking": { "type": "enabled", "budget_tokens": 2000 },
+  "tool_choice": { "type": "any" },
+  "tools": [
+    {
+      "name": "meteo",
+      "description": "Donne la météo actuelle d'une ville.",
+      "input_schema": {
+        "type": "object",
+        "properties": { "ville": { "type": "string" } },
+        "required": ["ville"]
+      }
+    }
+  ],
+  "messages": [
+    { "role": "user", "content": "Quel temps fait-il à Lyon ?" },
+    { "role": "assistant", "content": "Voici la météo :" }
+  ]
+}</textarea>
+        <label class="lbl" for="v-beta" style="margin-top:12px">En-tête anthropic-beta envoyé (valeurs séparées par des virgules)</label>
+        <input type="text" id="v-beta" value="" placeholder="ex. server-side-fallback-2026-07-01" spellcheck="false">
+      </div>
+      <div style="min-width:0" aria-live="polite">
+        <p class="lbl">Résultat</p>
+        <div class="vsum" id="v-sum">Analyse en cours…</div>
+        <ul class="findings" id="v-list"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AIDE-MÉMOIRE ============ -->
+<section class="chap" id="memo" aria-labelledby="h-memo">
+  <span class="eyebrow">anthropic-beta</span>
+  <h2 id="h-memo">Aide-mémoire</h2>
+  <h3>En-têtes bêta utiles avec Fable 5.2</h3>
+  <div class="tbl wide"><table>
+    <thead><tr><th scope="col">Valeur</th><th scope="col">Sert à</th><th scope="col">Voir</th></tr></thead>
+    <tbody>
+      <tr><td><code>mid-conversation-output-config-2026-07-01</code></td><td>Changer l'effort par message, sans perdre le cache</td><td><a href="#effort">Effort</a></td></tr>
+      <tr><td><code>thinking-display-updates-2026-08-18</code></td><td><code>display: "updates"</code>, mises à jour de progression lisibles</td><td><a href="#reflexion">Réflexion</a></td></tr>
+      <tr><td><code>thinking-binding-controls-2026-08-01</code></td><td><code>block_binding</code> et <code>input_transformations</code></td><td><a href="#preservee">Réflexion préservée</a></td></tr>
+      <tr><td><code>server-side-fallback-2026-07-01</code></td><td>Paramètre <code>fallbacks</code> (« default » ou liste)</td><td><a href="#refus">Refus</a></td></tr>
+      <tr><td><code>fallback-credit-2026-07-01</code></td><td>Crédit de repli (envoyé automatiquement par le middleware)</td><td><a href="#refus">Refus</a></td></tr>
+      <tr><td><code>mid-conversation-system-clear-at-2026-08-21</code></td><td>Messages système limités au tour (<code>clear_at</code>)</td><td><a href="#p-progression">Prompts</a></td></tr>
+      <tr><td><code>inline-tools-2026-09-15</code></td><td>Définir un outil dans <code>tool_addition</code></td><td><a href="#preservee">Réflexion préservée</a></td></tr>
+      <tr><td><code>mid-conversation-tool-changes-2026-07-01</code></td><td><code>tool_addition</code> / <code>tool_removal</code> par référence</td><td><a href="#preservee">Réflexion préservée</a></td></tr>
+      <tr><td><code>mcp-client-2026-09-15</code></td><td>Outils d'un serveur MCP ajoutés en cours de session</td><td><a href="#preservee">Réflexion préservée</a></td></tr>
+      <tr><td><code>compact-2026-09-04</code></td><td>Compaction à la demande, compatible avec la réflexion conservée</td><td><a href="#preservee">Réflexion préservée</a></td></tr>
+      <tr><td><code>context-management-2025-06-27</code></td><td>Édition de contexte (<code>clear_tool_uses_20250919</code>, <code>clear_thinking_20251015</code>)</td><td><a href="#preservee">Réflexion préservée</a></td></tr>
+    </tbody>
+  </table></div>
+  <p class="tnote">Le mode rapide de Fable 5.2 n'a pas besoin de <code>fast-mode-2026-02-01</code> ; sur l'API Claude, les requêtes qui l'envoient fonctionnent quand même.</p>
+
+  <h3>Raisons d'arrêt</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col"><code>stop_reason</code></th><th scope="col">Signification et réaction</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>end_turn</code></th><td>Réponse terminée normalement.</td></tr>
+      <tr><th scope="row"><code>tool_use</code></th><td>Claude demande un outil : exécutez-le et renvoyez un <code>tool_result</code>, avec le tour de l'assistant intact.</td></tr>
+      <tr><th scope="row"><code>max_tokens</code></th><td>Limite atteinte, parfois avant tout texte. Augmentez <code>max_tokens</code> ou baissez l'effort.</td></tr>
+      <tr><th scope="row"><code>refusal</code></th><td>Classificateur de sécurité. Lisez <code>stop_details</code> et relancez sur un modèle de repli.</td></tr>
+      <tr><th scope="row"><code>pause_turn</code></th><td>Tour mis en pause dans un flux agentique, à reprendre.</td></tr>
+      <tr><th scope="row"><code>stop_sequence</code></th><td>Séquence d'arrêt personnalisée rencontrée.</td></tr>
+      <tr><th scope="row"><code>model_context_window_exceeded</code></th><td>Génération arrêtée à la limite de la fenêtre de contexte, au lieu d'une erreur de validation.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ SOURCES ============ -->
+<section class="chap" id="sources" aria-labelledby="h-sources">
+  <span class="eyebrow">platform.claude.com/docs/fr</span>
+  <h2 id="h-sources">Sources</h2>
+  <p class="prose">Pages consultées le 10 novembre 2026. En cas de divergence, la documentation officielle fait foi.</p>
+  <ul class="sources prose">
+    <li><a href="https://platform.claude.com/docs/fr/models/fable-5-2/overview" rel="noopener">Claude Fable 5.2 : présentation</a></li>
+    <li><a href="https://platform.claude.com/docs/fr/build-with-claude/prompt-engineering/prompting-claude-fable-5-2" rel="noopener">Rédiger des prompts pour Claude Fable 5.2</a></li>
+    <li><a href="https://platform.claude.com/docs/fr/models/fable-5-2/migration-guide" rel="noopener">Guide de migration vers Claude Fable 5.2</a></li>
+    <li><a href="https://platform.claude.com/docs/fr/build-with-claude/preserved-thinking" rel="noopener">Réflexion préservée</a></li>
+    <li><a href="https://platform.claude.com/docs/fr/build-with-claude/thinking" rel="noopener">Réflexion</a></li>
+    <li><a href="https://platform.claude.com/docs/fr/build-with-claude/effort" rel="noopener">Effort</a></li>
+    <li><a href="https://platform.claude.com/docs/fr/build-with-claude/refusals-and-fallback" rel="noopener">Refus et repli</a></li>
+  </ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <p>Guide non officiel, rédigé en français à partir de la documentation publique d'Anthropic. Les exemples de code et de prompts sont à adapter et à tester sur vos propres évaluations avant toute mise en production.</p>
+</footer>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* stockage indisponible */ } }
+  };
+
+  /* ---------- Typographie française ---------- */
+  const SKIP = new Set(['CODE', 'PRE', 'KBD', 'SAMP', 'SCRIPT', 'STYLE', 'TEXTAREA', 'INPUT', 'SELECT', 'OPTION']);
+  function frTypo(root) {
+    if (!root) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((n) => {
+      for (let p = n.parentElement; p; p = p.parentElement) {
+        if (SKIP.has(p.tagName)) return;
+        if (p === root) break;
+      }
+      const v = n.nodeValue;
+      const nv = v
+        .replace(/([A-Za-zÀ-ÿ])'(?=[A-Za-zÀ-ÿ])/g, '$1’')
+        .replace(/[  ]([:;?!»])/g, ' $1')
+        .replace(/«[  ]/g, '« ');
+      if (nv !== v) n.nodeValue = nv;
+    });
+  }
+
+  /* ---------- Coloration et copie du code ---------- */
+  const esc = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const KW = {
+    py: new Set('import from as with for in if elif else not and or is None True False def return print any async await'.split(' ')),
+    ts: new Set('import from const let await async new if else return of for true false null undefined'.split(' ')),
+    sh: new Set(['curl']),
+    json: new Set(['true', 'false', 'null'])
+  };
+  function hl(src, lang) {
+    const kw = KW[lang];
+    if (!kw) return esc(src);
+    const com = lang === 'ts' ? '\\/\\/[^\\n]*' : (lang === 'json' ? '(?!)' : '#[^\\n]*');
+    const re = new RegExp('(' + com + ')|("(?:\\\\.|[^"\\\\\\n])*"|\'(?:\\\\.|[^\'\\\\])*\')|(\\b\\d[\\d_]*(?:\\.\\d+)?\\b)|([A-Za-z_$][\\w$]*)', 'g');
+    let out = '';
+    let last = 0;
+    let m;
+    while ((m = re.exec(src))) {
+      out += esc(src.slice(last, m.index));
+      const rest = src.slice(re.lastIndex, re.lastIndex + 3);
+      if (m[1]) out += '<span class="t-com">' + esc(m[0]) + '</span>';
+      else if (m[2]) out += '<span class="' + (lang !== 'sh' && /^\s*:/.test(rest) ? 't-key' : 't-str') + '">' + esc(m[0]) + '</span>';
+      else if (m[3]) out += '<span class="t-num">' + esc(m[0]) + '</span>';
+      else if (kw.has(m[4])) out += '<span class="t-kw">' + esc(m[0]) + '</span>';
+      else if (lang !== 'sh' && /^\s*(=(?!=)|:)/.test(rest)) out += '<span class="t-key">' + esc(m[0]) + '</span>';
+      else out += esc(m[0]);
+      last = re.lastIndex;
+    }
+    return out + esc(src.slice(last));
+  }
+  function copyText(text, btn, selectEl) {
+    const label = btn.dataset.label || btn.textContent;
+    btn.dataset.label = label;
+    const done = () => { btn.textContent = 'Copié'; btn.classList.add('ok'); setTimeout(() => { btn.textContent = label; btn.classList.remove('ok'); }, 1600); };
+    const fallback = () => {
+      if (selectEl) {
+        const r = document.createRange();
+        r.selectNodeContents(selectEl);
+        const s = window.getSelection();
+        s.removeAllRanges();
+        s.addRange(r);
+      }
+      btn.textContent = 'Sélectionné : Ctrl+C';
+      setTimeout(() => { btn.textContent = label; }, 2400);
+    };
+    try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+  }
+  $$('pre code[data-lang]').forEach((c) => {
+    const src = c.textContent;
+    c.innerHTML = hl(src, c.dataset.lang);
+    const cap = c.closest('figure') && c.closest('figure').querySelector('figcaption');
+    if (cap && !cap.querySelector('button')) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'copy';
+      b.textContent = 'Copier';
+      b.addEventListener('click', () => copyText(src, b, c));
+      cap.appendChild(b);
+    }
+  });
+  const idBtn = $('#copy-id');
+  if (idBtn) idBtn.addEventListener('click', () => copyText('claude-fable-5-2', idBtn, $('#model-id')));
+
+  /* ---------- Sommaire actif ---------- */
+  const links = $$('.toc a[href^="#"]');
+  const byId = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        links.forEach((l) => l.removeAttribute('aria-current'));
+        const a = byId.get(e.target.id);
+        if (a) a.setAttribute('aria-current', 'true');
+      });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+    $$('main section[id]').forEach((s) => io.observe(s));
+  }
+
+  /* ---------- Onglets de migration ---------- */
+  const tabs = $$('[role="tab"]');
+  function selectTab(t, focus) {
+    tabs.forEach((x) => {
+      const on = x === t;
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+      x.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(x.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !on;
+    });
+    if (focus) t.focus();
+    store.set('fable52-tab', t.id);
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => selectTab(t, false));
+    t.addEventListener('keydown', (e) => {
+      let j = null;
+      if (e.key === 'ArrowRight') j = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') j = 0;
+      else if (e.key === 'End') j = tabs.length - 1;
+      if (j !== null) { e.preventDefault(); selectTab(tabs[j], true); }
+    });
+  });
+  if (tabs.length) {
+    const saved = store.get('fable52-tab', null);
+    const st = saved ? document.getElementById(saved) : null;
+    selectTab(st && tabs.includes(st) ? st : tabs[0], false);
+  }
+
+  /* ---------- Listes de contrôle ---------- */
+  function updateProgress(list) {
+    const boxes = $$('input[type="checkbox"]', list);
+    const n = boxes.filter((b) => b.checked).length;
+    const count = $('.count', list);
+    const bar = $('.bar i', list);
+    if (count) count.textContent = n + ' / ' + boxes.length;
+    if (bar) bar.style.width = (boxes.length ? (n / boxes.length) * 100 : 0) + '%';
+  }
+  $$('[data-checklist]').forEach((list) => {
+    $$('input[type="checkbox"]', list).forEach((cb) => {
+      cb.checked = !!store.get('fable52-' + cb.id, false);
+      cb.addEventListener('change', () => { store.set('fable52-' + cb.id, cb.checked); updateProgress(list); });
+    });
+    const reset = $('[data-reset]', list);
+    if (reset) reset.addEventListener('click', () => {
+      $$('input[type="checkbox"]', list).forEach((cb) => { cb.checked = false; store.set('fable52-' + cb.id, false); });
+      updateProgress(list);
+    });
+    updateProgress(list);
+  });
+
+  /* ---------- Texte riche (accents graves → code) ---------- */
+  function rich(el, text) {
+    el.textContent = '';
+    String(text).split('`').forEach((part, i) => {
+      if (!part) return;
+      if (i % 2) { const c = document.createElement('code'); c.textContent = part; el.appendChild(c); }
+      else el.appendChild(document.createTextNode(part));
+    });
+  }
+
+  /* ---------- Estimateur de coût ---------- */
+  const fmtMoney = (x) => new Intl.NumberFormat('fr-FR', {
+    style: 'currency', currency: 'USD',
+    minimumFractionDigits: x < 1 ? 4 : 2, maximumFractionDigits: x < 1 ? 4 : 2
+  }).format(x);
+  function renderEst() {
+    const v = (id) => { const x = Number(($('#' + id) || {}).value); return Number.isFinite(x) && x > 0 ? x : 0; };
+    const f = $('#est-batch').checked ? 0.5 : 1;
+    const parts = [
+      ['Entrée hors cache', v('est-in') * 8 * f],
+      ['Écriture du cache (5 min)', v('est-cw5') * 10],
+      ['Écriture du cache (1 h)', v('est-cw1') * 16],
+      ['Lecture du cache', v('est-cr') * 0.2],
+      ['Sortie, réflexion comprise', v('est-out') * 40 * f]
+    ].map(([l, c]) => [l, c / 1e6]);
+    const per = parts.reduce((a, p) => a + p[1], 0);
+    const n = v('est-n');
+    $('#est-per').textContent = fmtMoney(per);
+    $('#est-total').textContent = fmtMoney(per * n);
+    $('#est-save').textContent = fmtMoney((v('est-cr') * (8 * f - 0.2) / 1e6) * n);
+    const box = $('#est-bars');
+    box.textContent = '';
+    parts.forEach(([label, c]) => {
+      const row = document.createElement('div');
+      row.className = 'brow';
+      const a = document.createElement('span');
+      a.textContent = label;
+      const bar = document.createElement('span');
+      bar.className = 'bar';
+      const i = document.createElement('i');
+      i.style.width = (per ? (c / per) * 100 : 0).toFixed(1) + '%';
+      bar.appendChild(i);
+      const amt = document.createElement('span');
+      amt.className = 'amt';
+      amt.textContent = fmtMoney(c) + (per ? ' · ' + Math.round((c / per) * 100) + ' %' : '');
+      row.append(a, bar, amt);
+      box.appendChild(row);
+    });
+  }
+  ['est-n', 'est-in', 'est-cr', 'est-cw5', 'est-cw1', 'est-out', 'est-batch'].forEach((id) => {
+    const el = $('#' + id);
+    if (el) el.addEventListener('input', renderEst);
+    if (el) el.addEventListener('change', renderEst);
+  });
+  renderEst();
+
+  /* ---------- Générateur de requête ---------- */
+  const BETA = {
+    updates: 'thinking-display-updates-2026-08-18',
+    binding: 'thinking-binding-controls-2026-08-01',
+    fallback: 'server-side-fallback-2026-07-01',
+    effortMsg: 'mid-conversation-output-config-2026-07-01',
+    clearAt: 'mid-conversation-system-clear-at-2026-08-21',
+    inlineTools: 'inline-tools-2026-09-15',
+    toolChanges: 'mid-conversation-tool-changes-2026-07-01'
+  };
+  const PROMPT = 'Analyse ce dépôt et propose un plan de refonte.';
+  const isId = (k) => /^[A-Za-z_$][\w$]*$/.test(k);
+  function lit(v, lang) {
+    if (v === null) return lang === 'py' ? 'None' : 'null';
+    if (typeof v === 'boolean') return lang === 'py' ? (v ? 'True' : 'False') : String(v);
+    if (typeof v === 'number') return String(v);
+    if (typeof v === 'string') return JSON.stringify(v);
+    if (Array.isArray(v)) return '[' + v.map((x) => lit(x, lang)).join(', ') + ']';
+    const pairs = Object.entries(v).map(([k, x]) => (lang === 'ts' && isId(k) ? k : JSON.stringify(k)) + ': ' + lit(x, lang));
+    return lang === 'ts' ? '{ ' + pairs.join(', ') + ' }' : '{' + pairs.join(', ') + '}';
+  }
+  function bState() {
+    const r = (name, d) => { const el = $('input[name="' + name + '"]:checked'); return el ? el.value : d; };
+    return {
+      lang: r('b-lang', 'py'),
+      effort: r('b-effort', 'high'),
+      display: $('#b-display').value,
+      stream: $('#b-stream').checked,
+      max: parseInt($('#b-max').value, 10),
+      fallback: $('#b-fallback').value,
+      binding: $('#b-binding').value
+    };
+  }
+  function bParams(s) {
+    const p = [['model', 'claude-fable-5-2'], ['max_tokens', Number.isFinite(s.max) ? s.max : 16000]];
+    if (s.display !== 'omitted' || s.binding !== 'unset') {
+      const t = { type: 'adaptive' };
+      if (s.display !== 'omitted') t.display = s.display;
+      if (s.binding !== 'unset') t.block_binding = { prefix_mismatch_behavior: s.binding };
+      p.push(['thinking', t]);
+    }
+    p.push(['output_config', { effort: s.effort }]);
+    if (s.fallback === 'default') p.push(['fallbacks', 'default']);
+    if (s.fallback === 'list') p.push(['fallbacks', [{ model: 'claude-opus-5' }, { model: 'claude-opus-4-8' }]]);
+    return p;
+  }
+  function bBetas(s) {
+    const b = [];
+    if (s.display === 'updates') b.push(BETA.updates);
+    if (s.binding !== 'unset') b.push(BETA.binding);
+    if (s.fallback !== 'none') b.push(BETA.fallback);
+    return b;
+  }
+  function genPy(s) {
+    const betas = bBetas(s);
+    const ns = betas.length ? 'client.beta.messages' : 'client.messages';
+    const args = bParams(s).map(([k, v]) => '    ' + k + '=' + lit(v, 'py') + ',');
+    if (betas.length) args.push('    betas=' + lit(betas, 'py') + ',');
+    args.push('    messages=messages,');
+    const L = ['import anthropic', '', 'client = anthropic.Anthropic()', '', 'messages = [{"role": "user", "content": ' + JSON.stringify(PROMPT) + '}]', ''];
+    if (s.stream) {
+      L.push('with ' + ns + '.stream(', ...args, ') as stream:', '    for text in stream.text_stream:', '        print(text, end="", flush=True)', '    message = stream.get_final_message()');
+    } else {
+      L.push('message = ' + ns + '.create(', ...args, ')');
+    }
+    L.push('', 'if message.stop_reason == "refusal":', '    details = message.stop_details', '    print("\\nRefus, catégorie :", details.category if details else None)', 'else:');
+    const body = [];
+    const tag = s.display === 'updates' ? 'progression' : 'réflexion';
+    const showThinking = s.display !== 'omitted';
+    const showText = !s.stream;
+    if (showThinking || showText) {
+      body.push('    for block in message.content:');
+      if (showThinking) body.push('        if block.type == "thinking" and block.thinking:', '            print("[' + tag + ']", block.thinking)');
+      if (showText) body.push('        ' + (showThinking ? 'elif' : 'if') + ' block.type == "text":', '            print(block.text)');
+    }
+    if (s.fallback !== 'none') body.push('    print("\\nServi par :", message.model)');
+    if (s.binding !== 'unset') body.push('    for t in message.input_transformations or []:', '        print("Bloc retiré :", t.path, t.reason)');
+    if (!body.length) body.push('    print()');
+    L.push(...body, '', '# Tour suivant : renvoyez le contenu tel quel, blocs thinking vides compris.', 'messages.append({"role": "assistant", "content": message.content})');
+    return L.join('\n');
+  }
+  function genTs(s) {
+    const betas = bBetas(s);
+    const ns = betas.length ? 'client.beta.messages' : 'client.messages';
+    const args = bParams(s).map(([k, v]) => '  ' + k + ': ' + lit(v, 'ts') + ',');
+    if (betas.length) args.push('  betas: ' + lit(betas, 'ts') + ',');
+    args.push('  messages: [{ role: "user", content: ' + JSON.stringify(PROMPT) + ' }],');
+    const L = ['import Anthropic from "@anthropic-ai/sdk";', '', 'const client = new Anthropic();', ''];
+    if (s.stream) {
+      L.push('const stream = ' + ns + '.stream({', ...args, '});', '', 'stream.on("text", (delta) => process.stdout.write(delta));', 'const message = await stream.finalMessage();');
+    } else {
+      L.push('const message = await ' + ns + '.create({', ...args, '});');
+    }
+    L.push('', 'if (message.stop_reason === "refusal") {', '  console.log("\\nRefus, catégorie :", message.stop_details?.category ?? null);', '} else {');
+    const body = [];
+    const tag = s.display === 'updates' ? 'progression' : 'réflexion';
+    const showThinking = s.display !== 'omitted';
+    const showText = !s.stream;
+    if (showThinking || showText) {
+      body.push('  for (const block of message.content) {');
+      if (showThinking && showText) {
+        body.push('    if (block.type === "thinking" && block.thinking) {', '      console.log("[' + tag + ']", block.thinking);', '    } else if (block.type === "text") {', '      console.log(block.text);', '    }');
+      } else if (showThinking) {
+        body.push('    if (block.type === "thinking" && block.thinking) {', '      console.log("[' + tag + ']", block.thinking);', '    }');
+      } else {
+        body.push('    if (block.type === "text") {', '      console.log(block.text);', '    }');
+      }
+      body.push('  }');
+    }
+    if (s.fallback !== 'none') body.push('  console.log("\\nServi par :", message.model);');
+    if (s.binding !== 'unset') body.push('  for (const t of message.input_transformations ?? []) {', '    console.log("Bloc retiré :", t.path, t.reason);', '  }');
+    if (!body.length) body.push('  console.log();');
+    L.push(...body, '}', '', '// Tour suivant : renvoyez message.content tel quel, blocs thinking vides compris.');
+    return L.join('\n');
+  }
+  function genSh(s) {
+    const betas = bBetas(s);
+    const L = ['curl https://api.anthropic.com/v1/messages \\', '  -H "x-api-key: $ANTHROPIC_API_KEY" \\', '  -H "anthropic-version: 2026-10-21" \\'];
+    if (betas.length) L.push('  -H "anthropic-beta: ' + betas.join(',') + '" \\');
+    L.push('  -H "content-type: application/json" \\', "  -d '{");
+    const fields = bParams(s);
+    if (s.stream) fields.splice(2, 0, ['stream', true]);
+    fields.push(['messages', [{ role: 'user', content: PROMPT }]]);
+    fields.forEach(([k, v], i) => L.push('    ' + JSON.stringify(k) + ': ' + lit(v, 'json') + (i < fields.length - 1 ? ',' : '')));
+    L.push("  }'");
+    return L.join('\n');
+  }
+  function bNotes(s) {
+    const n = [];
+    const add = (sev, t) => n.push([sev, t]);
+    if (!Number.isFinite(s.max) || s.max < 1) add('bad', '`max_tokens` doit être un entier positif.');
+    else if (s.max > 128000) add('bad', 'Fable 5.2 produit au plus 128 000 tokens par requête : baissez `max_tokens`.');
+    else {
+      if (!s.stream && s.max > 21333) add('bad', s.lang === 'sh' ? 'Sans streaming, une réponse longue risque de dépasser les délais réseau : cochez « Streaming ».' : 'Les SDK exigent le streaming quand `max_tokens` dépasse 21 333 : cochez « Streaming » ou baissez la valeur.');
+      if (['high', 'xhigh', 'max'].indexOf(s.effort) >= 0 && s.max < 16000) add('warn', 'La réflexion compte dans `max_tokens` : à ce niveau d\'effort, une valeur basse peut arrêter la réponse avant tout texte.');
+    }
+    const E = {
+      low: ['warn', 'À `low`, le modèle s\'arrête plus volontiers avant la fin d\'une tâche longue : ajoutez une consigne « aller au bout ».'],
+      medium: ['info', '`medium` convient au code interactif et au chat. Ajoutez la consigne « aller au bout » si l\'agent s\'arrête trop tôt.'],
+      high: ['info', '`high` est le point de départ conseillé. Descendez à `medium` là où vos évaluations montrent que la qualité tient.'],
+      xhigh: ['warn', '`xhigh` : à réserver aux tâches longues de code ou d\'agent où un gain est mesuré. Beaucoup plus de tokens pour un gain léger.'],
+      max: ['warn', '`max` sert surtout à mesurer le plafond du modèle : lent, coûteux, gain souvent minime.']
+    };
+    add(E[s.effort][0], E[s.effort][1]);
+    const D = {
+      omitted: ['info', 'Blocs `thinking` vides : ni raisonnement ni mises à jour de progression visibles. Renvoyez-les quand même tels quels.'],
+      summarized: ['info', 'Le résumé est produit par un autre modèle. Vous payez toute la réflexion, pas seulement le résumé.'],
+      updates: ['info', 'Seuls les blocs `thinking` non vides sont des mises à jour de progression : affichez-les, ignorez les autres.']
+    };
+    add(D[s.display][0], D[s.display][1]);
+    if (s.fallback === 'none') add('warn', 'Sans repli, un refus termine la requête. Prévoyez le middleware SDK ou une nouvelle tentative manuelle.');
+    if (s.fallback === 'default') add('info', 'Repli côté serveur : API Claude et Google Cloud (Anthropic managed). Les refus `reasoning_extraction` ne sont pas relancés.');
+    if (s.fallback === 'list') add('info', 'Cibles autorisées pour Fable 5.2 : `claude-opus-4-8` et `claude-opus-5` (trois entrées au plus). La requête doit rester valide pour chaque modèle nommé.');
+    if (s.binding === 'drop_block') add('warn', '`drop_block` est une solution temporaire : surveillez `input_transformations` et corrigez la retouche. Le raisonnement refait coûte des tokens de sortie.');
+    if (s.binding === 'error') add('info', '`"error"` rend explicite le comportement par défaut de Fable 5.2 : 400 au premier bloc invalide.');
+    if (s.lang === 'ts') add('info', 'Exemple écrit en module ES (`await` de premier niveau).');
+    return n;
+  }
+  const NOTE_LABEL = { bad: ['bad', 'Bloquant'], warn: ['warn', 'Attention'], info: ['info', 'Conseil'] };
+  function renderBuilder() {
+    const s = bState();
+    const code = s.lang === 'ts' ? genTs(s) : s.lang === 'sh' ? genSh(s) : genPy(s);
+    const codeEl = $('#b-code');
+    codeEl.innerHTML = hl(code, s.lang);
+    codeEl.dataset.raw = code;
+    $('#b-cap').textContent = s.lang === 'ts' ? 'TypeScript' : s.lang === 'sh' ? 'cURL' : 'Python';
+    const betas = bBetas(s);
+    const bl = $('#b-betas');
+    bl.textContent = '';
+    if (!betas.length) {
+      const li = document.createElement('li');
+      li.className = 'small muted';
+      li.textContent = 'Aucun : la requête utilise seulement des fonctions stables.';
+      bl.appendChild(li);
+    } else {
+      betas.forEach((b) => {
+        const li = document.createElement('li');
+        const c = document.createElement('code');
+        c.textContent = b;
+        li.appendChild(c);
+        bl.appendChild(li);
+      });
+    }
+    const nl = $('#b-notes');
+    nl.textContent = '';
+    bNotes(s).forEach(([sev, t]) => {
+      const li = document.createElement('li');
+      const pill = document.createElement('span');
+      pill.className = 'pill ' + NOTE_LABEL[sev][0];
+      pill.textContent = NOTE_LABEL[sev][1];
+      const d = document.createElement('span');
+      rich(d, t);
+      li.append(pill, d);
+      nl.appendChild(li);
+    });
+    frTypo(nl);
+    frTypo(bl);
+  }
+  const bForm = $('#b-form');
+  if (bForm) {
+    bForm.addEventListener('input', renderBuilder);
+    bForm.addEventListener('change', renderBuilder);
+    bForm.addEventListener('submit', (e) => e.preventDefault());
+    $('#b-copy').addEventListener('click', () => copyText($('#b-code').dataset.raw || '', $('#b-copy'), $('#b-code')));
+    renderBuilder();
+  }
+
+  /* ---------- Vérificateur de requête ---------- */
+  const LEVELS = ['low', 'medium', 'high', 'xhigh', 'max'];
+  const OK_MODELS = ['claude-fable-5-2', 'anthropic.claude-fable-5-2', 'claude-mythos-5-2', 'anthropic.claude-mythos-5-2'];
+  const FB_TARGETS = ['claude-opus-4-8', 'claude-opus-5'];
+  const isObj = (x) => x !== null && typeof x === 'object' && !Array.isArray(x);
+  function check(text, header) {
+    const F = [];
+    const add = (sev, title, fix) => F.push({ sev, title, fix });
+    let b;
+    try { b = JSON.parse(text); } catch (e) { add('err', 'JSON invalide', 'Le corps ne se lit pas : ' + e.message); return F; }
+    if (!isObj(b)) { add('err', 'Le corps doit être un objet JSON', 'Une requête Messages est un objet `{ … }`.'); return F; }
+    const betas = new Set(String(header || '').split(',').map((x) => x.trim()).filter(Boolean));
+    const need = (name, what) => { if (!betas.has(name)) add('err', 'En-tête bêta manquant : `' + name + '`', what + ' Ajoutez cette valeur à l\'en-tête `anthropic-beta`.'); };
+
+    if (typeof b.model !== 'string' || !b.model) add('err', '`model` manquant', 'Indiquez `claude-fable-5-2` (`anthropic.claude-fable-5-2` sur Amazon Bedrock).');
+    else if (OK_MODELS.indexOf(b.model) < 0) add('info', 'Modèle `' + b.model + '`', 'Ce vérificateur applique les règles de Fable 5.2. Pour migrer, remplacez-le par `claude-fable-5-2`.');
+
+    const mt = b.max_tokens;
+    if (mt === undefined) add('err', '`max_tokens` manquant', 'Ce champ est obligatoire. Prévoyez de la place pour la réflexion et pour le texte.');
+    else if (!Number.isInteger(mt) || mt < 1) add('err', '`max_tokens` invalide', 'Un entier positif est attendu.');
+    else if (mt > 128000) add('err', '`max_tokens` au-delà de 128 000', 'Fable 5.2 produit au plus 128 k tokens par requête.');
+    else {
+      if (mt > 21333 && b.stream !== true) add('warn', 'Streaming conseillé', 'Les SDK refusent `max_tokens` au-delà de 21 333 sans streaming. Utilisez `.stream()` ou `"stream": true`.');
+      if (mt < 4096) add('warn', '`max_tokens` bas', 'La réflexion compte dans `max_tokens` : la réponse peut s\'arrêter avant tout texte. Augmentez la valeur ou baissez l\'effort.');
+    }
+
+    if (b.thinking !== undefined) {
+      const t = b.thinking;
+      if (!isObj(t)) add('err', '`thinking` doit être un objet', 'Omettez-le, ou envoyez `{"type": "adaptive"}`.');
+      else {
+        if (t.type === 'disabled') add('err', 'Réflexion désactivée', 'Impossible sur Fable 5.2, à tout niveau d\'effort. Retirez `thinking` et baissez `output_config.effort`.');
+        else if (t.type === 'enabled' || 'budget_tokens' in t) add('err', 'Réflexion étendue manuelle (`budget_tokens`)', 'Refusée sur Fable 5.2. Retirez-la et réglez la profondeur avec `output_config.effort`.');
+        else if (t.type === 'between_tools') add('err', '`between_tools` non pris en charge', 'Réservé à Claude Sonnet 5.5. Envoyez `{"type": "adaptive"}` ou omettez `thinking`.');
+        else if (t.type !== 'adaptive') add('err', '`thinking.type` inconnu', 'Seule la valeur `adaptive` est acceptée ; vous pouvez aussi omettre `thinking`.');
+        if (t.display !== undefined) {
+          if (['omitted', 'summarized', 'updates'].indexOf(t.display) < 0) add('err', '`thinking.display` invalide', 'Valeurs : `omitted` (défaut), `summarized`, `updates` (bêta).');
+          else if (t.display === 'updates') need(BETA.updates, '`display: "updates"` est en bêta.');
+        }
+        if (t.block_binding !== undefined) {
+          need(BETA.binding, '`block_binding` est en bêta.');
+          const pm = isObj(t.block_binding) ? t.block_binding.prefix_mismatch_behavior : undefined;
+          if (['error', 'drop_block'].indexOf(pm) < 0) add('err', '`prefix_mismatch_behavior` invalide', 'Valeurs : `"error"` ou `"drop_block"`.');
+          else if (pm === 'drop_block') add('warn', '`drop_block` actif', 'Solution temporaire : les blocs invalides sont retirés et le modèle refait son raisonnement, ce qui coûte des tokens de sortie. Suivez `input_transformations`.');
+        }
+      }
+    }
+
+    ['temperature', 'top_p', 'top_k'].forEach((k) => {
+      if (k in b) add('err', '`' + k + '` à retirer', 'Fable 5.2 rejette toute valeur non par défaut ; avec la version d\'API `2026-10-21`, toute valeur. Réglez le style par le prompt.');
+    });
+
+    if ('effort' in b) add('err', '`effort` mal placé', 'Le niveau d\'effort se place dans `output_config.effort`.');
+    const oc = b.output_config;
+    if (oc !== undefined && !isObj(oc)) add('err', '`output_config` doit être un objet', 'Exemple : `{"effort": "high"}`.');
+    const eff = isObj(oc) ? oc.effort : undefined;
+    if (eff === undefined) add('info', 'Effort non défini', 'Fable 5.2 applique `high` par défaut. Fixez-le explicitement et testez aussi `medium` et `xhigh`.');
+    else if (eff === 'adaptive') add('err', '`adaptive` n\'est pas un niveau d\'effort', 'C\'est un mode de réflexion. Niveaux : `low`, `medium`, `high`, `xhigh`, `max`.');
+    else if (LEVELS.indexOf(eff) < 0) add('err', 'Niveau d\'effort inconnu', 'Niveaux : `low`, `medium`, `high`, `xhigh`, `max`.');
+    else if (eff === 'max') add('warn', 'Effort `max`', 'Lent et coûteux, souvent pour un gain minime. À réserver à la mesure du plafond du modèle.');
+    if (isObj(oc) && oc.format !== undefined) add('info', 'Sortie structurée', 'Indisponible pour Fable 5.2 dans les organisations CMEK : validez alors la sortie dans votre code.');
+
+    const tc = b.tool_choice;
+    if (isObj(tc) && (tc.type === 'any' || tc.type === 'tool')) add('err', '`tool_choice` forcé (`' + tc.type + '`)', 'Refusé sur Fable 5.2. Gardez `auto`, nommez l\'outil dans la consigne et ajoutez `strict: true`, ou passez par une sortie JSON.');
+
+    if (b.tools !== undefined) {
+      if (!Array.isArray(b.tools)) add('err', '`tools` doit être une liste', 'Exemple : `[{"name": …, "description": …, "input_schema": …}]`.');
+      else b.tools.forEach((t, i) => {
+        if (!isObj(t)) return;
+        if (t.type === 'computer_20251124') add('err', 'Outil `computer_20251124`', 'Refusé hors Amazon Bedrock. Déclarez `computer_toolset_20260801`, sans `name` ni dimensions d\'affichage.');
+        if (typeof t.type === 'string' && t.type.indexOf('advisor') === 0 && typeof t.model === 'string' && ['claude-fable-5-2', 'claude-mythos-5-2'].indexOf(t.model) < 0) add('err', 'Conseiller advisor `' + t.model + '`', 'Un exécuteur Fable 5.2 n\'accepte que `claude-fable-5-2` ou `claude-mythos-5-2`.');
+        if (t.strict === true) add('info', 'Outil strict `' + (t.name || 'tools.' + i) + '`', 'Indisponible dans les organisations CMEK : validez alors l\'entrée de l\'outil dans votre code.');
+      });
+    }
+
+    const ms = b.messages;
+    if (!Array.isArray(ms) || !ms.length) add('err', '`messages` manquant ou vide', 'Envoyez au moins un message `user`.');
+    else {
+      const last = ms[ms.length - 1];
+      if (isObj(last) && last.role === 'assistant') add('err', 'Préremplissage : le dernier message est `assistant`', 'Refusé sur Fable 5.2. Retirez ce message et décrivez le format attendu dans l\'invite système.');
+      let effortMsg = false, clear = false, toolChange = false, inlineDef = false, urlSrc = false, badSig = false, noField = false, sysFirst = false;
+      ms.forEach((m, i) => {
+        if (!isObj(m)) return;
+        const content = Array.isArray(m.content) ? m.content : [];
+        if (m.role === 'system') {
+          if (m.output_config !== undefined) {
+            effortMsg = true;
+            const e = isObj(m.output_config) ? m.output_config.effort : undefined;
+            if (LEVELS.indexOf(e) < 0) add('err', 'Effort par message invalide (`messages.' + i + '`)', 'Niveaux : `low`, `medium`, `high`, `xhigh`, `max`.');
+          }
+          if (m.clear_at !== undefined) clear = true;
+          content.forEach((c) => {
+            if (isObj(c) && (c.type === 'tool_addition' || c.type === 'tool_removal')) {
+              toolChange = true;
+              if (isObj(c.tool) && c.tool.type === 'tool_definition') inlineDef = true;
+            }
+          });
+          const hasText = typeof m.content === 'string' ? m.content.trim() !== '' : content.some((c) => isObj(c) && c.type === 'text');
+          if (i === 0 && hasText) sysFirst = true;
+        }
+        if (m.role === 'assistant') content.forEach((c) => {
+          if (!isObj(c) || c.type !== 'thinking') return;
+          if (!c.signature) badSig = true;
+          if (!('thinking' in c)) noField = true;
+        });
+        content.forEach((c) => {
+          if (isObj(c) && (c.type === 'image' || c.type === 'document') && isObj(c.source) && c.source.type === 'url') urlSrc = true;
+        });
+      });
+      if (sysFirst) add('warn', 'Message système en tête de `messages`', 'Un message système avec du texte suit un message `user` ; il ne peut pas ouvrir la conversation. Utilisez le champ `system`.');
+      if (effortMsg) need(BETA.effortMsg, 'L\'effort par message est en bêta.');
+      if (clear) need(BETA.clearAt, '`clear_at` est en bêta.');
+      if (inlineDef) need(BETA.inlineTools, 'Définir un outil dans `tool_addition` est en bêta.');
+      else if (toolChange && !betas.has(BETA.inlineTools) && !betas.has(BETA.toolChanges)) add('err', 'En-tête bêta manquant pour `tool_addition` / `tool_removal`', 'Ajoutez `' + BETA.inlineTools + '` ou `' + BETA.toolChanges + '`.');
+      if (badSig) add('err', 'Bloc `thinking` sans `signature`', 'Renvoyez chaque bloc exactement comme l\'API l\'a renvoyé : une signature vide échoue.');
+      if (noField) add('err', 'Bloc `thinking` sans champ `thinking`', 'Gardez le champ, même vide (`"thinking": ""`) : un sérialiseur qui le retire provoque une erreur 400.');
+      if (urlSrc) add('info', 'Image ou document par URL', 'Si le contenu de l\'URL change entre deux requêtes, la réflexion qui suit devient invalide. Préférez un `file_id` ou du base64 dès le premier envoi.');
+    }
+
+    if (b.fallbacks === undefined) add('info', 'Aucun repli en cas de refus', 'Un refus (HTTP 200, `stop_reason: "refusal"`) terminera la requête. Ajoutez `"fallbacks": "default"` (bêta) ou le middleware SDK.');
+    else {
+      need(BETA.fallback, 'Le repli côté serveur est en bêta.');
+      if (b.fallbacks === 'default') add('info', 'Repli `"default"`', 'Disponible sur l\'API Claude et Google Cloud (Anthropic managed). Les refus `reasoning_extraction` ne sont pas relancés.');
+      else if (Array.isArray(b.fallbacks)) {
+        const ids = b.fallbacks.map((f) => (isObj(f) ? f.model : undefined));
+        if (ids.length > 3) add('err', 'Plus de trois modèles de repli', 'La liste `fallbacks` accepte trois entrées au plus.');
+        if (ids.some((x) => typeof x !== 'string')) add('err', 'Entrée de repli sans `model`', 'Chaque entrée nomme un `model`.');
+        const bad = ids.filter((x) => typeof x === 'string' && FB_TARGETS.indexOf(x) < 0);
+        if (bad.length) add('err', 'Cible de repli non autorisée : `' + bad.join('`, `') + '`', 'Pour Fable 5.2, les cibles autorisées sont `claude-opus-4-8` et `claude-opus-5`.');
+        if (new Set(ids).size !== ids.length) add('err', 'Modèle de repli en double', 'Chaque entrée doit être distincte.');
+      } else add('err', '`fallbacks` invalide', 'Attendu : `"default"` ou une liste de `{"model": …}`.');
+    }
+
+    if (b.speed === 'fast') add('info', 'Mode rapide', '16 $ / 80 $ par MTok sur l\'API Claude. À retirer dans Managed Agents ; sur Microsoft Foundry, visez le déploiement `claude-fable-5-2-fast` sans `speed`.');
+    if (b.service_tier !== undefined) add('info', '`service_tier`', 'Fable 5.2 n\'est pas pris en charge sur Priority Tier.');
+    return F;
+  }
+  const SEV = { err: ['bad', 'Rejetée (400)'], warn: ['warn', 'À revoir'], info: ['info', 'Remarque'] };
+  const ORDER = { err: 0, warn: 1, info: 2 };
+  function renderCheck() {
+    const F = check($('#v-body').value, $('#v-beta').value).sort((a, b) => ORDER[a.sev] - ORDER[b.sev]);
+    const list = $('#v-list');
+    list.textContent = '';
+    F.forEach((f) => {
+      const li = document.createElement('li');
+      const pill = document.createElement('span');
+      pill.className = 'pill ' + SEV[f.sev][0];
+      pill.textContent = SEV[f.sev][1];
+      const box = document.createElement('div');
+      const t = document.createElement('strong');
+      rich(t, f.title);
+      box.appendChild(t);
+      if (f.fix) { const p = document.createElement('p'); rich(p, f.fix); box.appendChild(p); }
+      li.append(pill, box);
+      list.appendChild(li);
+    });
+    const c = (s) => F.filter((f) => f.sev === s).length;
+    const ne = c('err'), nw = c('warn'), ni = c('info');
+    const sum = $('#v-sum');
+    sum.textContent = (ne || nw || ni)
+      ? ne + (ne > 1 ? ' blocages' : ' blocage') + ' · ' + nw + ' à revoir · ' + ni + (ni > 1 ? ' remarques' : ' remarque')
+      : 'Aucun problème détecté pour Fable 5.2.';
+    sum.className = 'vsum ' + (ne ? 'bad' : nw ? 'warn' : 'ok');
+    frTypo(list);
+    frTypo(sum);
+  }
+  const vBody = $('#v-body');
+  if (vBody) {
+    const BAD = vBody.value;
+    const GOOD = JSON.stringify({
+      model: 'claude-fable-5-2',
+      max_tokens: 64000,
+      stream: true,
+      thinking: { type: 'adaptive', display: 'summarized' },
+      output_config: { effort: 'high' },
+      fallbacks: 'default',
+      tools: [{
+        name: 'meteo',
+        description: 'Donne la météo actuelle d\'une ville.',
+        input_schema: { type: 'object', properties: { ville: { type: 'string' } }, required: ['ville'] }
+      }],
+      messages: [{ role: 'user', content: 'Quel temps fait-il à Lyon ? Utilise l\'outil meteo.' }]
+    }, null, 2);
+    let timer = null;
+    const later = () => { clearTimeout(timer); timer = setTimeout(renderCheck, 200); };
+    vBody.addEventListener('input', later);
+    $('#v-beta').addEventListener('input', later);
+    $('#v-ex-bad').addEventListener('click', () => { vBody.value = BAD; $('#v-beta').value = ''; renderCheck(); });
+    $('#v-ex-good').addEventListener('click', () => { vBody.value = GOOD; $('#v-beta').value = BETA.fallback; renderCheck(); });
+    renderCheck();
+  }
+
+  frTypo($('.wrap'));
+})();
+</script>
+
+</body></html>

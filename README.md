@@ -10,6 +10,7 @@ Spécifications : [docs/PRD.md](docs/PRD.md).
 | `site/` | Site Astro, déployé sur Cloudflare Pages (`codeavecia.fr`) |
 | `studio/` | Atelier vidéo local, jamais déployé (à venir, jalon M3) |
 | `media/` | Rushes et rendus vidéo, exclus de git |
+| `pages/` | Pages HTML autonomes, publiées telles quelles sur GitHub Pages |
 
 ## Site
 
@@ -37,6 +38,16 @@ chaque autre branche obtient une URL de prévisualisation.
 | Root directory | `site` |
 | Build command | `npm run build` |
 | Build output directory | `dist` |
+
+## Pages HTML (GitHub Pages)
+
+Pour mettre une page `.html` autonome en ligne sans passer par le site : la déposer dans `pages/`
+et pousser sur `main`. Le workflow `.github/workflows/pages.yml` publie le dossier tel quel et génère
+un `index.html` qui liste les pages (titre et langue lus dans chaque fichier), sauf si `pages/index.html` existe déjà.
+
+URL : `https://devohmycode.github.io/codeavecia/<fichier>.html`.
+
+Réglage unique : *Settings → Pages → Source : GitHub Actions*.
 
 ## Secrets
 

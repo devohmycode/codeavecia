@@ -1,0 +1,2051 @@
+<!doctype html><html lang=en><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Fable 5.2 Handbook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A complete guide to building with Claude Fable 5.2.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<style>
+/* Layout: field manual. Sticky contents on the left, a reading column of about 70 characters, tools spanning the column. */
+:root{
+  --paper:#F2F6F5; --surface:#FFFFFF; --surface-2:#E5EDEC; --ink:#0F1F23; --ink-2:#435A5E; --line:#C8D6D6;
+  --accent:#0A6B78; --accent-ink:#FFFFFF; --accent-soft:#D3EAEC;
+  --mark:#E0A100; --mark-ink:#2A1E00; --mark-soft:#FBEFC8;
+  --ok:#1C7A4D; --ok-soft:#DCF1E5; --warn:#955700; --warn-soft:#FAEACC; --bad:#B42318; --bad-soft:#FAE1DD;
+  --code-bg:#0E1C20; --code-line:#22373C; --code-ink:#DCE8E8; --code-dim:#86A0A4; --code-key:#7DD3DE; --code-str:#F2C66D; --code-num:#F4A38F; --code-kw:#C9B8FF; --code-ok:#8FE3B0;
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"Cascadia Code",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0A1315; --surface:#101C1F; --surface-2:#172629; --ink:#E2ECEC; --ink-2:#9DB2B5; --line:#26393E;
+    --accent:#46BCCB; --accent-ink:#04191C; --accent-soft:#11363C;
+    --mark:#F0B429; --mark-ink:#241800; --mark-soft:#3A2E0E;
+    --ok:#55C893; --ok-soft:#0F2E1E; --warn:#EBA94A; --warn-soft:#352409; --bad:#F48A80; --bad-soft:#3A1512;
+    --code-bg:#061012; --code-line:#1A2C30;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0A1315; --surface:#101C1F; --surface-2:#172629; --ink:#E2ECEC; --ink-2:#9DB2B5; --line:#26393E;
+  --accent:#46BCCB; --accent-ink:#04191C; --accent-soft:#11363C;
+  --mark:#F0B429; --mark-ink:#241800; --mark-soft:#3A2E0E;
+  --ok:#55C893; --ok-soft:#0F2E1E; --warn:#EBA94A; --warn-soft:#352409; --bad:#F48A80; --bad-soft:#3A1512;
+  --code-bg:#061012; --code-line:#1A2C30;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.62 var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.wrap{max-width:1240px;margin-inline:auto}
+a{color:var(--accent);text-underline-offset:2px}
+p{margin:0 0 .9em}
+ul,ol{padding-left:1.25em;margin:0 0 1em}
+li{margin:.3em 0}
+code{font-family:var(--f-mono);font-size:.86em;background:var(--surface-2);padding:.08em .35em;border-radius:4px;overflow-wrap:anywhere}
+strong{font-weight:700}
+:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:start;padding-block:clamp(36px,7vw,84px) 44px;border-bottom:1px solid var(--line)}
+.kicker{font:600 .78rem/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0}
+h1{font-family:var(--f-display);margin:.3em 0 .35em;line-height:.92;letter-spacing:-.025em}
+h1 .l1{display:block;font-size:clamp(1.55rem,3.4vw,2.3rem);font-weight:500;color:var(--ink-2);letter-spacing:-.01em;margin-bottom:.12em}
+h1 .l2{display:block;font-size:clamp(3.3rem,10vw,6.4rem);font-weight:800}
+h1 .v{color:var(--accent)}
+.lead{font-size:1.16rem;line-height:1.55;max-width:56ch;margin-bottom:0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;font:700 .95rem/1 var(--f-body);padding:12px 16px;border-radius:6px;border:1.5px solid var(--accent);color:var(--accent);background:transparent;text-decoration:none;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.disclaimer{font-size:.86rem;color:var(--ink-2);max-width:62ch;margin:22px 0 0}
+.plate{position:relative;border:1.5px solid var(--ink);border-radius:8px;padding:24px 24px 18px;background-color:var(--surface);background-image:radial-gradient(circle at 12px 12px,var(--ink-2) 0 2.4px,transparent 3px),radial-gradient(circle at calc(100% - 12px) 12px,var(--ink-2) 0 2.4px,transparent 3px),radial-gradient(circle at 12px calc(100% - 12px),var(--ink-2) 0 2.4px,transparent 3px),radial-gradient(circle at calc(100% - 12px) calc(100% - 12px),var(--ink-2) 0 2.4px,transparent 3px)}
+.plate-t{font:700 .72rem/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:0 0 12px}
+.idrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px dashed var(--line)}
+.idrow code{font:700 1.15rem/1.2 var(--f-mono);background:none;padding:0;color:var(--ink)}
+.mini{font:600 .74rem/1 var(--f-mono);padding:7px 10px;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);cursor:pointer}
+.mini.ok{color:var(--ok);border-color:var(--ok)}
+.plate dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px 16px;margin:0;font-size:.95rem}
+.plate dt{font:600 .72rem/1.9 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.plate dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums;min-width:0}
+.plate dd code{font-weight:600}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.toc{padding-top:22px}
+.toc-t{font:700 .72rem/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:0 0 10px}
+.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.toc li{margin:0}
+.toc a{display:block;text-decoration:none;color:var(--ink);font-size:.9rem;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+@media (min-width:1100px){
+  .layout{grid-template-columns:200px minmax(0,1fr);gap:56px}
+  .toc{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;max-height:100vh;overflow:auto;padding-block:40px 24px}
+  .toc ol{flex-direction:column;flex-wrap:nowrap;gap:1px}
+  .toc a{border:0;border-left:2px solid var(--line);border-radius:0;background:none;color:var(--ink-2);padding:6px 12px}
+  .toc a:hover{color:var(--ink)}
+  .toc a[aria-current="true"]{border-left-color:var(--accent);color:var(--ink);background:var(--accent-soft)}
+}
+main{min-width:0}
+.chap{padding-block:52px 12px;border-top:1px solid var(--line)}
+.chap:first-child{border-top:0}
+.eyebrow{display:inline-block;font:600 .8rem/1.3 var(--f-mono);color:var(--accent);background:var(--accent-soft);padding:4px 8px;border-radius:4px}
+h2{font:760 clamp(1.75rem,3.3vw,2.4rem)/1.08 var(--f-display);letter-spacing:-.018em;margin:.45em 0 .55em;text-wrap:balance}
+h3{font:700 1.3rem/1.25 var(--f-display);letter-spacing:-.008em;margin:1.9em 0 .55em;text-wrap:balance}
+h4{font:700 1.02rem/1.3 var(--f-body);margin:1.4em 0 .45em}
+.intro{font-size:1.1rem;max-width:66ch}
+.prose{max-width:72ch}
+.muted{color:var(--ink-2)}
+.small{font-size:.88rem}
+
+.tbl{overflow-x:auto;margin:16px 0 26px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.tbl table{border-collapse:collapse;width:100%;min-width:580px;font-size:.94rem}
+.tbl.wide table{min-width:780px}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font:600 .72rem/1.35 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);background:var(--surface-2)}
+tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
+tbody th{font:700 .94rem/1.4 var(--f-body);text-transform:none;letter-spacing:0;color:var(--ink);background:none}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.self td,tr.self th{background:var(--accent-soft)}
+.tnote{font-size:.85rem;color:var(--ink-2);margin:-14px 0 24px;max-width:80ch}
+
+.pill{display:inline-block;font:600 .7rem/1 var(--f-mono);padding:4px 7px;border-radius:999px;border:1px solid currentColor;white-space:nowrap;vertical-align:.1em}
+.pill.bad{color:var(--bad);background:var(--bad-soft)}
+.pill.ok{color:var(--ok);background:var(--ok-soft)}
+.pill.warn{color:var(--warn);background:var(--warn-soft)}
+.pill.info{color:var(--accent);background:var(--accent-soft)}
+.pill.beta{color:var(--mark-ink);background:var(--mark);border-color:var(--mark)}
+.note{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:14px 18px 6px;margin:20px 0;max-width:78ch}
+.note .tag{display:block;font:700 .7rem/1 var(--f-mono);text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px;color:var(--ink-2)}
+.note.trap{border-color:var(--bad);background:var(--bad-soft)}
+.note.trap .tag{color:var(--bad)}
+.note.tip{border-color:var(--ok);background:var(--ok-soft)}
+.note.tip .tag{color:var(--ok)}
+.note ul{margin-bottom:.8em}
+
+figure.code{margin:16px 0 24px;background:var(--code-bg);border:1px solid var(--code-line);border-radius:6px;overflow:hidden;max-width:100%}
+figure.code figcaption{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:7px 8px 7px 14px;border-bottom:1px solid var(--code-line);font:600 .72rem/1.2 var(--f-mono);color:var(--code-dim);letter-spacing:.03em}
+.copy{font:600 .72rem/1 var(--f-mono);color:var(--code-ink);background:transparent;border:1px solid var(--code-line);border-radius:4px;padding:6px 9px;cursor:pointer;white-space:nowrap}
+.copy.ok{color:var(--code-ok);border-color:var(--code-ok)}
+pre{margin:0;padding:14px 16px;overflow-x:auto;font:400 .82rem/1.62 var(--f-mono);color:var(--code-ink);tab-size:2}
+pre code{background:none;padding:0;font-size:inherit;color:inherit;white-space:pre;overflow-wrap:normal}
+.t-com{color:var(--code-dim);font-style:italic}
+.t-str{color:var(--code-str)}
+.t-num{color:var(--code-num)}
+.t-kw{color:var(--code-kw)}
+.t-key{color:var(--code-key)}
+
+.dial{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:22px 0 8px}
+.notch{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 12px;min-width:0}
+.notch .top{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+.notch .lvl{font:700 1.08rem/1 var(--f-mono)}
+.notch .bars{display:flex;gap:3px;height:8px}
+.notch .bars i{flex:1;background:var(--surface-2);border-radius:2px}
+.notch .bars i.on{background:var(--accent)}
+.notch p{margin:0;font-size:.9rem;line-height:1.45}
+.notch.def{border-color:var(--mark);box-shadow:inset 0 0 0 1px var(--mark)}
+.dial-cap{font-size:.84rem;color:var(--ink-2);margin:4px 0 24px}
+@media (max-width:860px){.dial{grid-template-columns:minmax(0,1fr)}.notch .bars{max-width:180px}}
+
+.seqwrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface);padding:6px 14px;margin:18px 0 8px}
+.seqrow{display:grid;grid-template-columns:170px minmax(0,1fr);gap:14px;align-items:center;min-width:820px;padding-block:12px}
+.seqrow+.seqrow{border-top:1px dashed var(--line)}
+.seqlbl{font-size:.86rem;line-height:1.35;color:var(--ink-2)}
+.seqlbl strong{display:block;color:var(--ink);font-size:.92rem}
+.seq{display:flex;gap:6px;align-items:stretch}
+.sg{display:flex;flex-direction:column;justify-content:center;gap:3px;font:600 .74rem/1.2 var(--f-mono);padding:7px 8px;border:1px solid var(--line);border-radius:4px;background:var(--surface-2);color:var(--ink);white-space:nowrap}
+.sg small{font:400 .66rem/1.15 var(--f-mono);color:var(--ink-2)}
+.sg.edit{border:1.5px dashed var(--warn);background:var(--warn-soft)}
+.sg.ok{border-color:var(--ok);background:var(--ok-soft)}
+.sg.bad{border-color:var(--bad);background:var(--bad-soft)}
+.sg.add{border-style:dashed;border-color:var(--accent);background:var(--accent-soft)}
+.seq-cap{font-size:.86rem;color:var(--ink-2);margin:6px 0 26px;max-width:80ch}
+
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px 0 26px}
+.split>div{border:1px solid var(--line);border-radius:6px;padding:14px 18px 4px;background:var(--surface);min-width:0}
+.split h4{margin:0 0 .5em}
+.split .safe h4{color:var(--ok)}
+.split .unsafe h4{color:var(--bad)}
+.split ul{padding-left:1.1em}
+.split li{font-size:.94rem}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0 22px}
+.trio>div{border:1px solid var(--line);border-radius:6px;padding:14px 16px 6px;background:var(--surface);min-width:0}
+.trio h4{margin:0 0 .4em;font-family:var(--f-display);font-size:1.08rem}
+.trio p{font-size:.94rem}
+@media (max-width:860px){.split,.trio{grid-template-columns:minmax(0,1fr)}}
+
+ol.steps{list-style:none;padding:0;counter-reset:st;max-width:72ch}
+ol.steps>li{counter-increment:st;display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;margin:0 0 12px}
+ol.steps>li::before{content:counter(st);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);font:700 .9rem/1 var(--f-mono)}
+
+.tabs{margin:20px 0 28px}
+[role="tablist"]{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--line)}
+[role="tab"]{font:700 .9rem/1.1 var(--f-body);padding:10px 12px;border:1px solid var(--line);border-bottom:0;border-radius:6px 6px 0 0;background:var(--surface-2);color:var(--ink-2);cursor:pointer;margin-bottom:-1px}
+[role="tab"][aria-selected="true"]{background:var(--surface);color:var(--ink);border-bottom:1px solid var(--surface)}
+[role="tabpanel"]{border:1px solid var(--line);border-top:0;background:var(--surface);padding:20px 20px 10px;border-radius:0 0 6px 6px}
+[role="tabpanel"]>p,[role="tabpanel"] ul{max-width:76ch}
+
+.cl{margin:18px 0 10px;border-top:1px dashed var(--line);padding-top:14px}
+.cl-head{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.cl-head h4{margin:0}
+.progress{display:flex;align-items:center;gap:10px;font:600 .8rem/1 var(--f-mono);color:var(--ink-2)}
+.progress .bar{display:block;width:120px;height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--ok)}
+.check{list-style:none;padding:0;margin:10px 0 12px;max-width:80ch}
+.check li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;margin:0;border-bottom:1px solid var(--line)}
+.check li:last-child{border-bottom:0}
+.check input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent);flex:none}
+.check label{cursor:pointer;font-size:.95rem}
+.check input:checked+label{color:var(--ink-2);text-decoration:line-through}
+
+.tool{border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:20px;margin:18px 0 30px}
+.tool h3{margin-top:0}
+.tool-grid{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px}
+.tool-grid.even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:920px){.tool-grid,.tool-grid.even{grid-template-columns:minmax(0,1fr)}}
+fieldset{border:0;padding:0;margin:0 0 16px;min-width:0}
+legend,.lbl{display:block;font:600 .74rem/1.2 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);margin:0 0 7px;padding:0}
+.segs{position:relative;display:flex;flex-wrap:wrap;gap:4px}
+.segs input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.segs label{font:600 .84rem/1 var(--f-mono);padding:9px 10px;border:1px solid var(--line);border-radius:4px;cursor:pointer;background:var(--paper);color:var(--ink)}
+.segs input:checked+label{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.segs input:focus-visible+label{outline:3px solid var(--mark);outline-offset:2px}
+select,input[type="number"],input[type="text"],textarea{font:400 .95rem/1.3 var(--f-body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:9px 10px;width:100%;max-width:100%}
+textarea{font:400 .8rem/1.5 var(--f-mono);min-height:330px;resize:vertical}
+.cbx{display:flex;align-items:center;gap:8px;font-size:.95rem;cursor:pointer}
+.cbx input{width:18px;height:18px;accent-color:var(--accent);margin:0}
+.betas{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px;padding:0;list-style:none}
+.betas li{margin:0}
+.notes{list-style:none;padding:0;margin:6px 0 0}
+.notes li{display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px;align-items:start;padding:8px 0;margin:0;border-bottom:1px solid var(--line);font-size:.93rem}
+.notes li:last-child{border-bottom:0}
+.notes .pill{justify-self:start}
+.vbar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.vsum{font:700 .95rem/1.3 var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);margin:4px 0 6px}
+.vsum.bad{border-color:var(--bad);background:var(--bad-soft);color:var(--ink)}
+.vsum.warn{border-color:var(--warn);background:var(--warn-soft);color:var(--ink)}
+.vsum.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ink)}
+.findings{list-style:none;padding:0;margin:8px 0}
+.findings li{display:grid;grid-template-columns:116px minmax(0,1fr);gap:10px;padding:10px 0;margin:0;border-bottom:1px solid var(--line)}
+.findings li:last-child{border-bottom:0}
+.findings .pill{justify-self:start}
+.findings strong{display:block;font-size:.97rem}
+.findings p{margin:.25em 0 0;color:var(--ink-2);font-size:.92rem}
+@media (max-width:520px){.findings li,.notes li{grid-template-columns:minmax(0,1fr)}}
+.est-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.est-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.est-grid{grid-template-columns:minmax(0,1fr)}}
+.est-grid label{display:block;font-size:.88rem;margin-bottom:5px;color:var(--ink-2)}
+.est-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+@media (max-width:640px){.est-out{grid-template-columns:minmax(0,1fr)}}
+.stat{border:1px solid var(--line);border-radius:6px;padding:12px 14px;background:var(--paper)}
+.stat .k{font:600 .7rem/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.stat .v{font:760 1.45rem/1.25 var(--f-display);font-variant-numeric:tabular-nums}
+.breakdown{display:grid;gap:7px;margin-top:16px}
+.brow{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr) auto;gap:10px;align-items:center;font-size:.9rem}
+.brow .bar{height:10px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.brow .bar i{display:block;height:100%;background:var(--accent)}
+.brow .amt{font:400 .8rem/1 var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:560px){.brow{grid-template-columns:minmax(0,1fr) auto}.brow .bar{grid-column:1/-1;order:3}}
+
+details.faq{border-bottom:1px solid var(--line);padding:12px 0;max-width:78ch}
+details.faq summary{cursor:pointer;font-weight:700}
+details.faq p{margin:.6em 0 .2em}
+.sources li{margin:.5em 0}
+footer{border-top:1px solid var(--line);margin-top:40px;padding-block:26px 48px;color:var(--ink-2);font-size:.88rem}
+footer p{max-width:80ch}
+@media (max-width:900px){.hero{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <div>
+    <p class="kicker">Claude Fable 5.2 · unofficial guide</p>
+    <h1><span class="l1">The handbook for</span><span class="l2">Fable <span class="v">5.2</span></span></h1>
+    <p class="lead">Fable 5.2 is the Claude model built for demanding reasoning and long-horizon agentic work: agent sessions that run for hours, multi-step research, analysis carried through to a finished document, spreadsheet or presentation. This guide gathers what you need to call it correctly and get the most out of it.</p>
+    <div class="actions">
+      <a class="btn primary" href="#essentials">Read the essentials</a>
+      <a class="btn" href="#workshop">Build or check a request</a>
+    </div>
+    <p class="disclaimer">Summarized from Anthropic's Claude Platform documentation, read on November 10, 2026 (list at the end of the page). Test figures quoted here are the ones Anthropic reports for its own tests. Check the official documentation before shipping to production.</p>
+  </div>
+  <aside class="plate" aria-labelledby="plate-t">
+    <p class="plate-t" id="plate-t">Rating plate</p>
+    <div class="idrow">
+      <code id="model-id">claude-fable-5-2</code>
+      <button class="mini" id="copy-id" type="button">Copy ID</button>
+    </div>
+    <dl>
+      <dt>Bedrock</dt><dd><code>anthropic.claude-fable-5-2</code></dd>
+      <dt>Context</dt><dd>1M tokens</dd>
+      <dt>Max output</dt><dd>128k tokens</dd>
+      <dt>Price</dt><dd>$8 input · $40 output / MTok</dd>
+      <dt>Cache</dt><dd>reads at $0.20 / MTok</dd>
+      <dt>Thinking</dt><dd>adaptive, always on</dd>
+      <dt>Effort</dt><dd><code>high</code> by default</dd>
+      <dt>Modalities</dt><dd>text and images → text</dd>
+      <dt>Knowledge</dt><dd>reliable through June 2026</dd>
+      <dt>Released</dt><dd>November 9, 2026</dd>
+      <dt>Retirement</dt><dd>not before November 9, 2027</dd>
+    </dl>
+  </aside>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="Contents">
+  <p class="toc-t">Contents</p>
+  <ol>
+    <li><a href="#essentials">Essentials</a></li>
+    <li><a href="#specs">Spec sheet</a></li>
+    <li><a href="#thinking">Adaptive thinking</a></li>
+    <li><a href="#effort">Effort</a></li>
+    <li><a href="#preserved">Preserved thinking</a></li>
+    <li><a href="#prompts">Prompting</a></li>
+    <li><a href="#migration">Migrating</a></li>
+    <li><a href="#refusals">Refusals and fallback</a></li>
+    <li><a href="#workshop">Workshop</a></li>
+    <li><a href="#cheatsheet">Cheat sheet</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ============ ESSENTIALS ============ -->
+<section class="chap" id="essentials" aria-labelledby="h-essentials">
+  <span class="eyebrow">POST /v1/messages</span>
+  <h2 id="h-essentials">The essentials in one table</h2>
+  <p class="intro">Fable 5.2 uses the same Messages API as other recent Claude models, with strict rules. Most 400 errors seen during a migration come from the rows below.</p>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Item</th><th scope="col">On Fable 5.2</th><th scope="col">What fails</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>model</code></th><td><code>claude-fable-5-2</code> on every platform except Amazon Bedrock: <code>anthropic.claude-fable-5-2</code>.</td><td>—</td></tr>
+      <tr><th scope="row"><code>thinking</code></th><td>Omit it, or send <code>{"type": "adaptive"}</code>. Adaptive thinking is always on.</td><td><span class="pill bad">400</span> <code>disabled</code>, <code>enabled</code> with <code>budget_tokens</code>, <code>between_tools</code>.</td></tr>
+      <tr><th scope="row"><code>output_config.effort</code></th><td><code>low</code>, <code>medium</code>, <code>high</code> (default), <code>xhigh</code>, <code>max</code>. The main control for depth, latency and cost.</td><td><code>adaptive</code> is not an effort level. Effort belongs in <code>output_config</code>.</td></tr>
+      <tr><th scope="row"><code>temperature</code>, <code>top_p</code>, <code>top_k</code></th><td>Omit them.</td><td><span class="pill bad">400</span> any non-default value. <code>top_p</code> defaults to 0.99, so <code>top_p: 1</code> fails, as does sending <code>temperature</code> and <code>top_p</code> together. With API version <code>2026-10-21</code>, any value fails.</td></tr>
+      <tr><th scope="row"><code>tool_choice</code></th><td><code>auto</code> (default) or <code>none</code>.</td><td><span class="pill bad">400</span> <code>any</code> and <code>tool</code>, token counting included.</td></tr>
+      <tr><th scope="row">Prefill</th><td>Not allowed. Shape the answer through the system prompt.</td><td><span class="pill bad">400</span> a final <code>assistant</code> message.</td></tr>
+      <tr><th scope="row"><code>messages</code> history</th><td>Append-only: <code>system</code> and <code>tools</code> frozen, assistant turns sent back unchanged.</td><td><span class="pill bad">400</span> a thinking block placed after an edit, on every account.</td></tr>
+      <tr><th scope="row"><code>max_tokens</code></th><td>Generous, up to 128,000: thinking counts against it. The SDKs require streaming above 21,333.</td><td>Too low: a <code>max_tokens</code> stop after the thinking, before any text.</td></tr>
+      <tr><th scope="row"><code>stop_reason</code></th><td>Check for <code>"refusal"</code> before reading <code>content</code>.</td><td>A refusal is an HTTP 200: error-based monitoring never sees it.</td></tr>
+      <tr><th scope="row">Data retention</th><td>30 days required (Fable 5.2 is a "Covered Model").</td><td><span class="pill bad">400</span> <code>invalid_request_error</code> for an organization or workspace on ZDR, unless Anthropic expressly authorizes it.</td></tr>
+      <tr><th scope="row">Computer use</th><td>The <code>computer_toolset_20260801</code> toolset.</td><td><span class="pill bad">400</span> <code>computer_20251124</code>, except on Amazon Bedrock.</td></tr>
+      <tr><th scope="row">Advisor tool <span class="pill beta">beta</span></th><td>Advisor <code>claude-fable-5-2</code> or <code>claude-mythos-5-2</code>.</td><td><span class="pill bad">400</span> any other advisor.</td></tr>
+      <tr><th scope="row">Structured outputs</th><td>Available, except in CMEK organizations (customer-managed encryption keys).</td><td>Under CMEK, <code>strict: true</code> and <code>output_config.format</code> are unavailable: validate the output in your code.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>First call</h3>
+  <p class="prose">The useful minimum: the model, a comfortable <code>max_tokens</code>, an explicit effort, and refusal handling before reading the text.</p>
+  <figure class="code"><figcaption><span>Python</span></figcaption><pre><code data-lang="py">import anthropic
+
+client = anthropic.Anthropic()  # reads ANTHROPIC_API_KEY
+
+message = client.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    output_config={"effort": "high"},
+    messages=[{"role": "user", "content": "Hello, Claude"}],
+)
+
+if message.stop_reason == "refusal":
+    details = message.stop_details
+    print("Refusal:", details.category if details else None)
+else:
+    # Thinking blocks come first: select by type.
+    print("".join(b.text for b in message.content if b.type == "text"))</code></pre></figure>
+  <figure class="code"><figcaption><span>cURL</span></figcaption><pre><code data-lang="sh">curl https://api.anthropic.com/v1/messages \
+  -H "x-api-key: $ANTHROPIC_API_KEY" \
+  -H "anthropic-version: 2026-10-21" \
+  -H "content-type: application/json" \
+  -d '{
+    "model": "claude-fable-5-2",
+    "max_tokens": 16000,
+    "output_config": {"effort": "high"},
+    "messages": [{"role": "user", "content": "Hello, Claude"}]
+  }'</code></pre></figure>
+</section>
+
+<!-- ============ SPECS ============ -->
+<section class="chap" id="specs" aria-labelledby="h-specs">
+  <span class="eyebrow">claude-fable-5-2</span>
+  <h2 id="h-specs">Spec sheet</h2>
+  <p class="intro">Fable 5.2 targets agent sessions that run for hours, deep multi-step research and analysis carried through to the final deliverable. Claude Mythos 5.2 offers the same capabilities, specs and pricing, but only to organizations verified through an Anthropic program such as the Cyber Verification Program.</p>
+
+  <h3>Against the 5.5 models</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Model</th><th scope="col">Context</th><th scope="col">Max output</th><th scope="col">Price / MTok</th><th scope="col">Latency</th><th scope="col">Thinking</th><th scope="col">Default effort</th></tr></thead>
+    <tbody>
+      <tr class="self"><th scope="row">Claude Fable 5.2</th><td class="num">1M</td><td class="num">128k</td><td class="num">$8 / $40</td><td>Moderate</td><td>Adaptive, always on</td><td><code>high</code></td></tr>
+      <tr><th scope="row">Claude Opus 5.5</th><td class="num">1M</td><td class="num">128k</td><td class="num">$4 / $20</td><td>Moderate</td><td>Adaptive, always on</td><td><code>medium</code></td></tr>
+      <tr><th scope="row">Claude Sonnet 5.5</th><td class="num">1M</td><td class="num">128k</td><td class="num">$2 / $10</td><td>Fast</td><td>Adaptive</td><td><code>high</code></td></tr>
+      <tr><th scope="row">Claude Haiku 5.5</th><td class="num">1M</td><td class="num">128k</td><td class="num">from $0.10 / $0.50</td><td>Fastest</td><td>Adaptive</td><td><code>medium</code></td></tr>
+    </tbody>
+  </table></div>
+  <p class="tnote">US dollars, input / output. All four models have reliable knowledge through June 2026. The previous generation, Fable 5.1, cost $10 / $50.</p>
+
+  <h3>Model IDs by platform</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Platform</th><th scope="col">Model ID</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Claude API</th><td><code>claude-fable-5-2</code></td></tr>
+      <tr><th scope="row">Claude Platform on AWS</th><td><code>claude-fable-5-2</code></td></tr>
+      <tr><th scope="row">Claude Models on Google Cloud (Anthropic managed)</th><td><code>claude-fable-5-2</code></td></tr>
+      <tr><th scope="row">Claude Models on Google Cloud (Google managed)</th><td><code>claude-fable-5-2</code></td></tr>
+      <tr><th scope="row">Microsoft Foundry</th><td><code>claude-fable-5-2</code> (Anthropic-hosted deployments; fast mode: the <code>claude-fable-5-2-fast</code> deployment)</td></tr>
+      <tr><th scope="row">Amazon Bedrock</th><td><code>anthropic.claude-fable-5-2</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Pricing</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Item</th><th scope="col">Price / MTok</th><th scope="col">Good to know</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Input</th><td class="num">$8</td><td>Fable 5.1: $10.</td></tr>
+      <tr><th scope="row">Output</th><td class="num">$40</td><td>Includes all thinking, even when hidden. Fable 5.1: $50.</td></tr>
+      <tr><th scope="row">Cache write, 5 min</th><td class="num">$10</td><td>Caching starts at 512 tokens.</td></tr>
+      <tr><th scope="row">Cache write, 1 h</th><td class="num">$16</td><td></td></tr>
+      <tr><th scope="row">Cache read</th><td class="num">$0.20</td><td>Fable 5.1: $0.25. Fable 5: $1.</td></tr>
+      <tr><th scope="row">Batch API</th><td class="num">−50%</td><td>On input and output.</td></tr>
+      <tr><th scope="row">Fast mode (Claude API)</th><td class="num">$16 / $80</td><td>Input / output, with <code>speed: "fast"</code>. No beta header needed.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Availability and limits</h3>
+  <ul class="prose">
+    <li>Released November 9, 2026, status active. Retirement not before November 9, 2027.</li>
+    <li><strong>Its own rate limit</strong>, separate from the combined limit shared by Fable 5.1 and Fable 5. Against Opus 5.5, token limits are lower at every tier. Check them before moving traffic.</li>
+    <li><strong>30-day data retention required.</strong> No ZDR without Anthropic's express authorization; an organization on ZDR can configure retention for a specific workspace.</li>
+    <li><strong>No Priority Tier.</strong> If you have a Priority Tier commitment, plan capacity separately.</li>
+    <li><strong>Fast mode</strong> on the Claude API, on Google Cloud (Anthropic managed and Google managed, with Google's pricing in the latter) and on Microsoft Foundry through the <code>claude-fable-5-2-fast</code> deployment, without <code>speed</code>. Remove <code>speed: "fast"</code> in Managed Agents.</li>
+    <li>The Models API exposes the model's limits and capabilities, for example whether a given <code>thinking</code> value is accepted.</li>
+  </ul>
+
+  <h3>Features by platform</h3>
+  <div class="tbl wide"><table>
+    <thead><tr><th scope="col">Feature</th><th scope="col">Claude API</th><th scope="col">Platform on AWS</th><th scope="col">Google Cloud (Anthropic)</th><th scope="col">Google Cloud (Google)</th><th scope="col">Bedrock</th><th scope="col">Foundry</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Fable 5.2</th><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td></tr>
+      <tr><th scope="row">Per-message effort <span class="pill beta">beta</span></th><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes ¹</td><td>—</td></tr>
+      <tr><th scope="row"><code>display: "updates"</code> <span class="pill beta">beta</span></th><td>yes</td><td>yes</td><td>yes</td><td>yes ²</td><td>yes ²</td><td>yes ²</td></tr>
+      <tr><th scope="row">Server-side fallback <span class="pill beta">beta</span></th><td>yes</td><td>—</td><td>yes</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><th scope="row">SDK fallback middleware</th><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td></tr>
+      <tr><th scope="row">Fast mode</th><td>yes</td><td>—</td><td>yes</td><td>yes ³</td><td>—</td><td>yes ⁴</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tnote">¹ With the InvokeModel API, the beta value goes in the body's <code>anthropic_beta</code> array. ² The beta header travels through the platform's own mechanism. ³ Pricing set by Google Cloud. ⁴ Through the <code>claude-fable-5-2-fast</code> deployment. "—": not listed in the pages consulted.</p>
+
+  <div class="tool" id="estimator">
+    <h3>Estimate a workload's cost</h3>
+    <p class="small muted">Starting values: a <strong>made-up example</strong> of an agentic coding turn that rereads a lot of cached context. Replace them with your own numbers (the <code>usage</code> of your responses).</p>
+    <div class="est-grid">
+      <div><label for="est-n">Number of requests</label><input type="number" id="est-n" min="0" step="1" value="1000"></div>
+      <div><label for="est-in">Uncached input (tokens)</label><input type="number" id="est-in" min="0" step="100" value="12000"></div>
+      <div><label for="est-cr">Cache read (tokens)</label><input type="number" id="est-cr" min="0" step="1000" value="150000"></div>
+      <div><label for="est-cw5">Cache write, 5 min (tokens)</label><input type="number" id="est-cw5" min="0" step="100" value="0"></div>
+      <div><label for="est-cw1">Cache write, 1 h (tokens)</label><input type="number" id="est-cw1" min="0" step="100" value="0"></div>
+      <div><label for="est-out">Output, thinking included (tokens)</label><input type="number" id="est-out" min="0" step="100" value="8000"></div>
+    </div>
+    <p style="margin:14px 0 0"><label class="cbx" for="est-batch"><input type="checkbox" id="est-batch"> Batch API (−50% on input and output)</label></p>
+    <div class="est-out">
+      <div class="stat"><div class="k">Per request</div><div class="v" id="est-per">$0.4460</div></div>
+      <div class="stat"><div class="k">Total</div><div class="v" id="est-total">$446.00</div></div>
+      <div class="stat"><div class="k">Saved by caching</div><div class="v" id="est-save">$1,170.00</div></div>
+    </div>
+    <div class="breakdown" id="est-bars" aria-label="Cost breakdown per request"></div>
+    <p class="small muted" style="margin-top:12px">Claude API pricing. The saving compares cache reads with the same volume billed as input. In this estimate the Batch discount applies only to input and output; see the Pricing page for how it combines with caching.</p>
+  </div>
+</section>
+
+<!-- ============ THINKING ============ -->
+<section class="chap" id="thinking" aria-labelledby="h-thinking">
+  <span class="eyebrow">thinking</span>
+  <h2 id="h-thinking">Adaptive thinking</h2>
+  <p class="intro">Fable 5.2 thinks before answering when the task calls for it. You cannot turn that thinking off: you set its depth with effort and its visibility with <code>display</code>.</p>
+
+  <h3>What each <code>thinking</code> value does</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Value sent</th><th scope="col">Result on Fable 5.2</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Field absent</th><td><span class="pill ok">ok</span> Adaptive thinking.</td></tr>
+      <tr><th scope="row"><code>{"type": "adaptive"}</code></th><td><span class="pill ok">ok</span> Adaptive thinking (equivalent).</td></tr>
+      <tr><th scope="row"><code>{"type": "enabled", "budget_tokens": N}</code></th><td><span class="pill bad">400</span> Manual extended thinking no longer exists on this model.</td></tr>
+      <tr><th scope="row"><code>{"type": "between_tools"}</code></th><td><span class="pill bad">400</span> Claude Sonnet 5.5 only.</td></tr>
+      <tr><th scope="row"><code>{"type": "disabled"}</code></th><td><span class="pill bad">400</span> At every effort level.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>What you see: <code>display</code></h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col"><code>display</code></th><th scope="col">Reasoning blocks</th><th scope="col">Progress updates</th><th scope="col">Typical use</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>"omitted"</code> (default)</th><td>Empty <code>thinking</code> field</td><td>Empty field</td><td>The UI does not show thinking. When streaming, the first text token arrives sooner.</td></tr>
+      <tr><th scope="row"><code>"summarized"</code></th><td>Readable summary</td><td>Summary, indistinguishable from reasoning</td><td>Inspecting the reasoning, tuning a prompt.</td></tr>
+      <tr><th scope="row"><code>"updates"</code> <span class="pill beta">beta</span></th><td>Empty field</td><td>Short summary</td><td>Agent UI that shows one status line per step. Header <code>thinking-display-updates-2026-08-18</code>.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Things to remember</h3>
+  <ul class="prose">
+    <li><strong>Thinking is billed as output tokens</strong>, whatever <code>display</code> says. Hiding it lowers latency, not cost. With <code>"summarized"</code>, you pay for all the thinking, not just the summary.</li>
+    <li><strong>It counts against <code>max_tokens</code></strong>, along with the answer text. <code>max_tokens</code> is the only hard limit; effort is a hint.</li>
+    <li><strong>You never see the raw chain of thought.</strong> A block's text is a summary, written by a different model from the one you call.</li>
+    <li><strong>Each block carries a <code>signature</code></strong>, encrypted and opaque. Do not parse it. Send blocks back unchanged, including when the <code>thinking</code> field is empty: any text you put there is ignored.</li>
+    <li><strong>At <code>high</code> and above, the model thinks before almost every reply</strong>, even a greeting. For a simple request at lower effort it may produce no thinking block at all.</li>
+    <li><strong>Interleaved thinking is automatic</strong>: the model thinks between tool calls with no beta header.</li>
+    <li><strong>Select content by <code>type</code></strong>, never <code>content[0].text</code>: thinking blocks come first.</li>
+    <li>In Managed Agents, the platform sets the thinking configuration; agent definitions have no <code>thinking</code> field.</li>
+  </ul>
+  <figure class="code"><figcaption><span>Python · reading the reasoning summary</span></figcaption><pre><code data-lang="py">response = client.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    thinking={"type": "adaptive", "display": "summarized"},
+    output_config={"effort": "medium"},
+    messages=[{"role": "user", "content": "How many Friday the 13ths are there in 2027?"}],
+)
+
+for block in response.content:
+    if block.type == "thinking":
+        print("Reasoning summary:", block.thinking)
+    elif block.type == "text":
+        print(block.text)</code></pre></figure>
+
+  <h3>Progress updates between tool calls</h3>
+  <p class="prose">Between two tool calls, Fable 5.2 can write a short note for the person following the agent: what it just found and what it will do next. Each note arrives in its own <code>thinking</code> block, right before the <code>tool_use</code> it introduces. There is at most one per tool call, and the model may skip any of them.</p>
+  <p class="prose">With the default <code>display</code>, these notes are empty. A client that only renders <code>text</code> blocks therefore looks silent during a long agentic turn. Switch to <code>"updates"</code> and render the non-empty <code>thinking</code> blocks.</p>
+  <figure class="code"><figcaption><span>Python · agent UI with updates</span></figcaption><pre><code data-lang="py">with client.beta.messages.stream(
+    model="claude-fable-5-2",
+    max_tokens=64000,
+    thinking={"type": "adaptive", "display": "updates"},
+    output_config={"effort": "high"},
+    betas=["thinking-display-updates-2026-08-18"],
+    tools=tools,
+    messages=messages,
+) as stream:
+    message = stream.get_final_message()
+
+for block in message.content:
+    # With "updates", a non-empty thinking block is a progress update.
+    if block.type == "thinking" and block.thinking:
+        print("›", block.thinking)
+    elif block.type == "tool_use":
+        print("tool:", block.name)
+
+# Send the turn back unchanged, empty thinking blocks included.
+messages.append({"role": "assistant", "content": message.content})</code></pre></figure>
+  <ul class="prose">
+    <li>For real-time display, handle the stream's <code>thinking_delta</code> events. Expect a pause of a few seconds before a progress block opens.</li>
+    <li>The text you receive summarizes the note (a sentence or two), but <code>usage.output_tokens</code> counts the full note.</li>
+    <li>The model writes fewer notes at high effort and in long tool chains. To get more, see <a href="#p-progress">Keeping users informed</a>.</li>
+    <li>If a response stops on <code>max_tokens</code>, <code>model_context_window_exceeded</code> or <code>stop_sequence</code> right after a tool, the last block can be a fixed note saying the response was interrupted. To resume, send the turn back unchanged and add a <code>user</code> message with a <code>tool_result</code> for every <code>tool_use</code> in the turn.</li>
+  </ul>
+
+  <div class="note trap">
+    <span class="tag">Pitfalls</span>
+    <ul>
+      <li><strong><code>max_tokens</code> too low:</strong> the response stops with <code>stop_reason: "max_tokens"</code> after a <code>thinking</code> block, before any text. Raise the value or lower the effort.</li>
+      <li><strong>Streaming:</strong> the SDKs require it once <code>max_tokens</code> exceeds 21,333 (a client-side check). Use <code>.stream()</code> then <code>get_final_message()</code> in Python or <code>finalMessage()</code> in TypeScript.</li>
+      <li><strong>Very long thinking:</strong> above roughly 32k thinking tokens per request, batch processing avoids network timeouts.</li>
+      <li><strong>Reasoning inside the answer:</strong> asking the model to write its reasoning into the text can trigger a <code>reasoning_extraction</code> refusal. Read the <code>thinking</code> blocks instead.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ EFFORT ============ -->
+<section class="chap" id="effort" aria-labelledby="h-effort">
+  <span class="eyebrow">output_config.effort</span>
+  <h2 id="h-effort">Effort</h2>
+  <p class="intro">Effort sets how much work Fable 5.2 puts into a response: thinking, tool calls and text. Since thinking is always on, it is your main control over depth, latency and cost.</p>
+
+  <div class="dial" role="list" aria-label="Effort levels">
+    <div class="notch" role="listitem">
+      <div class="top"><span class="lvl">low</span></div>
+      <span class="bars" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span>
+      <p>Quick exchanges, well-specified tasks, high volume, fast subagents. Anthropic measured scores close to Fable 5.1 at higher effort.</p>
+    </div>
+    <div class="notch" role="listitem">
+      <div class="top"><span class="lvl">medium</span></div>
+      <span class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>
+      <p>Interactive coding, chat, everyday knowledge work.</p>
+    </div>
+    <div class="notch def" role="listitem">
+      <div class="top"><span class="lvl">high</span><span class="pill beta">default</span></div>
+      <span class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+      <p>Hard coding, research, agentic work, long unattended runs. The recommended starting point. Turns take noticeably longer than at <code>medium</code>.</p>
+    </div>
+    <div class="notch" role="listitem">
+      <div class="top"><span class="lvl">xhigh</span></div>
+      <span class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+      <p>Your longest and hardest coding and agentic tasks, where a gain is measured. A slight gain for many more tokens.</p>
+    </div>
+    <div class="notch" role="listitem">
+      <div class="top"><span class="lvl">max</span></div>
+      <span class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+      <p>Measuring the model's ceiling; open-ended problems (scientific discovery, mathematics). Slow, far more tokens than <code>xhigh</code>.</p>
+    </div>
+  </div>
+  <p class="dial-cap">The bars only show the relative order of depth and spend, not measured values.</p>
+
+  <h3>Choosing a level</h3>
+  <ul class="prose">
+    <li><strong>Most of the gain is already there at <code>high</code>.</strong> Above it, gains are uneven and task-dependent. Drop to <code>medium</code> wherever your evaluations show quality holds.</li>
+    <li><strong>Re-run your sweep.</strong> Levels keep the same order from one model to the next, but not the same amount of thinking. A setting tuned for Fable 5.1 or Opus 5.5 does not carry over.</li>
+    <li><strong>An "answer without deliberating" instruction does not stop thinking</strong> from <code>medium</code> up. If simple requests cost too much, lower the effort for those turns.</li>
+    <li><strong>Low levels cause more premature stops</strong> in agentic work. Add the <a href="#p-finish">"finish the job"</a> instruction at <code>low</code> and <code>medium</code>.</li>
+    <li><strong>Effort barely changes answer length.</strong> Set length and tone through the prompt.</li>
+    <li>Low effort means fewer, more consolidated tool calls, no preamble and short confirmations. High effort means more calls, an explained plan, detailed summaries and fuller code comments.</li>
+    <li>Inside a tool loop, a request that only processes tool results may skip thinking at any level.</li>
+    <li>Mix levels: plan and iterate at <code>medium</code>, then raise the effort for the long unattended phase.</li>
+    <li>From <code>high</code> up, plan for a high <code>max_tokens</code>.</li>
+  </ul>
+
+  <h3>Changing effort mid-conversation</h3>
+  <p class="prose">There are two ways. The first, <strong>per-message effort</strong> <span class="pill beta">beta</span>, keeps the prompt cache: append to <code>messages</code> a <code>role: "system"</code> message with empty content that carries the new level. The second, changing <code>output_config.effort</code> in the next request, works everywhere but restarts the cache.</p>
+  <figure class="code"><figcaption><span>Python · lowering effort for a follow-up question</span></figcaption><pre><code data-lang="py">first = client.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    output_config={"effort": "high"},
+    messages=[{"role": "user", "content": "Propose a plan to migrate from SQLite to PostgreSQL."}],
+)
+
+follow_up = client.beta.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    output_config={"effort": "high"},  # unchanged: the cache stays valid
+    betas=["mid-conversation-output-config-2026-07-01"],
+    messages=[
+        {"role": "user", "content": "Propose a plan to migrate from SQLite to PostgreSQL."},
+        {"role": "assistant", "content": first.content},  # sent back unchanged
+        {"role": "system", "content": [], "output_config": {"effort": "low"}},
+        {"role": "user", "content": "Summarize the plan in one sentence."},
+    ],
+)</code></pre></figure>
+  <ul class="prose">
+    <li><strong>Placement:</strong> right after a <code>user</code> turn that brings new input, the level applies to the reply to that turn. Elsewhere (between an <code>assistant</code> turn and the next <code>user</code> turn, or after a turn holding only <code>tool_result</code> blocks), it takes effect at the next <code>user</code> turn that brings new input. A running tool loop therefore keeps its level.</li>
+    <li><strong>Duration:</strong> the level stays in force until the next such message. Leave each message in place in later requests: it is now part of the history.</li>
+    <li><strong>Free placement:</strong> an effort-only message is exempt from the placement rules of system messages. It can even open <code>messages</code>.</li>
+    <li><strong>Without the beta header,</strong> the API returns a 400: the message's <code>output_config</code> field is rejected as unknown.</li>
+    <li><strong>Platforms:</strong> Claude API, Claude Platform on AWS, Google Cloud (Anthropic managed and Google managed), Amazon Bedrock. With Bedrock's InvokeModel API, the beta value goes in the body's <code>anthropic_beta</code> array. Microsoft Foundry is not listed.</li>
+    <li>Changing effort between two requests does not invalidate preserved thinking: effort is not part of the checked prefix. Only the cache suffers.</li>
+    <li>In Managed Agents, set <code>effort</code> on the agent's model object or in a session's model override.</li>
+  </ul>
+</section>
+
+<!-- ============ PRESERVED THINKING ============ -->
+<section class="chap" id="preserved" aria-labelledby="h-preserved">
+  <span class="eyebrow">thinking.block_binding</span>
+  <h2 id="h-preserved">Preserved thinking</h2>
+  <p class="intro">A thinking block you send back is only valid in the exact context that produced it. Fable 5.2 enforces this check on every account, whatever its age: an edited history returns a 400 by default.</p>
+  <p class="prose">Nothing changes for you if Claude Code, claude.ai, Managed Agents or the Claude Agent SDK manage the history. Read this section if your code builds the <code>messages</code> array itself.</p>
+
+  <h3>Three checks on every block</h3>
+  <div class="trio">
+    <div><h4>The prefix</h4><p>The <code>system</code> prompt, the <code>tools</code> and the messages before the block must be identical to what you sent when it was produced. Otherwise this block and every later thinking block fail.</p></div>
+    <div><h4>The model</h4><p>Each model reads its own blocks and those of a fixed list of other models. The API drops, without error and without charge, the blocks the current model cannot read.</p></div>
+    <div><h4>The account</h4><p>Fable 5.2 blocks only work in the account that produced them, or in a linked account. Sent from another account, they are dropped without error.</p></div>
+  </div>
+
+  <div class="seqwrap" role="img" aria-label="Diagram: editing the system prompt invalidates the thinking blocks that follow; with an append-only history, they stay valid.">
+    <div class="seqrow">
+      <div class="seqlbl"><strong>Request N</strong>what you sent</div>
+      <div class="seq">
+        <span class="sg">system<small>frozen</small></span><span class="sg">tools</span><span class="sg">user</span><span class="sg ok">assistant<small>thinking ✓</small></span><span class="sg">user</span><span class="sg ok">assistant<small>thinking ✓</small></span>
+      </div>
+    </div>
+    <div class="seqrow">
+      <div class="seqlbl"><strong>Request N+1, edited</strong>the date is regenerated in <code>system</code></div>
+      <div class="seq">
+        <span class="sg edit">system<small>✎ edited</small></span><span class="sg">tools</span><span class="sg">user</span><span class="sg bad">assistant<small>thinking ✗</small></span><span class="sg">user</span><span class="sg bad">assistant<small>thinking ✗</small></span><span class="sg add">user<small>new</small></span>
+      </div>
+    </div>
+    <div class="seqrow">
+      <div class="seqlbl"><strong>Request N+1, append-only</strong>the date arrives in an appended system message</div>
+      <div class="seq">
+        <span class="sg">system<small>frozen</small></span><span class="sg">tools</span><span class="sg">user</span><span class="sg ok">assistant<small>thinking ✓</small></span><span class="sg">user</span><span class="sg ok">assistant<small>thinking ✓</small></span><span class="sg add">user<small>new</small></span><span class="sg add">system<small>today's date</small></span>
+      </div>
+    </div>
+  </div>
+  <p class="seq-cap">A single edit before a thinking block invalidates that block and every one after it. With <code>"error"</code>, the request fails with a 400; with <code>"drop_block"</code>, the blocks are dropped, the reasoning is lost and the cache restarts at the edit.</p>
+
+  <h3>What the prefix covers</h3>
+  <p class="prose">The checked prefix is the top-level <code>system</code> prompt, the full <code>tools</code> array and every message before the block. With server-side compaction, it starts at the latest compaction block. <code>effort</code>, <code>max_tokens</code>, <code>output_config</code>, <code>tool_choice</code>, <code>metadata</code>, <code>thinking.display</code> and <code>cache_control</code> markers are not part of it.</p>
+  <p class="prose">Earlier thinking blocks are not part of the prefix, but each one records the block that preceded it. You can drop the oldest ones, the newest ones, or all of them. A hole in the middle invalidates those that follow, and a dropped block must not come back: restoring it invalidates the blocks produced while it was gone.</p>
+
+  <div class="split">
+    <div class="safe">
+      <h4>Safe for thinking</h4>
+      <ul>
+        <li>Appending messages at the end.</li>
+        <li>Changing <code>effort</code>, <code>max_tokens</code>, <code>output_config</code>, <code>tool_choice</code>, <code>metadata</code> or <code>thinking.display</code>.</li>
+        <li>Adding, moving or removing <code>cache_control</code> markers.</li>
+        <li>Adding a tool marked <code>defer_loading: true</code> that nothing references yet.</li>
+        <li>Dropping thinking blocks from the start, the end, or all of them (the reasoning is then lost).</li>
+        <li>Switching models: unreadable blocks are ignored without error.</li>
+        <li>Rotating a signed URL that returns the same bytes.</li>
+        <li>Letting server-side compaction or context editing replace content.</li>
+        <li>Keeping a cleared turn-scoped system message in place.</li>
+      </ul>
+    </div>
+    <div class="unsafe">
+      <h4>Invalidates the thinking that follows</h4>
+      <ul>
+        <li>Editing, reordering or deleting an earlier <code>user</code>, <code>assistant</code> or <code>system</code> message.</li>
+        <li>Editing the top-level <code>system</code> prompt.</li>
+        <li>Adding, removing, renaming or editing a tool in <code>tools</code>.</li>
+        <li>Regenerating context placed in the first message (date, branch, memory, instructions).</li>
+        <li>Shortening an old <code>tool_result</code>, re-encoding an old image, editing an old <code>tool_use</code> input.</li>
+        <li>Adding text to an old <code>user</code> turn, or removing the one added last time.</li>
+        <li>Dropping a <code>thinking</code> block in the middle; restoring a dropped block.</li>
+        <li>An image or document URL whose content changes.</li>
+        <li>An unpinned MCP tool list that changes (MCP connector).</li>
+        <li>Deleting or rewording a turn-scoped message already sent.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Replacing each edit</h3>
+  <div class="tbl wide"><table>
+    <thead><tr><th scope="col">Instead of…</th><th scope="col">Do this</th><th scope="col">Beta header</th></tr></thead>
+    <tbody>
+      <tr><td>Rebuilding the <code>system</code> prompt (date, mode, re-read instructions, MCP server connecting later)</td><td>Append a <code>role: "system"</code> message right after the latest <code>user</code> message. It carries system-prompt authority. In a tool loop, place it after the <code>tool_result</code>, never between <code>tool_use</code> and <code>tool_result</code>.</td><td>none</td></tr>
+      <tr><td>Regenerating the first message's context</td><td>Generate it once and send it back unchanged. Report changes in the most recent turn.</td><td>none</td></tr>
+      <tr><td>Shortening old <code>tool_result</code>s, re-encoding old images</td><td>Shorten or downscale before the first send. Later, clear server-side with <code>clear_tool_uses_20250919</code>.</td><td><code>context-management-2025-06-27</code></td></tr>
+      <tr><td>Injecting a reminder and removing it later</td><td>A turn-scoped system message with <code>clear_at: "next_user_message"</code>, left in place afterwards.</td><td><code>mid-conversation-system-clear-at-2026-08-21</code></td></tr>
+      <tr><td>Adding or removing tools</td><td><code>tool_addition</code> and <code>tool_removal</code> blocks in a system message. Declare everything up front with <code>defer_loading: true</code>, or define a new tool inside the block.</td><td><code>inline-tools-2026-09-15</code>, or <code>mid-conversation-tool-changes-2026-07-01</code> for a plain reference; plus <code>mcp-client-2026-09-15</code> for an MCP server</td></tr>
+      <tr><td>Changing top-level effort</td><td>Per-message <code>output_config</code> (see <a href="#effort">Effort</a>).</td><td><code>mid-conversation-output-config-2026-07-01</code></td></tr>
+      <tr><td>Summarizing or dropping old turns client-side</td><td>On-demand compaction, threshold compaction or server-side context editing. Client-side: one summary followed by the next turn, replaying no earlier turn.</td><td><code>compact-2026-09-04</code> (on-demand compaction)</td></tr>
+      <tr><td>An image URL whose content changes</td><td>A Files API <code>file_id</code>, or base64, from the very first request.</td><td>none</td></tr>
+    </tbody>
+  </table></div>
+  <p class="tnote">Several betas in one request: separate them with commas in a single <code>anthropic-beta</code> header.</p>
+  <figure class="code"><figcaption><span>JSON · three appended messages instead of an edit</span></figcaption><pre><code data-lang="json">[
+  { "role": "system", "content": "The workspace is now read-only. Do not write files until told otherwise." },
+  { "role": "system", "clear_at": "next_user_message", "content": "Say in one line where things stand, then continue." },
+  {
+    "role": "system",
+    "content": [
+      { "type": "tool_removal", "tool": { "type": "tool_reference", "name": "delete_branch" } },
+      { "type": "text", "text": "Branch deletion is disabled for the rest of this session." }
+    ]
+  }
+]</code></pre></figure>
+
+  <h3>Sending turns back unchanged</h3>
+  <p class="prose">Store each response's <code>content</code> array and send it back without changes: every block type, in the order received, including <code>thinking</code> blocks whose text is empty. On Fable 5.2 that text is empty by default and the <code>signature</code> carries the reasoning.</p>
+  <ul class="prose">
+    <li>A serializer that drops unknown types or reorders blocks changes the prefix of every later turn.</li>
+    <li>A serializer that drops the empty <code>thinking</code> field causes a 400. An empty <code>signature</code> fails too.</li>
+    <li>A serializer that skips empty blocks raises no error, but the model loses its reasoning on every turn.</li>
+    <li>If you parse the stream yourself, keep the block even with no text: it opens, receives its signature through a <code>signature_delta</code>, then closes.</li>
+    <li>To resume a saved session, replay exactly what you sent and received. Do not regenerate anything from inputs that may have changed (date, instruction file, tool version). JSON formatting and key order do not matter; values do.</li>
+  </ul>
+
+  <h3>Choosing what happens on failure</h3>
+  <p class="prose">The <code>thinking.block_binding.prefix_mismatch_behavior</code> field decides the fate of a failing block. It requires the <code>thinking-binding-controls-2026-08-01</code> header and <code>thinking: {"type": "adaptive", ...}</code>; without the header, the API returns a 400.</p>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Value</th><th scope="col">Effect</th><th scope="col">When to use it</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>"error"</code> (Fable 5.2 default)</th><td>400 <code>invalid_request_error</code> naming the first failing block. Resending the same body fails the same way.</td><td>In production, when a mismatch can only mean a bug.</td></tr>
+      <tr><th scope="row"><code>"drop_block"</code></th><td>The failing block and every later thinking block are dropped and not billed. The request succeeds, the model answers without that reasoning, and the cache restarts at the edit.</td><td>As a stopgap while you fix the edit. The model rebuilds its reasoning: more output tokens, especially when blocks are dropped every turn.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="prose">In your logs, the error starts with <code>Invalid `signature` in `thinking` block</code> and usually ends with a sentence saying what changed, for example the <code>system</code> prompt or the <code>tools</code> list. A tampered signature also returns a 400, with no mention of the conversation; <code>prefix_mismatch_behavior</code> does not apply to it.</p>
+  <p class="prose">With the header, every response contains an <code>input_transformations</code> array (in <code>message_start</code> when streaming). Each entry names a block by its <code>path</code>, for example <code>messages.3.content.0</code>, and gives a reason:</p>
+  <ul class="prose">
+    <li><code>thinking_dropped</code> + <code>prefix_binding_mismatch</code>: your code edited the history. Fix it.</li>
+    <li><code>thinking_dropped</code> + <code>model_binding_mismatch</code>: model switch. Expected, not a bug.</li>
+    <li><code>thinking_dropped</code> + <code>organization_binding_mismatch</code>: the block came from another account.</li>
+    <li><code>thinking_mismatch_allowed</code>: failing block let through. Only appears on models that still tolerate edits, never on Fable 5.2.</li>
+  </ul>
+  <p class="prose">Ignore unknown types and reasons: new checks will add some. The token counting endpoint runs the same check. In the Message Batches API, an item without <code>prefix_mismatch_behavior</code> has its failing blocks dropped instead of a 400; with <code>"error"</code>, it resolves as <code>errored</code>.</p>
+  <figure class="code"><figcaption><span>Python · testing the history with drop_block</span></figcaption><pre><code data-lang="py">response = client.beta.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    thinking={
+        "type": "adaptive",
+        "block_binding": {"prefix_mismatch_behavior": "drop_block"},
+    },
+    betas=["thinking-binding-controls-2026-08-01"],
+    messages=messages,
+)
+
+for t in response.input_transformations or []:
+    # prefix_binding_mismatch: your code edited the history, fix it.
+    # model_binding_mismatch: model switch, expected.
+    print(t.type, t.path, t.reason)</code></pre></figure>
+
+  <h3>Reacting to a 400 in code</h3>
+  <p class="prose">Do not resend the same body. Retry once with the header and <code>"drop_block"</code>, then store that choice with the session so every later request sends it too, including after a restart. If you cannot send the header, remove the block named by the error plus every later <code>thinking</code> and <code>redacted_thinking</code> block, leave them out, and continue. Then fix the edit that caused the problem.</p>
+
+  <h3>Testing your integration before switching</h3>
+  <ol class="steps">
+    <li><div>Capture the request bodies of a few normal turns, including a compaction or a tool change.</div></li>
+    <li><div>Diff each pair of consecutive requests: <code>system</code>, <code>tools</code> and the shared messages must be identical up to the appended turns.</div></li>
+    <li><div>Replay a multi-turn session on <code>claude-fable-5-2</code> with the <code>thinking-binding-controls-2026-08-01</code> header and <code>"drop_block"</code>.</div></li>
+    <li><div>Log <code>input_transformations</code> and fix every <code>prefix_binding_mismatch</code> entry. Do it even if your account never triggered the check on another model.</div></li>
+    <li><div>Pick the production setting: <code>"error"</code>, or <code>"drop_block"</code> temporarily, with an alert on 400s and on <code>input_transformations</code> entries.</div></li>
+  </ol>
+  <div class="note tip"><span class="tag">Claude Code shortcut</span><p>In Claude Code, <code>/claude-api preserved-thinking-migration</code> audits an existing integration and proposes fixes.</p></div>
+
+  <h3>Switching models mid-conversation</h3>
+  <p class="prose">Change <code>model</code> and keep sending the full history, thinking blocks included. The API drops, before the model sees them, the blocks it cannot read: no error, no charge, not counted in <code>input_tokens</code>. That drop does not count as an edit, and your <code>messages</code> array is never modified: if the conversation returns to a model that can read those blocks, it reads them again.</p>
+  <div class="split">
+    <div class="safe">
+      <h4>Fable 5.2 reads blocks from…</h4>
+      <p class="small">On the Claude API and Google Cloud (Google managed).</p>
+      <ul>
+        <li>Mythos 5.2, and its own blocks.</li>
+        <li>Fable 5.1, Mythos 5.1, Fable 5, Mythos 5.</li>
+        <li>Opus 5.5, Sonnet 5.5, Haiku 5.5.</li>
+        <li>Opus 5, Opus 4.8, Sonnet 5 and earlier Opus, Sonnet and Haiku models.</li>
+      </ul>
+    </div>
+    <div class="unsafe">
+      <h4>Fable 5.2 blocks are read by…</h4>
+      <p class="small">Mythos 5.2 only.</p>
+      <ul>
+        <li>A switch to Fable 5.1, Opus 5.5, Opus 5 or Opus 4.8 (fallback targets included) continues without Fable 5.2's reasoning.</li>
+        <li>The first turn after the switch costs more and takes longer.</li>
+        <li>With the header, these drops show up as <code>model_binding_mismatch</code>.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="prose">If you replay stored conversations from another account, go through the original account or a linked one: otherwise the API drops Fable 5.2's blocks.</p>
+
+  <h3>Frequently asked questions</h3>
+  <details class="faq"><summary>Does changing effort between requests invalidate thinking?</summary><p>No. Effort, <code>max_tokens</code> and the <code>thinking</code> configuration are not part of the checked prefix. A top-level effort change does restart the prompt cache; per-message effort avoids that.</p></details>
+  <details class="faq"><summary>How do I handle a CLAUDE.md or AGENTS.md that changes mid-session?</summary><p>Load it once at the start and keep <code>system</code> and <code>tools</code> frozen. When the file changes, append the new version in <code>messages</code>: in a system message if the instruction comes from you as operator, in the next <code>user</code> turn if you treat the text as untrusted.</p></details>
+  <details class="faq"><summary>A saved session fails on every request. What now?</summary><p>The stored history contains an edit: it will always fail as is, even after the code is fixed. Send <code>"drop_block"</code> with the header on every later request, or remove once the block named by the error and every later thinking block. Thinking produced afterwards stays valid as long as nothing before it changes.</p></details>
+  <details class="faq"><summary>My harness routes some turns to a non-Claude model. Is that a problem?</summary><p>No, if those turns are appended at the end and nothing earlier changes. Send the other model's output as <code>text</code> and <code>tool_use</code> blocks.</p></details>
+  <details class="faq"><summary>I compact by summarizing old turns and keeping recent ones verbatim. Does that work?</summary><p>Yes if the API writes the summary (on-demand compaction, header <code>compact-2026-09-04</code>). If you write the summary yourself, the kept turns' thinking fails: remove their <code>thinking</code> and <code>redacted_thinking</code> blocks while keeping <code>text</code> and <code>tool_use</code>, or use simple compaction, a summary followed by the next turn. Never compact between a <code>tool_use</code> and its <code>tool_result</code>.</p></details>
+  <details class="faq"><summary>Can I carry the reasoning into a new conversation?</summary><p>No. A block only works in the exact history that produced it; a branch that replays that history unchanged up to the fork keeps its thinking. Start a new conversation from a summary of the task state: goal, decisions, results so far, next step.</p></details>
+</section>
+
+<!-- ============ PROMPTS ============ -->
+<section class="chap" id="prompts" aria-labelledby="h-prompts">
+  <span class="eyebrow">system</span>
+  <h2 id="h-prompts">Prompting</h2>
+  <p class="intro">Fable 5.2 follows instructions closely, including ones you wrote for other models. Start from the symptom you observe. The wordings below are examples to adapt, not Anthropic's official text.</p>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">You observe</th><th scope="col">Go to</th></tr></thead>
+    <tbody>
+      <tr><td>Simple requests too slow or too expensive; unsure which effort to use</td><td><a href="#effort">Calibrating effort</a></td></tr>
+      <tr><td>A turn that ends before the work is done</td><td><a href="#p-finish">Finishing the job</a></td></tr>
+      <tr><td>You approve steps as the agent works, or the system prompt has approval rules</td><td><a href="#p-approvals">Approvals</a></td></tr>
+      <tr><td>A coding agent that duplicates code instead of merging it, or reports nearby problems without fixing them</td><td><a href="#p-ownership">Saying who owns the code</a></td></tr>
+      <tr><td>Long, silent agentic turns</td><td><a href="#p-progress">Keeping users informed</a></td></tr>
+      <tr><td>More subagents than the task needs</td><td><a href="#p-subagents">Framing subagents</a></td></tr>
+      <tr><td>Needless approvals, routine work held back</td><td><a href="#p-caution">Keeping caution from piling up</a></td></tr>
+      <tr><td>A prompt, skills or a harness carried over from Fable 5.1 or Opus 5.5</td><td><a href="#p-legacy">Reviewing legacy instructions</a></td></tr>
+      <tr><td>Hard-to-follow final reports</td><td><a href="#p-reports">Making reports readable</a></td></tr>
+      <tr><td><code>stop_reason: "refusal"</code></td><td><a href="#refusals">Refusals and fallback</a></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="p-finish">Finishing the job</h3>
+  <p class="prose">On long tasks, Fable 5.2 sometimes ends a turn too early: it lists what is left, offers to continue, or stops at an ordinary obstacle such as a timeout. This happens mostly at <code>low</code> and <code>medium</code>. The instruction must tell two kinds of obstacles apart: ordinary ones, to diagnose and work through, and deliberate blockers, to respect and report.</p>
+  <figure class="code"><figcaption><span>Example wording · system prompt</span></figcaption><pre><code data-lang="text"># Seeing the work through
+Keep going while there is requested work you can still do.
+Errors, timeouts, empty results and failing tools are not blockers: find the cause,
+then get past it with what you have (wait and retry, fix the request, use another
+tool or source).
+Deliberate blockers are different: a file marked as off-limits, access withheld on
+purpose, a safety guardrail. Leave them alone, say clearly what you found, and look
+for another safe way to finish.
+Stop only when the next step truly depends on the user's answer.
+Risky or irreversible actions still need confirmation.</code></pre></figure>
+  <p class="prose muted small">Anthropic's measurement, on coding sessions replayed at <code>medium</code> with an instruction of this kind: about half as many sessions ended with doable work left, for about 30% more output tokens. Endings that ask for permission nearly disappear; endings that list what is left and then stop do not. Since the model asks less often, keep your own confirmation for risky actions.</p>
+
+  <h3 id="p-approvals">Approvals</h3>
+  <ul class="prose">
+    <li>When you tell the model to continue, name what you approve. "Yes, apply the fix on the staging branch and rerun the tests" beats "go ahead" or a thumbs-up.</li>
+    <li>In the system prompt, an approval rule must name the exact actions it covers: the model applies it to the letter. In an Anthropic test, a rule requiring approval for messages sent outside the conversation made the model hold back about half of its routine requests to colleagues.</li>
+  </ul>
+
+  <h3 id="p-ownership">Saying who owns the code</h3>
+  <p class="prose">Fable 5.2 responds closely to what the prompt says about code ownership. If the prompt says nothing, or presents the code as someone else's, the model adds on top of the existing structure, even if that duplicates code, and reports nearby problems without fixing them. If you want it to improve the structure along the way, say the code is its own.</p>
+  <figure class="code"><figcaption><span>Example wording</span></figcaption><pre><code data-lang="text">You own this codebase: its purpose and its design are your decisions, and you will
+keep building on it.</code></pre></figure>
+  <ul class="prose">
+    <li>Anthropic's measurement on small tasks: duplicated code merged in about half the trials with the sentence, versus fewer than one in ten without. The requested feature worked almost every time in both cases.</li>
+    <li>The trade-off: about 1.5× more output tokens, unrequested changes (tests, documentation), and existing behavior changed in one trial out of six to ten, more often at high effort. The final summary often leaves out small changes: review the diff.</li>
+    <li>Leave the sentence out when the code belongs to the user and they want as few changes as possible. A scope rule elsewhere in the prompt does not cancel it: with a ban on drive-by refactors, the model still merged code in a third of trials.</li>
+  </ul>
+
+  <h3 id="p-progress">Keeping users informed</h3>
+  <p class="prose">During long runs of tool calls, Fable 5.2 sometimes writes little user-facing text, and may start its first tool without announcing what it is doing. First check that your client renders the <a href="#thinking">progress updates</a>: with the default <code>display</code>, they are empty.</p>
+  <ol class="steps">
+    <li><div><strong>Make the updates visible.</strong> <code>display: "updates"</code> (beta) or <code>"summarized"</code>, then render the non-empty <code>thinking</code> blocks between tool calls.</div></li>
+    <li><div><strong>Nudge from the harness.</strong> Count consecutive tool steps with nothing readable (no <code>text</code> block, no non-empty <code>thinking</code> block). After a few, append after the latest tool results a turn-scoped system message (<code>clear_at: "next_user_message"</code>, header <code>mid-conversation-system-clear-at-2026-08-21</code>) asking for a short status. Leave every reminder in place in <code>messages</code>. Anthropic's measurement: the longest silent stretch roughly halved, with no notable increase in tokens or time.</div></li>
+    <li><div><strong>Ask for an opening line and a recap.</strong> Useful when a human follows along live; about 20% more output tokens, and the model spoke before its first tool every time.</div></li>
+  </ol>
+  <figure class="code"><figcaption><span>Example wordings</span></figcaption><pre><code data-lang="text">Harness reminder (turn-scoped system message):
+You have been quiet for a while. Tell the user in a few words what you are doing,
+then carry on.
+
+System prompt, opening line and recap:
+Begin with one line saying what you are about to do, and post short updates as you
+work. End with a recap that stands on its own: what you found, what you changed,
+what comes next.
+
+Without harness access:
+Every few tool calls, post a one-line status update for the user.</code></pre></figure>
+  <p class="prose muted small">Even so, expect several tool calls between two updates. On asynchronous tasks, where the user comes back for the result, those gaps matter less.</p>
+
+  <h3 id="p-subagents">Framing subagents</h3>
+  <ul class="prose">
+    <li>Delegation depends on the harness: with a minimal subagent tool, Fable 5.2 rarely launches any; in a product whose prompts invite delegation, it delegates readily.</li>
+    <li>First reread the lines asking for delegation in the system prompt, skills and agent files. Only rewrite the delegation tool's description if the model still launches too many subagents.</li>
+    <li>A good description says, in this order: what a subagent adds to the session's cost, when delegating is worth it and when it is not, and how to brief the subagent. Anthropic's measurement: about a third fewer delegations, with the same success rate. Talk less about cost if the model delegates too little.</li>
+    <li>At <code>xhigh</code> and <code>max</code>, the model may launch subagents to review its own work. It makes a good planner and orchestrator of other models. Check which model your harness runs subagents on by default: they can weigh heavily on cost.</li>
+  </ul>
+
+  <h3 id="p-caution">Keeping caution from piling up</h3>
+  <p class="prose">Cautious instructions accumulate wherever context carries over: memory, notes, instruction files, messages between agents. Fable 5.2 follows them closely and may ask for approvals it does not need or hold back routine work, especially in multi-agent systems.</p>
+  <ul class="prose">
+    <li><strong>Delete notes you no longer need.</strong> In one test, a single "never retry" note among a dozen cut retries after a busy tool to about four trials in ten, versus nearly all without it.</li>
+    <li><strong>Name the steps that need no approval.</strong> A line listing retries among them moved retries from almost none to about half of trials; a general instruction to act more freely changed nothing. Only name retries for calls that are safe to repeat.</li>
+    <li><strong>Check what reviewer agents add.</strong> A "stop at the first error" from a reviewer was enough to block retries in a third of trials.</li>
+    <li><strong>Build the exception into the rule itself.</strong> An approved step under a "never" rule ran only one time in ten with a separate exception line, and nine times in ten when the rule itself said to get a go-ahead first.</li>
+  </ul>
+
+  <h3 id="p-legacy">Reviewing legacy instructions</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Carried-over instruction</th><th scope="col">Effect on Fable 5.2</th><th scope="col">What to do</th></tr></thead>
+    <tbody>
+      <tr><td>Standing lines pushing delegation</td><td>More subagents than needed</td><td>Remove the ones you no longer need.</td></tr>
+      <tr><td>A token budget the harness writes into the prompt</td><td>Its size changes how much the model spends</td><td>Test without it. Removing a large budget lowered cost at equal results at <code>high</code> and <code>xhigh</code>. (Not about the API's task budgets.)</td></tr>
+      <tr><td>Harness code that edits earlier turns</td><td>400 errors, or lost reasoning with <code>drop_block</code></td><td>Append-only history (see <a href="#preserved">Preserved thinking</a>).</td></tr>
+      <tr><td>"Treat the previous answer as complete" lines</td><td>Less thinking on follow-ups, but the model flags its own past mistakes far less often</td><td>Remove them wherever you want it to re-examine its answers.</td></tr>
+      <tr><td>"Think less", "answer without deliberating"</td><td>No effect from <code>medium</code> up</td><td>Remove them and lower the effort.</td></tr>
+      <tr><td>Rigid style rules (one instruction per sentence, 20 words max…)</td><td>Choppy prose</td><td>Keep only the ones that matter.</td></tr>
+      <tr><td>Accumulated rules, notes and memories</td><td>Excess caution</td><td>Prune, and give absolute rules a scope and a reason. A stuck system can restart with pruned memory; keep a copy of the originals.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="p-reports">Making reports readable</h3>
+  <p class="prose">After long agentic work, the reader of the final report has seen neither the tool calls nor the files. Ask for text that stands on its own.</p>
+  <figure class="code"><figcaption><span>Example wording · system prompt</span></figcaption><pre><code data-lang="text"># Writing for the reader
+Write for a capable reader who did not watch you work: they saw none of your tool
+calls, reasoning or files, and may be coming back from something else.
+Lead with the key points, then add detail in the order the reader needs it.
+Do not use terms or abbreviations you coined during the work; describe things in
+words any reader would understand.
+Use short, complete sentences in the active voice, one idea per sentence, and the
+same word for the same thing (in the spirit of ASD-STE100 Simplified Technical
+English). Use prose where ideas connect and lists for separate items.
+Be concise, but keep the context the reader needs.</code></pre></figure>
+  <p class="prose muted small">Anthropic's measurement with an instruction of this kind: less dense reports, fewer semicolons and, on workflow automation, shorter sentences. Remove old style rules first.</p>
+
+  <h3>Where to start</h3>
+  <ol class="steps">
+    <li><div>Set <code>effort</code> explicitly to <code>high</code>, then also run your evaluations at <code>medium</code> and <code>xhigh</code>.</div></li>
+    <li><div>Reread the system prompts, skills, agent files, memories, notes and harness text you carry over. Remove or test the legacy instructions listed above.</div></li>
+    <li><div>Run your longest agentic tasks. Note where the model stops too early, asks for needless approvals, goes quiet, delegates too much, or adds code where you wanted restructuring.</div></li>
+    <li><div>Apply one recommendation at a time and measure its effect and token cost on your own tasks.</div></li>
+  </ol>
+</section>
+
+<!-- ============ MIGRATION ============ -->
+<section class="chap" id="migration" aria-labelledby="h-migration">
+  <span class="eyebrow">model</span>
+  <h2 id="h-migration">Migrating to Fable 5.2</h2>
+  <p class="intro">Pick your starting model. Each tab lists what breaks, what changes, then a checklist you can tick; your ticks stay in this browser.</p>
+  <div class="note tip"><span class="tag">Claude Code shortcut</span><p>The <code>/claude-api migrate</code> command can carry out the migration, for example "/claude-api migrate this project to claude-fable-5-2". If your Managed Agents agent has an advisor, its <code>model</code> is a second name to update.</p></div>
+
+  <div class="tabs">
+    <div role="tablist" aria-label="Starting model">
+      <button role="tab" type="button" id="tab-f51" aria-controls="pan-f51" aria-selected="true">Fable 5.1</button>
+      <button role="tab" type="button" id="tab-o55" aria-controls="pan-o55" aria-selected="false" tabindex="-1">Opus 5.5</button>
+      <button role="tab" type="button" id="tab-f50" aria-controls="pan-f50" aria-selected="false" tabindex="-1">Fable 5</button>
+      <button role="tab" type="button" id="tab-o50" aria-controls="pan-o50" aria-selected="false" tabindex="-1">Opus 5</button>
+      <button role="tab" type="button" id="tab-o48" aria-controls="pan-o48" aria-selected="false" tabindex="-1">Opus 4.8 and earlier</button>
+      <button role="tab" type="button" id="tab-myt" aria-controls="pan-myt" aria-selected="false" tabindex="-1">Mythos</button>
+    </div>
+
+    <div role="tabpanel" id="pan-f51" aria-labelledby="tab-f51" tabindex="0">
+      <p>A mostly seamless migration: same API surface, same always-on thinking, same refusal handling, same <code>stop_details</code> categories, same data retention. Fable 5.2 is cheaper: $8 / $40 per MTok versus $10 / $50, and $0.20 versus $0.25 for cache reads.</p>
+      <h4>What can break</h4>
+      <ul>
+        <li><strong>The prefix check applies to every account.</strong> Fable 5.1 only enforces it by default for accounts created on or after August 31, 2026: on an older account, requests that passed can fail with a 400.</li>
+        <li><strong>Fable 5.1 cannot read Fable 5.2 blocks</strong> (the reverse works). A router, retry or fallback that goes back to 5.1 continues without the reasoning.</li>
+        <li><strong><code>computer_20251124</code> returns a 400</strong> outside Amazon Bedrock. Declare <code>computer_toolset_20260801</code> without <code>name</code> or display dimensions, drop the beta header and update the agent loop.</li>
+        <li><strong>Advisor tool:</strong> a Fable 5.2 executor only accepts Fable 5.2 or Mythos 5.2 as advisor. Changing the advisor changes <code>tools</code>: do it in new conversations. A Fable 5.2 advisor returns encrypted advice.</li>
+      </ul>
+      <h4>What changes in behavior</h4>
+      <ul>
+        <li>An "answer without deliberating" instruction no longer stops thinking from <code>medium</code> up: remove it and lower the effort.</li>
+        <li>At <code>xhigh</code> and <code>max</code>, the model may launch subagents to review its work.</li>
+        <li>A low <code>max_tokens</code> that was enough on 5.1 can run out during thinking, before any text.</li>
+      </ul>
+      <div class="cl" data-checklist="f51">
+        <div class="cl-head"><h4>Checklist</h4><span class="progress"><span class="count">0 / 10</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Uncheck all</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="f51-1"><label for="f51-1">Replace <code>claude-fable-5-1</code> with <code>claude-fable-5-2</code>.</label></li>
+          <li><input type="checkbox" id="f51-2"><label for="f51-2">Check rate limits: Fable 5.2 has its own limit.</label></li>
+          <li><input type="checkbox" id="f51-3"><label for="f51-3">Replace <code>computer_20251124</code> with <code>computer_toolset_20260801</code> (outside Bedrock).</label></li>
+          <li><input type="checkbox" id="f51-4"><label for="f51-4">Set the advisor to <code>claude-fable-5-2</code> or <code>claude-mythos-5-2</code>.</label></li>
+          <li><input type="checkbox" id="f51-5"><label for="f51-5">Replay a session with <code>thinking-binding-controls-2026-08-01</code> and <code>"drop_block"</code>, then fix every <code>prefix_binding_mismatch</code>.</label></li>
+          <li><input type="checkbox" id="f51-6"><label for="f51-6">Choose <code>prefix_mismatch_behavior</code> for production and monitor 400s or <code>input_transformations</code>.</label></li>
+          <li><input type="checkbox" id="f51-7"><label for="f51-7">Send <code>thinking</code> blocks back intact on every turn, empty ones included.</label></li>
+          <li><input type="checkbox" id="f51-8"><label for="f51-8">Replay stored conversations through the original account or a linked one.</label></li>
+          <li><input type="checkbox" id="f51-9"><label for="f51-9">Redo the effort sweep and the cost and latency baselines.</label></li>
+          <li><input type="checkbox" id="f51-10"><label for="f51-10">Reread system prompts, skills and legacy instructions.</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div role="tabpanel" id="pan-o55" aria-labelledby="tab-o55" tabindex="0" hidden>
+      <p>Same Messages API, same always-on thinking, same rejection of forced <code>tool_choice</code>: those parts of your requests stay valid. The differences are data retention, cost, default effort and fallback.</p>
+      <h4>What changes</h4>
+      <ul>
+        <li><strong>30-day retention required.</strong> Under ZDR, every request returns a 400 until retention is enabled for a workspace.</li>
+        <li><strong>Prefix check for every account</strong> (Opus 5.5 only enforces it for accounts created on or after August 31, 2026).</li>
+        <li><strong>Opus 5.5 cannot read Fable 5.2 blocks.</strong> Fable 5.2 reads those of Opus 5.5.</li>
+        <li><strong>Refusals:</strong> handle every <code>stop_details</code> category, not only the ones seen on Opus 5.5. Fallback: <code>fallbacks: "default"</code> (beta) or a list limited to <code>claude-opus-4-8</code> and <code>claude-opus-5</code>. <code>reasoning_extraction</code> refusals are not retried.</li>
+        <li><strong>Pricing:</strong> $8 / $40 versus $4 / $20, cache reads at $0.20 for both. Fast mode: $16 / $80 versus $8 / $40.</li>
+        <li><strong>CMEK:</strong> no structured outputs on Fable 5.2.</li>
+        <li><strong>Default effort <code>high</code></strong> versus <code>medium</code>: a request without effort runs one level higher, costing more and running slower, with no error.</li>
+        <li><strong>Advisor:</strong> Fable 5.2 or Mythos 5.2 only.</li>
+        <li><strong>Rate limits</strong> are separate, with lower token limits at every tier.</li>
+      </ul>
+      <div class="cl" data-checklist="o55">
+        <div class="cl-head"><h4>Checklist</h4><span class="progress"><span class="count">0 / 11</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Uncheck all</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="o55-1"><label for="o55-1">Under ZDR: enable 30-day retention for the workspace, before anything else.</label></li>
+          <li><input type="checkbox" id="o55-2"><label for="o55-2">Replace <code>claude-opus-5-5</code> with <code>claude-fable-5-2</code>.</label></li>
+          <li><input type="checkbox" id="o55-3"><label for="o55-3">Check rate limits.</label></li>
+          <li><input type="checkbox" id="o55-4"><label for="o55-4">Test the history (prefix), even if Opus 5.5 never triggered the check.</label></li>
+          <li><input type="checkbox" id="o55-5"><label for="o55-5">Handle every <code>stop_details.category</code>; limit <code>fallbacks</code> to allowed targets.</label></li>
+          <li><input type="checkbox" id="o55-6"><label for="o55-6">Expect turns routed back to Opus 5.5 to lose Fable 5.2's thinking.</label></li>
+          <li><input type="checkbox" id="o55-7"><label for="o55-7">Replay stored conversations through the original account or a linked one.</label></li>
+          <li><input type="checkbox" id="o55-8"><label for="o55-8">Fast mode: keep <code>speed: "fast"</code> only where available; on Foundry, target <code>claude-fable-5-2-fast</code>.</label></li>
+          <li><input type="checkbox" id="o55-9"><label for="o55-9">CMEK: remove <code>strict: true</code> and <code>output_config.format</code>, validate in code.</label></li>
+          <li><input type="checkbox" id="o55-10"><label for="o55-10">Set <code>effort</code> explicitly, then redo the sweep and the cost baselines.</label></li>
+          <li><input type="checkbox" id="o55-11"><label for="o55-11">Set the advisor to <code>claude-fable-5-2</code> or <code>claude-mythos-5-2</code> and reread legacy instructions.</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div role="tabpanel" id="pan-f50" aria-labelledby="tab-f50" tabindex="0" hidden>
+      <p>Same API surface, same context window, same tokenizer, same always-on thinking and same refusal handling as Fable 5.</p>
+      <h4>What breaks</h4>
+      <ul>
+        <li><strong>Forced <code>tool_choice</code>:</strong> <code>any</code> and <code>tool</code> return a 400, token counting included. Keep <code>auto</code>, name the tool in the instruction and add <code>strict: true</code>, or use JSON output. If the call is mandatory this turn, append a mid-conversation system message after the last <code>user</code> turn. <code>none</code> still works.</li>
+        <li><strong>Edited history:</strong> a 400 on every account; Fable 5 checked nothing.</li>
+        <li><strong>Fable 5 cannot read Fable 5.2 blocks</strong> (the reverse works).</li>
+        <li><strong>Computer use:</strong> <code>computer_toolset_20260801</code> instead of <code>computer_20251124</code>, outside Bedrock.</li>
+        <li><strong>Advisor:</strong> Fable 5.2 or Mythos 5.2 only; Fable 5 and Opus 5.5 are no longer accepted as advisors.</li>
+      </ul>
+      <h4>Other changes</h4>
+      <ul>
+        <li>Pricing: $8 / $40 versus $10 / $50; cache reads at $0.20 versus $1.</li>
+        <li>No Priority Tier, unlike Fable 5.</li>
+        <li>Per-message effort available (beta).</li>
+      </ul>
+      <div class="cl" data-checklist="f50">
+        <div class="cl-head"><h4>Checklist</h4><span class="progress"><span class="count">0 / 10</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Uncheck all</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="f50-1"><label for="f50-1">Replace <code>claude-fable-5</code> with <code>claude-fable-5-2</code> and check rate limits.</label></li>
+          <li><input type="checkbox" id="f50-2"><label for="f50-2">Replace forced <code>tool_choice</code> with <code>auto</code>, an explicit instruction and <code>strict: true</code> (or JSON output).</label></li>
+          <li><input type="checkbox" id="f50-3"><label for="f50-3">Replay a session with <code>"drop_block"</code> and fix every <code>prefix_binding_mismatch</code>.</label></li>
+          <li><input type="checkbox" id="f50-4"><label for="f50-4">Move to an append-only history: <code>system</code> and <code>tools</code> frozen, system messages for changes.</label></li>
+          <li><input type="checkbox" id="f50-5"><label for="f50-5">Choose <code>prefix_mismatch_behavior</code> for production.</label></li>
+          <li><input type="checkbox" id="f50-6"><label for="f50-6">Send <code>thinking</code> blocks back intact, empty ones included.</label></li>
+          <li><input type="checkbox" id="f50-7"><label for="f50-7">Replace <code>computer_20251124</code> and update the advisor.</label></li>
+          <li><input type="checkbox" id="f50-8"><label for="f50-8">Move effort changes to per-message effort.</label></li>
+          <li><input type="checkbox" id="f50-9"><label for="f50-9">Handle <code>stop_reason: "refusal"</code> and consider <code>fallbacks: "default"</code>.</label></li>
+          <li><input type="checkbox" id="f50-10"><label for="f50-10">Redo the effort sweep and reread legacy instructions.</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div role="tabpanel" id="pan-o50" aria-labelledby="tab-o50" tabindex="0" hidden>
+      <p>Same Messages API, same 1M context, same 128k output, same 512-token caching minimum, same restrictions on prefill and sampling. Much of the rest changes.</p>
+      <h4>What changes</h4>
+      <ul>
+        <li><strong>Thinking can no longer be disabled.</strong> Remove <code>thinking: {"type": "disabled"}</code>, control spend through effort, revisit <code>max_tokens</code> and select blocks by <code>type</code>.</li>
+        <li><strong>Forced <code>tool_choice</code>:</strong> 400.</li>
+        <li><strong>Edited history:</strong> a 400 on every account; Opus 5 checked nothing.</li>
+        <li><strong>Opus 5 cannot read Fable 5.2 blocks</strong> (the reverse works).</li>
+        <li><strong>Narration between tool calls:</strong> it now arrives as progress-update <code>thinking</code> blocks, no longer as <code>text</code> blocks. To show it: <code>display: "updates"</code> or <code>"summarized"</code>.</li>
+        <li><strong>Computer use:</strong> the <code>computer_toolset_20260801</code> toolset, outside Bedrock.</li>
+        <li><strong>Broader classifiers</strong> (extra categories, such as <code>bio</code>): handle them all; fallback available.</li>
+        <li><strong>Pricing:</strong> $8 / $40 versus $5 / $25; cache reads at $0.20 versus $0.50. Fast mode without a header, $16 / $80 versus $10 / $50.</li>
+        <li><strong>30-day retention:</strong> Opus 5 was available under ZDR; Fable 5.2 is not.</li>
+        <li><strong>CMEK:</strong> no structured outputs. <strong>Advisor:</strong> Fable 5.2 or Mythos 5.2. <strong>Rate limits:</strong> lower token limits.</li>
+      </ul>
+      <div class="cl" data-checklist="o50">
+        <div class="cl-head"><h4>Checklist</h4><span class="progress"><span class="count">0 / 10</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Uncheck all</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="o50-1"><label for="o50-1">Under ZDR: enable 30-day retention, before anything else.</label></li>
+          <li><input type="checkbox" id="o50-2"><label for="o50-2">Replace <code>claude-opus-5</code> with <code>claude-fable-5-2</code> and check rate limits.</label></li>
+          <li><input type="checkbox" id="o50-3"><label for="o50-3">Remove <code>thinking: disabled</code>, revisit <code>max_tokens</code>, select blocks by type.</label></li>
+          <li><input type="checkbox" id="o50-4"><label for="o50-4">Send <code>thinking</code> blocks back intact, with the tool results.</label></li>
+          <li><input type="checkbox" id="o50-5"><label for="o50-5">Replace forced <code>tool_choice</code>.</label></li>
+          <li><input type="checkbox" id="o50-6"><label for="o50-6">Test the history and move to append-only.</label></li>
+          <li><input type="checkbox" id="o50-7"><label for="o50-7">Render progress updates if the UI used to show the narration.</label></li>
+          <li><input type="checkbox" id="o50-8"><label for="o50-8">Replace <code>computer_20251124</code> and update the advisor.</label></li>
+          <li><input type="checkbox" id="o50-9"><label for="o50-9">Handle every refusal category; limit <code>fallbacks</code> to allowed targets.</label></li>
+          <li><input type="checkbox" id="o50-10"><label for="o50-10">Fast mode and CMEK as applicable; redo the effort sweep; reread legacy instructions.</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div role="tabpanel" id="pan-o48" aria-labelledby="tab-o48" tabindex="0" hidden>
+      <p>Start with the <strong>Opus 5</strong> tab, with <code>claude-opus-4-8</code> as the ID to replace: Opus 4.8 also accepts disabled thinking, forced <code>tool_choice</code>, <code>computer_20251124</code> and ZDR. Then add the following.</p>
+      <ul>
+        <li><strong>Thinking runs even without a <code>thinking</code> field.</strong> On Opus 4.8 it was off by default. <code>thinking</code> blocks now precede the text, are billed as output and count against <code>max_tokens</code>. Fable 5.2 reads Opus 4.8 blocks if a conversation switches.</li>
+        <li><strong>Caching from 512 tokens</strong> instead of 1,024: short prompts now create cache entries.</li>
+        <li><strong>No Priority Tier</strong> (Opus 4.8 accepted it).</li>
+        <li><strong>Encrypted advisor advice</strong> (<code>advisor_redacted_result</code>): your code can no longer read its text.</li>
+        <li><strong>Opus 4.7 or earlier:</strong> also apply the groups of the Opus 5.5 guide's checklist that cover your model (sampling parameters, old beta headers…). Under CMEK, remove <code>output_format</code> and validate the JSON in code.</li>
+      </ul>
+      <div class="cl" data-checklist="o48">
+        <div class="cl-head"><h4>Checklist</h4><span class="progress"><span class="count">0 / 6</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Uncheck all</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="o48-1"><label for="o48-1">Work through the Opus 5 tab's checklist.</label></li>
+          <li><input type="checkbox" id="o48-2"><label for="o48-2">Review workloads that ran without <code>thinking</code>: <code>max_tokens</code>, effort, selecting by type.</label></li>
+          <li><input type="checkbox" id="o48-3"><label for="o48-3">Treat the <code>thinking</code> field as display text only; use <code>display: "summarized"</code> for readable summaries.</label></li>
+          <li><input type="checkbox" id="o48-4"><label for="o48-4">Review prompts close to the caching threshold (512 tokens).</label></li>
+          <li><input type="checkbox" id="o48-5"><label for="o48-5">Remove any dependency on advisor advice text; plan capacity without Priority Tier.</label></li>
+          <li><input type="checkbox" id="o48-6"><label for="o48-6">Redo the effort sweep instead of reusing the Opus 4.8 setting.</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <div role="tabpanel" id="pan-myt" aria-labelledby="tab-myt" tabindex="0" hidden>
+      <p>Claude Mythos 5.2 is Fable 5.2 for verified organizations. Confirm your access before switching the ID (<code>claude-mythos-5-2</code>). Mythos 5.2 shares a combined rate limit with Mythos 5.1 and Mythos 5.</p>
+      <h4>From Mythos 5.1</h4>
+      <ul>
+        <li>Prefix check for every account. On Amazon Bedrock, Mythos 5.2 returns a 400 for an edited history where Mythos 5.1 accepted it.</li>
+        <li>Mythos 5.2 reads Mythos 5.1 blocks; the reverse is not true.</li>
+        <li>Advisor: Mythos 5.2 or Fable 5.2 only. Computer use: <code>computer_toolset_20260801</code> outside Bedrock.</li>
+        <li>Pricing: $8 / $40 versus $10 / $50; cache reads at $0.20 versus $0.25.</li>
+      </ul>
+      <h4>From Mythos 5</h4>
+      <ul>
+        <li>Forced <code>tool_choice</code> rejected, edited history rejected, computer use toolset, advisor Fable 5.2 or Mythos 5.2.</li>
+        <li>Mythos 5.2 reads Mythos 5 blocks; the reverse is not true.</li>
+        <li>Pricing: $8 / $40 versus $10 / $50; cache reads at $0.20 versus $1.</li>
+      </ul>
+      <div class="cl" data-checklist="myt">
+        <div class="cl-head"><h4>Checklist</h4><span class="progress"><span class="count">0 / 6</span><span class="bar"><i></i></span></span><button class="mini" type="button" data-reset>Uncheck all</button></div>
+        <ul class="check">
+          <li><input type="checkbox" id="myt-1"><label for="myt-1">Confirm access to Mythos 5.2 and switch the ID.</label></li>
+          <li><input type="checkbox" id="myt-2"><label for="myt-2">Replace <code>computer_20251124</code> and update the advisor.</label></li>
+          <li><input type="checkbox" id="myt-3"><label for="myt-3">From Mythos 5: replace forced <code>tool_choice</code>.</label></li>
+          <li><input type="checkbox" id="myt-4"><label for="myt-4">Test the history on <code>claude-mythos-5-2</code> and move to append-only.</label></li>
+          <li><input type="checkbox" id="myt-5"><label for="myt-5">Send <code>thinking</code> blocks back intact; replay conversations through the original account.</label></li>
+          <li><input type="checkbox" id="myt-6"><label for="myt-6">Handle <code>stop_reason: "refusal"</code>, redo the effort sweep, reread legacy instructions.</label></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REFUSALS ============ -->
+<section class="chap" id="refusals" aria-labelledby="h-refusals">
+  <span class="eyebrow">stop_reason: "refusal"</span>
+  <h2 id="h-refusals">Refusals and fallback</h2>
+  <p class="intro">Fable 5.2 runs safety classifiers. When one declines a request, you get a normal response, HTTP 200, with <code>stop_reason: "refusal"</code>. The same request usually succeeds on another Claude model: that is what fallback is for.</p>
+
+  <h3>What a refusal looks like</h3>
+  <figure class="code"><figcaption><span>JSON · response refused before any output</span></figcaption><pre><code data-lang="json">{
+  "model": "claude-fable-5-2",
+  "content": [],
+  "stop_reason": "refusal",
+  "stop_details": {
+    "type": "refusal",
+    "category": "cyber",
+    "explanation": "…"
+  },
+  "usage": { "input_tokens": 412, "output_tokens": 0 }
+}</code></pre></figure>
+  <ul class="prose">
+    <li><code>category</code> names the policy area. <code>explanation</code> is readable but unstable: display it, do not parse it. Both can be <code>null</code>, which is normal and permanent.</li>
+    <li><code>recommended_model</code> only appears with <code>fallbacks</code>: it names a model to try directly when the API skipped the fallback attempt, for example because of rate limits. A hint, not a guarantee.</li>
+    <li><code>stop_details</code> is <code>null</code> for every other stop reason. Branch on <code>stop_reason</code> or <code>stop_details.type</code>, never on <code>content</code>.</li>
+    <li>A refusal can also happen mid-stream, after partial output. Treat that output as incomplete and discard it.</li>
+  </ul>
+
+  <h3>Categories and billing</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col"><code>category</code></th><th scope="col">Meaning</th><th scope="col">Billed before any output</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>cyber</code></th><td>Could enable cyber harm (malware, exploits). Legitimate security work can trigger it too.</td><td>No</td></tr>
+      <tr><th scope="row"><code>bio</code></th><td>Could enable biological harm (dangerous lab methods). Beneficial life-science work can trigger it too.</td><td><span class="pill warn">Yes</span></td></tr>
+      <tr><th scope="row"><code>frontier_llm</code></th><td>Could help build competing AI models, which Anthropic's commercial terms restrict.</td><td><span class="pill warn">Yes</span></td></tr>
+      <tr><th scope="row"><code>reasoning_extraction</code></th><td>Asks the model to reproduce its internal reasoning in the answer.</td><td><span class="pill warn">Yes</span></td></tr>
+      <tr><th scope="row"><code>general_harms</code></th><td>Another area of the usage policy.</td><td>No</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="prose">
+    <li><strong>Before any output:</strong> billed at normal rates for <code>bio</code>, <code>frontier_llm</code> and <code>reasoning_extraction</code>, the categories where Anthropic measures few false positives (as of September 2026, subject to change). Free for the others and for a <code>null</code> category. In every case <code>content</code> is empty, <code>usage</code> gives the tokens and the request counts against your rate limits.</li>
+    <li><strong>Mid-stream:</strong> input and the output already streamed are billed.</li>
+    <li><strong>With a fallback:</strong> the triggering refusal is billed if it happened mid-stream or belongs to a billed category, on top of the fallback request. Fallback credit keeps you from paying twice for caching the conversation.</li>
+  </ul>
+
+  <h3>Choosing a fallback approach</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Your situation</th><th scope="col">Approach</th><th scope="col">Why</th></tr></thead>
+    <tbody>
+      <tr><td>Claude API or Google Cloud (Anthropic managed)</td><td>Server-side fallback <span class="pill beta">beta</span></td><td>One request, one response: the API retries by itself.</td></tr>
+      <tr><td>Any platform, with an Anthropic SDK</td><td>SDK middleware</td><td>Configured once on the client; retries are automatic.</td></tr>
+      <tr><td>Raw HTTP or custom logic</td><td>Hand-written retry + fallback credit</td><td>Full control; the credit caps the cache cost.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Server-side fallback</h3>
+  <ul class="prose">
+    <li><strong><code>fallbacks: "default"</code></strong> with the <code>server-side-fallback-2026-07-01</code> header: the API reruns the request on the model Anthropic recommends for the refusal category. Without a recommendation for the category, the refusal stands; that is the case for <code>reasoning_extraction</code>.</li>
+    <li><strong>Or a list</strong> of at most three models, tried in order, distinct from each other and from the requested model. For Fable 5.2 the allowed targets are <code>claude-opus-4-8</code> and <code>claude-opus-5</code>; the Models API publishes them as <code>allowed_fallback_models</code>. Each entry may override <code>max_tokens</code>, <code>thinking</code>, <code>output_config</code> and <code>speed</code> for its attempt. The request must stay valid for every named model, or it is rejected up front.</li>
+    <li>Only a classifier refusal triggers fallback. A rate limit, overload or server error comes back as is. If the fallback model is saturated, the attempt is skipped and the refusal returns with <code>recommended_model</code>: size its limits for the refusal volume you expect.</li>
+    <li>The fallback model does not receive Fable 5.2's thinking.</li>
+  </ul>
+  <figure class="code"><figcaption><span>Python · default fallback</span></figcaption><pre><code data-lang="py">response = client.beta.messages.create(
+    model="claude-fable-5-2",
+    max_tokens=16000,
+    output_config={"effort": "high"},
+    fallbacks="default",  # or [{"model": "claude-opus-5"}, {"model": "claude-opus-4-8"}]
+    betas=["server-side-fallback-2026-07-01"],
+    messages=messages,
+)
+
+if response.stop_reason == "refusal":
+    details = response.stop_details  # the whole chain refused
+    print("Refusal:", details.category if details else None)
+else:
+    fallback_ran = any(
+        it.type == "fallback_message" for it in response.usage.iterations or []
+    )
+    if fallback_ran:
+        print("Response served by", response.model)</code></pre></figure>
+  <h4>What the response contains</h4>
+  <ul class="prose">
+    <li><code>model</code> names the model that served the response.</li>
+    <li>A <code>fallback</code> content block marks each handoff, with <code>from.model</code>, <code>to.model</code> and <code>trigger</code> (type <code>refusal</code> and its category). On a refusal before any output, it is the first block.</li>
+    <li><code>usage.iterations</code> details every attempt: a <code>message</code> entry per model that declined, a <code>fallback_message</code> entry for the one that served. It is the record of what you are billed, each attempt at its own model's rates. The top-level <code>usage</code> counts only describe the returned attempt.</li>
+    <li><strong>Streaming:</strong> on a refusal before output, <code>message_start</code> already names the fallback model and the time to first byte includes the declined attempt. On a refusal mid-output, the open block closes, a <code>fallback</code> block marks the boundary and the fallback continues from the <code>text</code> blocks already produced; read the serving model in <code>to.model</code> or in the last <code>message_delta</code>.</li>
+    <li><strong>Without streaming,</strong> a mid-output refusal looks like a refusal before output: the partial output is omitted.</li>
+    <li><strong>Sticky routing:</strong> after a fallback, the API remembers for about an hour, per organization, which model served the conversation (a fingerprint of the prefix, not the content). Later requests with <code>fallbacks</code> go straight to the fallback model, without a <code>fallback</code> block: spot them through the <code>fallback_message</code> entry. Best effort only: your code must accept that the requested model may be tried again at any time.</li>
+  </ul>
+  <h4>Continuing the conversation after a fallback</h4>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col">Block sent back next turn</th><th scope="col">What to do</th></tr></thead>
+    <tbody>
+      <tr><td><code>fallback</code></td><td>Keep it exactly where it was: the API uses it to validate the thinking blocks around it.</td></tr>
+      <tr><td><code>text</code>, and any block after the last <code>fallback</code></td><td>Keep.</td></tr>
+      <tr><td><code>thinking</code>, <code>redacted_thinking</code>, <code>connector_text</code> before the last <code>fallback</code></td><td>Drop.</td></tr>
+      <tr><td>Client <code>tool_use</code> before the last <code>fallback</code></td><td>Drop.</td></tr>
+      <tr><td><code>server_tool_use</code> before the last <code>fallback</code></td><td>Keep if it has its result, drop otherwise.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>SDK middleware, on every platform</h3>
+  <p class="prose">The middleware retries refused requests made through <code>client.beta.messages</code>, in the order of your list. If every model refuses, it returns the last refusal instead of raising an error. It sends the <code>fallback-credit-2026-07-01</code> header itself, adds the <code>fallback</code> blocks and handles them on later turns. Share one <code>BetaFallbackState</code> across a conversation's requests: later turns stay pinned to the model that accepted.</p>
+  <figure class="code"><figcaption><span>Python · fallback middleware</span></figcaption><pre><code data-lang="py">from anthropic import Anthropic, BetaFallbackState, BetaRefusalFallbackMiddleware
+
+client = Anthropic(
+    middleware=[BetaRefusalFallbackMiddleware([{"model": "claude-opus-5"}])],
+)
+state = BetaFallbackState()  # one state per conversation
+
+with state:
+    message = client.beta.messages.create(
+        model="claude-fable-5-2",
+        max_tokens=16000,
+        messages=messages,
+    )
+print("Served by:", message.model)</code></pre></figure>
+
+  <h3>Hand-written retry</h3>
+  <ol class="steps">
+    <li><div><strong>Detect the refusal</strong> with <code>stop_reason == "refusal"</code>.</div></li>
+    <li><div><strong>Resend the same request</strong> with <code>model</code> set to a fallback model, for example <code>claude-opus-5</code>. Without credit, you can keep or remove the old thinking blocks: the fallback model does not read Fable 5.2's, and the API drops them without billing. With a fallback credit, send the body with no change at all: the credit requires an exact match.</div></li>
+    <li><div><strong>Stay on the fallback model</strong> for the rest of the conversation instead of returning to the original model.</div></li>
+  </ol>
+  <p class="prose">A hand-written retry writes the fallback model's whole cache; the fallback credit refunds that extra cost. In Message Batches, a refused item comes back as <code>result.type: "succeeded"</code> with <code>stop_reason: "refusal"</code>, with no fallback credit, and <code>fallbacks</code> is not accepted there: collect the refused items and resubmit them on a fallback model.</p>
+
+  <h3>The <code>reasoning_extraction</code> case</h3>
+  <p class="prose">This refusal usually comes from a prompt that asks the model to put its reasoning in the output: a thinking or scratchpad section to fill before answering, a <code>reasoning</code> or <code>trace</code> field in JSON or tool input, private notes, reasoning "verbatim". Look in skills and tool descriptions too. Ask instead for a brief explanation, the evidence behind a result or a summary of the actions; to see the reasoning, read the <code>thinking</code> blocks with <code>display: "summarized"</code>. No fallback is recommended for this category: change the prompt. If a reworded version is still refused, contact support with the request ID.</p>
+  <div class="note"><span class="tag">Verified access</span><p>If the <code>cyber</code> or <code>bio</code> classifiers block legitimate work, see Anthropic's Cyber Verification Program and Life Sciences Verification Program. Mythos 5.2 offers Fable 5.2's capabilities to organizations verified that way.</p></div>
+
+  <div class="note trap">
+    <span class="tag">Common pitfalls</span>
+    <ul>
+      <li><strong>Retry on another model:</strong> the same model usually refuses again.</li>
+      <li><strong>Budget retries per request,</strong> not per turn or session: an agent and its subagents can refuse several times in a single turn.</li>
+      <li><strong>Configure fallback on every request path,</strong> including retry handlers, recovery branches and background workers.</li>
+      <li><strong>Give subagents their own fallback:</strong> <code>fallbacks</code> is not passed on to model calls made during tool execution.</li>
+      <li><strong>Make fallback a property of the request,</strong> not shared state that can drift.</li>
+      <li><strong>Instrument refusals:</strong> count refusals and fallback-served responses, and alert on the gap. 5xx monitoring will never see a refusal.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ WORKSHOP ============ -->
+<section class="chap" id="workshop" aria-labelledby="h-workshop">
+  <span class="eyebrow">POST /v1/messages</span>
+  <h2 id="h-workshop">Workshop</h2>
+  <p class="intro">Build a compliant Fable 5.2 request, or paste an existing request to spot what will be rejected.</p>
+
+  <div class="tool" id="builder">
+    <h3>Request builder</h3>
+    <div class="tool-grid">
+      <form id="b-form" autocomplete="off">
+        <fieldset><legend>Language</legend><div class="segs">
+          <input type="radio" name="b-lang" id="b-lang-py" value="py" checked><label for="b-lang-py">Python</label>
+          <input type="radio" name="b-lang" id="b-lang-ts" value="ts"><label for="b-lang-ts">TypeScript</label>
+          <input type="radio" name="b-lang" id="b-lang-sh" value="sh"><label for="b-lang-sh">cURL</label>
+        </div></fieldset>
+        <fieldset><legend>Effort</legend><div class="segs">
+          <input type="radio" name="b-effort" id="b-eff-low" value="low"><label for="b-eff-low">low</label>
+          <input type="radio" name="b-effort" id="b-eff-medium" value="medium"><label for="b-eff-medium">medium</label>
+          <input type="radio" name="b-effort" id="b-eff-high" value="high" checked><label for="b-eff-high">high</label>
+          <input type="radio" name="b-effort" id="b-eff-xhigh" value="xhigh"><label for="b-eff-xhigh">xhigh</label>
+          <input type="radio" name="b-effort" id="b-eff-max" value="max"><label for="b-eff-max">max</label>
+        </div></fieldset>
+        <fieldset><label class="lbl" for="b-display">Thinking display</label>
+          <select id="b-display"><option value="omitted">omitted (default)</option><option value="summarized">summarized</option><option value="updates">updates (beta)</option></select>
+        </fieldset>
+        <fieldset><label class="lbl" for="b-max">max_tokens</label>
+          <input type="number" id="b-max" min="1" max="128000" step="1000" value="64000">
+        </fieldset>
+        <fieldset><label class="cbx" for="b-stream"><input type="checkbox" id="b-stream" checked> Streaming</label></fieldset>
+        <fieldset><label class="lbl" for="b-fallback">Fallback on refusal</label>
+          <select id="b-fallback"><option value="default">"default" (beta, recommended)</option><option value="list">list: claude-opus-5 then claude-opus-4-8</option><option value="none">none</option></select>
+        </fieldset>
+        <fieldset><label class="lbl" for="b-binding">Preserved thinking</label>
+          <select id="b-binding"><option value="unset">block_binding not set</option><option value="error">explicit "error"</option><option value="drop_block">"drop_block" (temporary)</option></select>
+        </fieldset>
+      </form>
+      <div style="min-width:0">
+        <figure class="code" style="margin-top:0"><figcaption><span id="b-cap">Python</span><button class="copy" type="button" id="b-copy">Copy</button></figcaption><pre><code id="b-code"></code></pre></figure>
+        <p class="lbl">Required beta headers</p>
+        <ul class="betas" id="b-betas"></ul>
+        <p class="lbl">Points to watch</p>
+        <ul class="notes" id="b-notes"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool" id="checker">
+    <h3>Request checker</h3>
+    <p class="small muted">Paste the JSON body of a Messages request. The analysis runs in your browser; nothing is sent anywhere. The starting content is an <strong>example</strong> of a request written for an older model.</p>
+    <div class="vbar">
+      <button class="mini" type="button" id="v-ex-bad">Example to fix</button>
+      <button class="mini" type="button" id="v-ex-good">Compliant example</button>
+    </div>
+    <div class="tool-grid even">
+      <div style="min-width:0">
+        <label class="lbl" for="v-body">Request body (JSON)</label>
+        <textarea id="v-body" spellcheck="false">{
+  "model": "claude-fable-5-1",
+  "max_tokens": 4096,
+  "temperature": 0.7,
+  "effort": "high",
+  "thinking": { "type": "enabled", "budget_tokens": 2000 },
+  "tool_choice": { "type": "any" },
+  "tools": [
+    {
+      "name": "weather",
+      "description": "Returns the current weather for a city.",
+      "input_schema": {
+        "type": "object",
+        "properties": { "city": { "type": "string" } },
+        "required": ["city"]
+      }
+    }
+  ],
+  "messages": [
+    { "role": "user", "content": "What is the weather in Lyon?" },
+    { "role": "assistant", "content": "Here is the weather:" }
+  ]
+}</textarea>
+        <label class="lbl" for="v-beta" style="margin-top:12px">anthropic-beta header sent (comma-separated values)</label>
+        <input type="text" id="v-beta" value="" placeholder="e.g. server-side-fallback-2026-07-01" spellcheck="false">
+      </div>
+      <div style="min-width:0" aria-live="polite">
+        <p class="lbl">Result</p>
+        <div class="vsum" id="v-sum">Analyzing…</div>
+        <ul class="findings" id="v-list"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHEAT SHEET ============ -->
+<section class="chap" id="cheatsheet" aria-labelledby="h-cheatsheet">
+  <span class="eyebrow">anthropic-beta</span>
+  <h2 id="h-cheatsheet">Cheat sheet</h2>
+  <h3>Beta headers useful with Fable 5.2</h3>
+  <div class="tbl wide"><table>
+    <thead><tr><th scope="col">Value</th><th scope="col">Enables</th><th scope="col">See</th></tr></thead>
+    <tbody>
+      <tr><td><code>mid-conversation-output-config-2026-07-01</code></td><td>Per-message effort, without losing the cache</td><td><a href="#effort">Effort</a></td></tr>
+      <tr><td><code>thinking-display-updates-2026-08-18</code></td><td><code>display: "updates"</code>, readable progress updates</td><td><a href="#thinking">Thinking</a></td></tr>
+      <tr><td><code>thinking-binding-controls-2026-08-01</code></td><td><code>block_binding</code> and <code>input_transformations</code></td><td><a href="#preserved">Preserved thinking</a></td></tr>
+      <tr><td><code>server-side-fallback-2026-07-01</code></td><td>The <code>fallbacks</code> parameter ("default" or a list)</td><td><a href="#refusals">Refusals</a></td></tr>
+      <tr><td><code>fallback-credit-2026-07-01</code></td><td>Fallback credit (sent automatically by the middleware)</td><td><a href="#refusals">Refusals</a></td></tr>
+      <tr><td><code>mid-conversation-system-clear-at-2026-08-21</code></td><td>Turn-scoped system messages (<code>clear_at</code>)</td><td><a href="#p-progress">Prompting</a></td></tr>
+      <tr><td><code>inline-tools-2026-09-15</code></td><td>Defining a tool inside <code>tool_addition</code></td><td><a href="#preserved">Preserved thinking</a></td></tr>
+      <tr><td><code>mid-conversation-tool-changes-2026-07-01</code></td><td><code>tool_addition</code> / <code>tool_removal</code> by reference</td><td><a href="#preserved">Preserved thinking</a></td></tr>
+      <tr><td><code>mcp-client-2026-09-15</code></td><td>MCP server tools added mid-session</td><td><a href="#preserved">Preserved thinking</a></td></tr>
+      <tr><td><code>compact-2026-09-04</code></td><td>On-demand compaction, compatible with kept thinking</td><td><a href="#preserved">Preserved thinking</a></td></tr>
+      <tr><td><code>context-management-2025-06-27</code></td><td>Context editing (<code>clear_tool_uses_20250919</code>, <code>clear_thinking_20251015</code>)</td><td><a href="#preserved">Preserved thinking</a></td></tr>
+    </tbody>
+  </table></div>
+  <p class="tnote">Fable 5.2's fast mode does not need <code>fast-mode-2026-02-01</code>; on the Claude API, requests that send it still work.</p>
+
+  <h3>Stop reasons</h3>
+  <div class="tbl"><table>
+    <thead><tr><th scope="col"><code>stop_reason</code></th><th scope="col">Meaning and reaction</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><code>end_turn</code></th><td>The response finished normally.</td></tr>
+      <tr><th scope="row"><code>tool_use</code></th><td>Claude asks for a tool: run it and send back a <code>tool_result</code>, with the assistant turn intact.</td></tr>
+      <tr><th scope="row"><code>max_tokens</code></th><td>Limit reached, sometimes before any text. Raise <code>max_tokens</code> or lower the effort.</td></tr>
+      <tr><th scope="row"><code>refusal</code></th><td>Safety classifier. Read <code>stop_details</code> and retry on a fallback model.</td></tr>
+      <tr><th scope="row"><code>pause_turn</code></th><td>Turn paused in an agentic flow, to be resumed.</td></tr>
+      <tr><th scope="row"><code>stop_sequence</code></th><td>A custom stop sequence was hit.</td></tr>
+      <tr><th scope="row"><code>model_context_window_exceeded</code></th><td>Generation stopped at the context window limit, instead of a validation error.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ SOURCES ============ -->
+<section class="chap" id="sources" aria-labelledby="h-sources">
+  <span class="eyebrow">platform.claude.com/docs</span>
+  <h2 id="h-sources">Sources</h2>
+  <p class="prose">Anthropic documentation, read on November 10, 2026. Where this page and the official documentation differ, the documentation wins.</p>
+  <ul class="sources prose">
+    <li><a href="https://platform.claude.com/docs/en/models/fable-5-2/overview" rel="noopener">Claude Fable 5.2: overview</a></li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2" rel="noopener">Prompting Claude Fable 5.2</a></li>
+    <li><a href="https://platform.claude.com/docs/en/models/fable-5-2/migration-guide" rel="noopener">Migration guide to Claude Fable 5.2</a></li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/preserved-thinking" rel="noopener">Preserved thinking</a></li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/thinking" rel="noopener">Thinking</a></li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/effort" rel="noopener">Effort</a></li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback" rel="noopener">Refusals and fallback</a></li>
+  </ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <p>An unofficial guide, written from Anthropic's public documentation. The code and prompt examples are starting points: adapt them and test them on your own evaluations before shipping to production.</p>
+</footer>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
+  };
+
+  /* ---------- Typography: curly apostrophes in prose ---------- */
+  const SKIP = new Set(['CODE', 'PRE', 'KBD', 'SAMP', 'SCRIPT', 'STYLE', 'TEXTAREA', 'INPUT', 'SELECT', 'OPTION']);
+  function typo(root) {
+    if (!root) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((n) => {
+      for (let p = n.parentElement; p; p = p.parentElement) {
+        if (SKIP.has(p.tagName)) return;
+        if (p === root) break;
+      }
+      const v = n.nodeValue;
+      const nv = v.replace(/([A-Za-z])'(?=[A-Za-z])/g, '$1’');
+      if (nv !== v) n.nodeValue = nv;
+    });
+  }
+
+  /* ---------- Code highlighting and copy ---------- */
+  const esc = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const KW = {
+    py: new Set('import from as with for in if elif else not and or is None True False def return print any async await'.split(' ')),
+    ts: new Set('import from const let await async new if else return of for true false null undefined'.split(' ')),
+    sh: new Set(['curl']),
+    json: new Set(['true', 'false', 'null'])
+  };
+  function hl(src, lang) {
+    const kw = KW[lang];
+    if (!kw) return esc(src);
+    const com = lang === 'ts' ? '\\/\\/[^\\n]*' : (lang === 'json' ? '(?!)' : '#[^\\n]*');
+    const re = new RegExp('(' + com + ')|("(?:\\\\.|[^"\\\\\\n])*"|\'(?:\\\\.|[^\'\\\\])*\')|(\\b\\d[\\d_]*(?:\\.\\d+)?\\b)|([A-Za-z_$][\\w$]*)', 'g');
+    let out = '';
+    let last = 0;
+    let m;
+    while ((m = re.exec(src))) {
+      out += esc(src.slice(last, m.index));
+      const rest = src.slice(re.lastIndex, re.lastIndex + 3);
+      if (m[1]) out += '<span class="t-com">' + esc(m[0]) + '</span>';
+      else if (m[2]) out += '<span class="' + (lang !== 'sh' && /^\s*:/.test(rest) ? 't-key' : 't-str') + '">' + esc(m[0]) + '</span>';
+      else if (m[3]) out += '<span class="t-num">' + esc(m[0]) + '</span>';
+      else if (kw.has(m[4])) out += '<span class="t-kw">' + esc(m[0]) + '</span>';
+      else if (lang !== 'sh' && /^\s*(=(?!=)|:)/.test(rest)) out += '<span class="t-key">' + esc(m[0]) + '</span>';
+      else out += esc(m[0]);
+      last = re.lastIndex;
+    }
+    return out + esc(src.slice(last));
+  }
+  function copyText(text, btn, selectEl) {
+    const label = btn.dataset.label || btn.textContent;
+    btn.dataset.label = label;
+    const done = () => { btn.textContent = 'Copied'; btn.classList.add('ok'); setTimeout(() => { btn.textContent = label; btn.classList.remove('ok'); }, 1600); };
+    const fallback = () => {
+      if (selectEl) {
+        const r = document.createRange();
+        r.selectNodeContents(selectEl);
+        const s = window.getSelection();
+        s.removeAllRanges();
+        s.addRange(r);
+      }
+      btn.textContent = 'Selected: press Ctrl+C';
+      setTimeout(() => { btn.textContent = label; }, 2400);
+    };
+    try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+  }
+  $$('pre code[data-lang]').forEach((c) => {
+    const src = c.textContent;
+    c.innerHTML = hl(src, c.dataset.lang);
+    const fig = c.closest('figure');
+    const cap = fig ? fig.querySelector('figcaption') : null;
+    if (cap && !cap.querySelector('button')) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'copy';
+      b.textContent = 'Copy';
+      b.addEventListener('click', () => copyText(src, b, c));
+      cap.appendChild(b);
+    }
+  });
+  const idBtn = $('#copy-id');
+  if (idBtn) idBtn.addEventListener('click', () => copyText('claude-fable-5-2', idBtn, $('#model-id')));
+
+  /* ---------- Active contents entry ---------- */
+  const links = $$('.toc a[href^="#"]');
+  const byId = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        links.forEach((l) => l.removeAttribute('aria-current'));
+        const a = byId.get(e.target.id);
+        if (a) a.setAttribute('aria-current', 'true');
+      });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+    $$('main section[id]').forEach((s) => io.observe(s));
+  }
+
+  /* ---------- Migration tabs ---------- */
+  const tabs = $$('[role="tab"]');
+  function selectTab(t, focus) {
+    tabs.forEach((x) => {
+      const on = x === t;
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+      x.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(x.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !on;
+    });
+    if (focus) t.focus();
+    store.set('fable52en-tab', t.id);
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => selectTab(t, false));
+    t.addEventListener('keydown', (e) => {
+      let j = null;
+      if (e.key === 'ArrowRight') j = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') j = 0;
+      else if (e.key === 'End') j = tabs.length - 1;
+      if (j !== null) { e.preventDefault(); selectTab(tabs[j], true); }
+    });
+  });
+  if (tabs.length) {
+    const saved = store.get('fable52en-tab', null);
+    const st = saved ? document.getElementById(saved) : null;
+    selectTab(st && tabs.includes(st) ? st : tabs[0], false);
+  }
+
+  /* ---------- Checklists ---------- */
+  function updateProgress(list) {
+    const boxes = $$('input[type="checkbox"]', list);
+    const n = boxes.filter((b) => b.checked).length;
+    const count = $('.count', list);
+    const bar = $('.bar i', list);
+    if (count) count.textContent = n + ' / ' + boxes.length;
+    if (bar) bar.style.width = (boxes.length ? (n / boxes.length) * 100 : 0) + '%';
+  }
+  $$('[data-checklist]').forEach((list) => {
+    $$('input[type="checkbox"]', list).forEach((cb) => {
+      cb.checked = !!store.get('fable52en-' + cb.id, false);
+      cb.addEventListener('change', () => { store.set('fable52en-' + cb.id, cb.checked); updateProgress(list); });
+    });
+    const reset = $('[data-reset]', list);
+    if (reset) reset.addEventListener('click', () => {
+      $$('input[type="checkbox"]', list).forEach((cb) => { cb.checked = false; store.set('fable52en-' + cb.id, false); });
+      updateProgress(list);
+    });
+    updateProgress(list);
+  });
+
+  /* ---------- Rich text (backticks → code) ---------- */
+  function rich(el, text) {
+    el.textContent = '';
+    String(text).split('`').forEach((part, i) => {
+      if (!part) return;
+      if (i % 2) { const c = document.createElement('code'); c.textContent = part; el.appendChild(c); }
+      else el.appendChild(document.createTextNode(part));
+    });
+  }
+
+  /* ---------- Cost estimator ---------- */
+  const fmtMoney = (x) => new Intl.NumberFormat('en-US', {
+    style: 'currency', currency: 'USD',
+    minimumFractionDigits: x < 1 ? 4 : 2, maximumFractionDigits: x < 1 ? 4 : 2
+  }).format(x);
+  function renderEst() {
+    const v = (id) => { const x = Number(($('#' + id) || {}).value); return Number.isFinite(x) && x > 0 ? x : 0; };
+    const f = $('#est-batch').checked ? 0.5 : 1;
+    const parts = [
+      ['Uncached input', v('est-in') * 8 * f],
+      ['Cache write (5 min)', v('est-cw5') * 10],
+      ['Cache write (1 h)', v('est-cw1') * 16],
+      ['Cache read', v('est-cr') * 0.2],
+      ['Output, thinking included', v('est-out') * 40 * f]
+    ].map(([l, c]) => [l, c / 1e6]);
+    const per = parts.reduce((a, p) => a + p[1], 0);
+    const n = v('est-n');
+    $('#est-per').textContent = fmtMoney(per);
+    $('#est-total').textContent = fmtMoney(per * n);
+    $('#est-save').textContent = fmtMoney((v('est-cr') * (8 * f - 0.2) / 1e6) * n);
+    const box = $('#est-bars');
+    box.textContent = '';
+    parts.forEach(([label, c]) => {
+      const row = document.createElement('div');
+      row.className = 'brow';
+      const a = document.createElement('span');
+      a.textContent = label;
+      const bar = document.createElement('span');
+      bar.className = 'bar';
+      const i = document.createElement('i');
+      i.style.width = (per ? (c / per) * 100 : 0).toFixed(1) + '%';
+      bar.appendChild(i);
+      const amt = document.createElement('span');
+      amt.className = 'amt';
+      amt.textContent = fmtMoney(c) + (per ? ' · ' + Math.round((c / per) * 100) + '%' : '');
+      row.append(a, bar, amt);
+      box.appendChild(row);
+    });
+  }
+  ['est-n', 'est-in', 'est-cr', 'est-cw5', 'est-cw1', 'est-out', 'est-batch'].forEach((id) => {
+    const el = $('#' + id);
+    if (el) { el.addEventListener('input', renderEst); el.addEventListener('change', renderEst); }
+  });
+  renderEst();
+
+  /* ---------- Request builder ---------- */
+  const BETA = {
+    updates: 'thinking-display-updates-2026-08-18',
+    binding: 'thinking-binding-controls-2026-08-01',
+    fallback: 'server-side-fallback-2026-07-01',
+    effortMsg: 'mid-conversation-output-config-2026-07-01',
+    clearAt: 'mid-conversation-system-clear-at-2026-08-21',
+    inlineTools: 'inline-tools-2026-09-15',
+    toolChanges: 'mid-conversation-tool-changes-2026-07-01'
+  };
+  const PROMPT = 'Analyze this repository and propose a refactoring plan.';
+  const isId = (k) => /^[A-Za-z_$][\w$]*$/.test(k);
+  function lit(v, lang) {
+    if (v === null) return lang === 'py' ? 'None' : 'null';
+    if (typeof v === 'boolean') return lang === 'py' ? (v ? 'True' : 'False') : String(v);
+    if (typeof v === 'number') return String(v);
+    if (typeof v === 'string') return JSON.stringify(v);
+    if (Array.isArray(v)) return '[' + v.map((x) => lit(x, lang)).join(', ') + ']';
+    const pairs = Object.entries(v).map(([k, x]) => (lang === 'ts' && isId(k) ? k : JSON.stringify(k)) + ': ' + lit(x, lang));
+    return lang === 'ts' ? '{ ' + pairs.join(', ') + ' }' : '{' + pairs.join(', ') + '}';
+  }
+  function bState() {
+    const r = (name, d) => { const el = $('input[name="' + name + '"]:checked'); return el ? el.value : d; };
+    return {
+      lang: r('b-lang', 'py'),
+      effort: r('b-effort', 'high'),
+      display: $('#b-display').value,
+      stream: $('#b-stream').checked,
+      max: parseInt($('#b-max').value, 10),
+      fallback: $('#b-fallback').value,
+      binding: $('#b-binding').value
+    };
+  }
+  function bParams(s) {
+    const p = [['model', 'claude-fable-5-2'], ['max_tokens', Number.isFinite(s.max) ? s.max : 16000]];
+    if (s.display !== 'omitted' || s.binding !== 'unset') {
+      const t = { type: 'adaptive' };
+      if (s.display !== 'omitted') t.display = s.display;
+      if (s.binding !== 'unset') t.block_binding = { prefix_mismatch_behavior: s.binding };
+      p.push(['thinking', t]);
+    }
+    p.push(['output_config', { effort: s.effort }]);
+    if (s.fallback === 'default') p.push(['fallbacks', 'default']);
+    if (s.fallback === 'list') p.push(['fallbacks', [{ model: 'claude-opus-5' }, { model: 'claude-opus-4-8' }]]);
+    return p;
+  }
+  function bBetas(s) {
+    const b = [];
+    if (s.display === 'updates') b.push(BETA.updates);
+    if (s.binding !== 'unset') b.push(BETA.binding);
+    if (s.fallback !== 'none') b.push(BETA.fallback);
+    return b;
+  }
+  function genPy(s) {
+    const betas = bBetas(s);
+    const ns = betas.length ? 'client.beta.messages' : 'client.messages';
+    const args = bParams(s).map(([k, v]) => '    ' + k + '=' + lit(v, 'py') + ',');
+    if (betas.length) args.push('    betas=' + lit(betas, 'py') + ',');
+    args.push('    messages=messages,');
+    const L = ['import anthropic', '', 'client = anthropic.Anthropic()', '', 'messages = [{"role": "user", "content": ' + JSON.stringify(PROMPT) + '}]', ''];
+    if (s.stream) {
+      L.push('with ' + ns + '.stream(', ...args, ') as stream:', '    for text in stream.text_stream:', '        print(text, end="", flush=True)', '    message = stream.get_final_message()');
+    } else {
+      L.push('message = ' + ns + '.create(', ...args, ')');
+    }
+    L.push('', 'if message.stop_reason == "refusal":', '    details = message.stop_details', '    print("\\nRefusal, category:", details.category if details else None)', 'else:');
+    const body = [];
+    const tag = s.display === 'updates' ? 'update' : 'thinking';
+    const showThinking = s.display !== 'omitted';
+    const showText = !s.stream;
+    if (showThinking || showText) {
+      body.push('    for block in message.content:');
+      if (showThinking) body.push('        if block.type == "thinking" and block.thinking:', '            print("[' + tag + ']", block.thinking)');
+      if (showText) body.push('        ' + (showThinking ? 'elif' : 'if') + ' block.type == "text":', '            print(block.text)');
+    }
+    if (s.fallback !== 'none') body.push('    print("\\nServed by:", message.model)');
+    if (s.binding !== 'unset') body.push('    for t in message.input_transformations or []:', '        print("Dropped block:", t.path, t.reason)');
+    if (!body.length) body.push('    print()');
+    L.push(...body, '', '# Next turn: send the content back unchanged, empty thinking blocks included.', 'messages.append({"role": "assistant", "content": message.content})');
+    return L.join('\n');
+  }
+  function genTs(s) {
+    const betas = bBetas(s);
+    const ns = betas.length ? 'client.beta.messages' : 'client.messages';
+    const args = bParams(s).map(([k, v]) => '  ' + k + ': ' + lit(v, 'ts') + ',');
+    if (betas.length) args.push('  betas: ' + lit(betas, 'ts') + ',');
+    args.push('  messages: [{ role: "user", content: ' + JSON.stringify(PROMPT) + ' }],');
+    const L = ['import Anthropic from "@anthropic-ai/sdk";', '', 'const client = new Anthropic();', ''];
+    if (s.stream) {
+      L.push('const stream = ' + ns + '.stream({', ...args, '});', '', 'stream.on("text", (delta) => process.stdout.write(delta));', 'const message = await stream.finalMessage();');
+    } else {
+      L.push('const message = await ' + ns + '.create({', ...args, '});');
+    }
+    L.push('', 'if (message.stop_reason === "refusal") {', '  console.log("\\nRefusal, category:", message.stop_details?.category ?? null);', '} else {');
+    const body = [];
+    const tag = s.display === 'updates' ? 'update' : 'thinking';
+    const showThinking = s.display !== 'omitted';
+    const showText = !s.stream;
+    if (showThinking || showText) {
+      body.push('  for (const block of message.content) {');
+      if (showThinking && showText) {
+        body.push('    if (block.type === "thinking" && block.thinking) {', '      console.log("[' + tag + ']", block.thinking);', '    } else if (block.type === "text") {', '      console.log(block.text);', '    }');
+      } else if (showThinking) {
+        body.push('    if (block.type === "thinking" && block.thinking) {', '      console.log("[' + tag + ']", block.thinking);', '    }');
+      } else {
+        body.push('    if (block.type === "text") {', '      console.log(block.text);', '    }');
+      }
+      body.push('  }');
+    }
+    if (s.fallback !== 'none') body.push('  console.log("\\nServed by:", message.model);');
+    if (s.binding !== 'unset') body.push('  for (const t of message.input_transformations ?? []) {', '    console.log("Dropped block:", t.path, t.reason);', '  }');
+    if (!body.length) body.push('  console.log();');
+    L.push(...body, '}', '', '// Next turn: send message.content back unchanged, empty thinking blocks included.');
+    return L.join('\n');
+  }
+  function genSh(s) {
+    const betas = bBetas(s);
+    const L = ['curl https://api.anthropic.com/v1/messages \\', '  -H "x-api-key: $ANTHROPIC_API_KEY" \\', '  -H "anthropic-version: 2026-10-21" \\'];
+    if (betas.length) L.push('  -H "anthropic-beta: ' + betas.join(',') + '" \\');
+    L.push('  -H "content-type: application/json" \\', "  -d '{");
+    const fields = bParams(s);
+    if (s.stream) fields.splice(2, 0, ['stream', true]);
+    fields.push(['messages', [{ role: 'user', content: PROMPT }]]);
+    fields.forEach(([k, v], i) => L.push('    ' + JSON.stringify(k) + ': ' + lit(v, 'json') + (i < fields.length - 1 ? ',' : '')));
+    L.push("  }'");
+    return L.join('\n');
+  }
+  function bNotes(s) {
+    const n = [];
+    const add = (sev, t) => n.push([sev, t]);
+    if (!Number.isFinite(s.max) || s.max < 1) add('bad', '`max_tokens` must be a positive integer.');
+    else if (s.max > 128000) add('bad', 'Fable 5.2 outputs at most 128,000 tokens per request: lower `max_tokens`.');
+    else {
+      if (!s.stream && s.max > 21333) add('bad', s.lang === 'sh' ? 'Without streaming, a long response may hit network timeouts: tick "Streaming".' : 'The SDKs require streaming when `max_tokens` exceeds 21,333: tick "Streaming" or lower the value.');
+      if (['high', 'xhigh', 'max'].indexOf(s.effort) >= 0 && s.max < 16000) add('warn', 'Thinking counts against `max_tokens`: at this effort, a low value can stop the response before any text.');
+    }
+    const E = {
+      low: ['warn', 'At `low`, the model stops before the end of long tasks more often: add a "finish the job" instruction.'],
+      medium: ['info', '`medium` suits interactive coding and chat. Add the "finish the job" instruction if the agent stops too early.'],
+      high: ['info', '`high` is the recommended starting point. Drop to `medium` where your evaluations show quality holds.'],
+      xhigh: ['warn', '`xhigh`: keep it for long coding or agentic tasks with a measured gain. Many more tokens for a slight gain.'],
+      max: ['warn', '`max` is mainly for measuring the model\'s ceiling: slow, expensive, often for a minimal gain.']
+    };
+    add(E[s.effort][0], E[s.effort][1]);
+    const D = {
+      omitted: ['info', 'Empty `thinking` blocks: no visible reasoning or progress updates. Send them back unchanged anyway.'],
+      summarized: ['info', 'The summary is written by a different model. You pay for all the thinking, not just the summary.'],
+      updates: ['info', 'Only non-empty `thinking` blocks are progress updates: render those, ignore the rest.']
+    };
+    add(D[s.display][0], D[s.display][1]);
+    if (s.fallback === 'none') add('warn', 'Without fallback, a refusal ends the request. Plan for the SDK middleware or a hand-written retry.');
+    if (s.fallback === 'default') add('info', 'Server-side fallback: Claude API and Google Cloud (Anthropic managed). `reasoning_extraction` refusals are not retried.');
+    if (s.fallback === 'list') add('info', 'Allowed targets for Fable 5.2: `claude-opus-4-8` and `claude-opus-5` (three entries at most). The request must stay valid for every named model.');
+    if (s.binding === 'drop_block') add('warn', '`drop_block` is a stopgap: watch `input_transformations` and fix the edit. Rebuilt reasoning costs output tokens.');
+    if (s.binding === 'error') add('info', '`"error"` makes Fable 5.2\'s default behavior explicit: a 400 at the first invalid block.');
+    if (s.lang === 'ts') add('info', 'Written as an ES module (top-level `await`).');
+    return n;
+  }
+  const NOTE_LABEL = { bad: ['bad', 'Blocking'], warn: ['warn', 'Warning'], info: ['info', 'Tip'] };
+  function renderBuilder() {
+    const s = bState();
+    const code = s.lang === 'ts' ? genTs(s) : s.lang === 'sh' ? genSh(s) : genPy(s);
+    const codeEl = $('#b-code');
+    codeEl.innerHTML = hl(code, s.lang);
+    codeEl.dataset.raw = code;
+    $('#b-cap').textContent = s.lang === 'ts' ? 'TypeScript' : s.lang === 'sh' ? 'cURL' : 'Python';
+    const betas = bBetas(s);
+    const bl = $('#b-betas');
+    bl.textContent = '';
+    if (!betas.length) {
+      const li = document.createElement('li');
+      li.className = 'small muted';
+      li.textContent = 'None: the request only uses stable features.';
+      bl.appendChild(li);
+    } else {
+      betas.forEach((b) => {
+        const li = document.createElement('li');
+        const c = document.createElement('code');
+        c.textContent = b;
+        li.appendChild(c);
+        bl.appendChild(li);
+      });
+    }
+    const nl = $('#b-notes');
+    nl.textContent = '';
+    bNotes(s).forEach(([sev, t]) => {
+      const li = document.createElement('li');
+      const pill = document.createElement('span');
+      pill.className = 'pill ' + NOTE_LABEL[sev][0];
+      pill.textContent = NOTE_LABEL[sev][1];
+      const d = document.createElement('span');
+      rich(d, t);
+      li.append(pill, d);
+      nl.appendChild(li);
+    });
+    typo(nl);
+  }
+  const bForm = $('#b-form');
+  if (bForm) {
+    bForm.addEventListener('input', renderBuilder);
+    bForm.addEventListener('change', renderBuilder);
+    bForm.addEventListener('submit', (e) => e.preventDefault());
+    $('#b-copy').addEventListener('click', () => copyText($('#b-code').dataset.raw || '', $('#b-copy'), $('#b-code')));
+    renderBuilder();
+  }
+
+  /* ---------- Request checker ---------- */
+  const LEVELS = ['low', 'medium', 'high', 'xhigh', 'max'];
+  const OK_MODELS = ['claude-fable-5-2', 'anthropic.claude-fable-5-2', 'claude-mythos-5-2', 'anthropic.claude-mythos-5-2'];
+  const FB_TARGETS = ['claude-opus-4-8', 'claude-opus-5'];
+  const isObj = (x) => x !== null && typeof x === 'object' && !Array.isArray(x);
+  function check(text, header) {
+    const F = [];
+    const add = (sev, title, fix) => F.push({ sev, title, fix });
+    let b;
+    try { b = JSON.parse(text); } catch (e) { add('err', 'Invalid JSON', 'The body cannot be parsed: ' + e.message); return F; }
+    if (!isObj(b)) { add('err', 'The body must be a JSON object', 'A Messages request is an object `{ … }`.'); return F; }
+    const betas = new Set(String(header || '').split(',').map((x) => x.trim()).filter(Boolean));
+    const need = (name, what) => { if (!betas.has(name)) add('err', 'Missing beta header: `' + name + '`', what + ' Add this value to the `anthropic-beta` header.'); };
+
+    if (typeof b.model !== 'string' || !b.model) add('err', 'Missing `model`', 'Use `claude-fable-5-2` (`anthropic.claude-fable-5-2` on Amazon Bedrock).');
+    else if (OK_MODELS.indexOf(b.model) < 0) add('info', 'Model `' + b.model + '`', 'This checker applies Fable 5.2 rules. To migrate, set it to `claude-fable-5-2`.');
+
+    const mt = b.max_tokens;
+    if (mt === undefined) add('err', 'Missing `max_tokens`', 'This field is required. Leave room for thinking and for the text.');
+    else if (!Number.isInteger(mt) || mt < 1) add('err', 'Invalid `max_tokens`', 'A positive integer is expected.');
+    else if (mt > 128000) add('err', '`max_tokens` above 128,000', 'Fable 5.2 outputs at most 128k tokens per request.');
+    else {
+      if (mt > 21333 && b.stream !== true) add('warn', 'Streaming recommended', 'The SDKs refuse `max_tokens` above 21,333 without streaming. Use `.stream()` or `"stream": true`.');
+      if (mt < 4096) add('warn', 'Low `max_tokens`', 'Thinking counts against `max_tokens`: the response can stop before any text. Raise the value or lower the effort.');
+    }
+
+    if (b.thinking !== undefined) {
+      const t = b.thinking;
+      if (!isObj(t)) add('err', '`thinking` must be an object', 'Omit it, or send `{"type": "adaptive"}`.');
+      else {
+        if (t.type === 'disabled') add('err', 'Thinking disabled', 'Not possible on Fable 5.2, at any effort level. Remove `thinking` and lower `output_config.effort`.');
+        else if (t.type === 'enabled' || 'budget_tokens' in t) add('err', 'Manual extended thinking (`budget_tokens`)', 'Rejected on Fable 5.2. Remove it and set depth with `output_config.effort`.');
+        else if (t.type === 'between_tools') add('err', '`between_tools` not supported', 'Claude Sonnet 5.5 only. Send `{"type": "adaptive"}` or omit `thinking`.');
+        else if (t.type !== 'adaptive') add('err', 'Unknown `thinking.type`', 'Only `adaptive` is accepted; you can also omit `thinking`.');
+        if (t.display !== undefined) {
+          if (['omitted', 'summarized', 'updates'].indexOf(t.display) < 0) add('err', 'Invalid `thinking.display`', 'Values: `omitted` (default), `summarized`, `updates` (beta).');
+          else if (t.display === 'updates') need(BETA.updates, '`display: "updates"` is in beta.');
+        }
+        if (t.block_binding !== undefined) {
+          need(BETA.binding, '`block_binding` is in beta.');
+          const pm = isObj(t.block_binding) ? t.block_binding.prefix_mismatch_behavior : undefined;
+          if (['error', 'drop_block'].indexOf(pm) < 0) add('err', 'Invalid `prefix_mismatch_behavior`', 'Values: `"error"` or `"drop_block"`.');
+          else if (pm === 'drop_block') add('warn', '`drop_block` is on', 'A stopgap: invalid blocks are dropped and the model rebuilds its reasoning, which costs output tokens. Watch `input_transformations`.');
+        }
+      }
+    }
+
+    ['temperature', 'top_p', 'top_k'].forEach((k) => {
+      if (k in b) add('err', 'Remove `' + k + '`', 'Fable 5.2 rejects any non-default value; with API version `2026-10-21`, any value. Steer style through the prompt.');
+    });
+
+    if ('effort' in b) add('err', '`effort` in the wrong place', 'The effort level goes in `output_config.effort`.');
+    const oc = b.output_config;
+    if (oc !== undefined && !isObj(oc)) add('err', '`output_config` must be an object', 'Example: `{"effort": "high"}`.');
+    const eff = isObj(oc) ? oc.effort : undefined;
+    if (eff === undefined) add('info', 'Effort not set', 'Fable 5.2 defaults to `high`. Set it explicitly and also test `medium` and `xhigh`.');
+    else if (eff === 'adaptive') add('err', '`adaptive` is not an effort level', 'It is a thinking mode. Levels: `low`, `medium`, `high`, `xhigh`, `max`.');
+    else if (LEVELS.indexOf(eff) < 0) add('err', 'Unknown effort level', 'Levels: `low`, `medium`, `high`, `xhigh`, `max`.');
+    else if (eff === 'max') add('warn', 'Effort `max`', 'Slow and expensive, often for a minimal gain. Keep it for measuring the model\'s ceiling.');
+    if (isObj(oc) && oc.format !== undefined) add('info', 'Structured output', 'Unavailable for Fable 5.2 in CMEK organizations: validate the output in your code there.');
+
+    const tc = b.tool_choice;
+    if (isObj(tc) && (tc.type === 'any' || tc.type === 'tool')) add('err', 'Forced `tool_choice` (`' + tc.type + '`)', 'Rejected on Fable 5.2. Keep `auto`, name the tool in the instruction and add `strict: true`, or use JSON output.');
+
+    if (b.tools !== undefined) {
+      if (!Array.isArray(b.tools)) add('err', '`tools` must be a list', 'Example: `[{"name": …, "description": …, "input_schema": …}]`.');
+      else b.tools.forEach((t, i) => {
+        if (!isObj(t)) return;
+        if (t.type === 'computer_20251124') add('err', 'Tool `computer_20251124`', 'Rejected outside Amazon Bedrock. Declare `computer_toolset_20260801`, without `name` or display dimensions.');
+        if (typeof t.type === 'string' && t.type.indexOf('advisor') === 0 && typeof t.model === 'string' && ['claude-fable-5-2', 'claude-mythos-5-2'].indexOf(t.model) < 0) add('err', 'Advisor `' + t.model + '`', 'A Fable 5.2 executor only accepts `claude-fable-5-2` or `claude-mythos-5-2`.');
+        if (t.strict === true) add('info', 'Strict tool `' + (t.name || 'tools.' + i) + '`', 'Unavailable in CMEK organizations: validate the tool input in your code there.');
+      });
+    }
+
+    const ms = b.messages;
+    if (!Array.isArray(ms) || !ms.length) add('err', 'Missing or empty `messages`', 'Send at least one `user` message.');
+    else {
+      const last = ms[ms.length - 1];
+      if (isObj(last) && last.role === 'assistant') add('err', 'Prefill: the last message is from the `assistant`', 'Rejected on Fable 5.2. Remove this message and describe the expected format in the system prompt.');
+      let effortMsg = false, clear = false, toolChange = false, inlineDef = false, urlSrc = false, badSig = false, noField = false, sysFirst = false;
+      ms.forEach((m, i) => {
+        if (!isObj(m)) return;
+        const content = Array.isArray(m.content) ? m.content : [];
+        if (m.role === 'system') {
+          if (m.output_config !== undefined) {
+            effortMsg = true;
+            const e = isObj(m.output_config) ? m.output_config.effort : undefined;
+            if (LEVELS.indexOf(e) < 0) add('err', 'Invalid per-message effort (`messages.' + i + '`)', 'Levels: `low`, `medium`, `high`, `xhigh`, `max`.');
+          }
+          if (m.clear_at !== undefined) clear = true;
+          content.forEach((c) => {
+            if (isObj(c) && (c.type === 'tool_addition' || c.type === 'tool_removal')) {
+              toolChange = true;
+              if (isObj(c.tool) && c.tool.type === 'tool_definition') inlineDef = true;
+            }
+          });
+          const hasText = typeof m.content === 'string' ? m.content.trim() !== '' : content.some((c) => isObj(c) && c.type === 'text');
+          if (i === 0 && hasText) sysFirst = true;
+        }
+        if (m.role === 'assistant') content.forEach((c) => {
+          if (!isObj(c) || c.type !== 'thinking') return;
+          if (!c.signature) badSig = true;
+          if (!('thinking' in c)) noField = true;
+        });
+        content.forEach((c) => {
+          if (isObj(c) && (c.type === 'image' || c.type === 'document') && isObj(c.source) && c.source.type === 'url') urlSrc = true;
+        });
+      });
+      if (sysFirst) add('warn', 'System message at the start of `messages`', 'A system message with text follows a `user` message; it cannot open the conversation. Use the top-level `system` field.');
+      if (effortMsg) need(BETA.effortMsg, 'Per-message effort is in beta.');
+      if (clear) need(BETA.clearAt, '`clear_at` is in beta.');
+      if (inlineDef) need(BETA.inlineTools, 'Defining a tool inside `tool_addition` is in beta.');
+      else if (toolChange && !betas.has(BETA.inlineTools) && !betas.has(BETA.toolChanges)) add('err', 'Missing beta header for `tool_addition` / `tool_removal`', 'Add `' + BETA.inlineTools + '` or `' + BETA.toolChanges + '`.');
+      if (badSig) add('err', '`thinking` block without `signature`', 'Send every block back exactly as the API returned it: an empty signature fails.');
+      if (noField) add('err', '`thinking` block without a `thinking` field', 'Keep the field, even when empty (`"thinking": ""`): a serializer that drops it causes a 400.');
+      if (urlSrc) add('info', 'Image or document by URL', 'If the URL\'s content changes between two requests, the thinking that follows becomes invalid. Prefer a `file_id` or base64 from the first send.');
+    }
+
+    if (b.fallbacks === undefined) add('info', 'No fallback on refusal', 'A refusal (HTTP 200, `stop_reason: "refusal"`) will end the request. Add `"fallbacks": "default"` (beta) or the SDK middleware.');
+    else {
+      need(BETA.fallback, 'Server-side fallback is in beta.');
+      if (b.fallbacks === 'default') add('info', 'Fallback `"default"`', 'Available on the Claude API and Google Cloud (Anthropic managed). `reasoning_extraction` refusals are not retried.');
+      else if (Array.isArray(b.fallbacks)) {
+        const ids = b.fallbacks.map((f) => (isObj(f) ? f.model : undefined));
+        if (ids.length > 3) add('err', 'More than three fallback models', 'The `fallbacks` list accepts at most three entries.');
+        if (ids.some((x) => typeof x !== 'string')) add('err', 'Fallback entry without `model`', 'Each entry names a `model`.');
+        const bad = ids.filter((x) => typeof x === 'string' && FB_TARGETS.indexOf(x) < 0);
+        if (bad.length) add('err', 'Fallback target not allowed: `' + bad.join('`, `') + '`', 'For Fable 5.2, the allowed targets are `claude-opus-4-8` and `claude-opus-5`.');
+        if (new Set(ids).size !== ids.length) add('err', 'Duplicate fallback model', 'Each entry must be distinct.');
+      } else add('err', 'Invalid `fallbacks`', 'Expected: `"default"` or a list of `{"model": …}`.');
+    }
+
+    if (b.speed === 'fast') add('info', 'Fast mode', '$16 / $80 per MTok on the Claude API. Remove it in Managed Agents; on Microsoft Foundry, target the `claude-fable-5-2-fast` deployment without `speed`.');
+    if (b.service_tier !== undefined) add('info', '`service_tier`', 'Fable 5.2 is not supported on Priority Tier.');
+    return F;
+  }
+  const SEV = { err: ['bad', 'Rejected (400)'], warn: ['warn', 'Review'], info: ['info', 'Note'] };
+  const ORDER = { err: 0, warn: 1, info: 2 };
+  function renderCheck() {
+    const F = check($('#v-body').value, $('#v-beta').value).sort((a, b) => ORDER[a.sev] - ORDER[b.sev]);
+    const list = $('#v-list');
+    list.textContent = '';
+    F.forEach((f) => {
+      const li = document.createElement('li');
+      const pill = document.createElement('span');
+      pill.className = 'pill ' + SEV[f.sev][0];
+      pill.textContent = SEV[f.sev][1];
+      const box = document.createElement('div');
+      const t = document.createElement('strong');
+      rich(t, f.title);
+      box.appendChild(t);
+      if (f.fix) { const p = document.createElement('p'); rich(p, f.fix); box.appendChild(p); }
+      li.append(pill, box);
+      list.appendChild(li);
+    });
+    const c = (s) => F.filter((f) => f.sev === s).length;
+    const ne = c('err'), nw = c('warn'), ni = c('info');
+    const sum = $('#v-sum');
+    sum.textContent = (ne || nw || ni)
+      ? ne + ' blocking · ' + nw + ' to review · ' + ni + (ni === 1 ? ' note' : ' notes')
+      : 'No issue found for Fable 5.2.';
+    sum.className = 'vsum ' + (ne ? 'bad' : nw ? 'warn' : 'ok');
+    typo(list);
+  }
+  const vBody = $('#v-body');
+  if (vBody) {
+    const BAD = vBody.value;
+    const GOOD = JSON.stringify({
+      model: 'claude-fable-5-2',
+      max_tokens: 64000,
+      stream: true,
+      thinking: { type: 'adaptive', display: 'summarized' },
+      output_config: { effort: 'high' },
+      fallbacks: 'default',
+      tools: [{
+        name: 'weather',
+        description: 'Returns the current weather for a city.',
+        input_schema: { type: 'object', properties: { city: { type: 'string' } }, required: ['city'] }
+      }],
+      messages: [{ role: 'user', content: 'What is the weather in Lyon? Use the weather tool.' }]
+    }, null, 2);
+    let timer = null;
+    const later = () => { clearTimeout(timer); timer = setTimeout(renderCheck, 200); };
+    vBody.addEventListener('input', later);
+    $('#v-beta').addEventListener('input', later);
+    $('#v-ex-bad').addEventListener('click', () => { vBody.value = BAD; $('#v-beta').value = ''; renderCheck(); });
+    $('#v-ex-good').addEventListener('click', () => { vBody.value = GOOD; $('#v-beta').value = BETA.fallback; renderCheck(); });
+    renderCheck();
+  }
+
+  typo($('.wrap'));
+})();
+</script>
+
+</body></html>
